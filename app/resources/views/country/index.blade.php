@@ -43,27 +43,37 @@
                                     <tr>
                                         <th>Name</th>
                                         <th colspan = "3">Flag</th>
-                                        <th colspan = "3">Domains</th>
+                                        <th colspan = "3">Services</th>
                                         <th colspan = "3">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 
                                     @foreach($countries as $country)
+                                    
                                         <tr>
-                                            <td>{{ $country->name }}</td>
-                                             <td colspan = "3"><img src = "{{ asset($country->flag) }}" ></td>
-                                             <td colspan = "3">
-                                        @php if(!empty($country->domains)){ @endphp
-                                                @foreach($country->domains as $domain)
-                                                        <ul>
-                                                        <li>{{ $domain->service->name}}</li>
-                                                        </ul>
-                                                @endforeach
-                                             </td>
-                                     @php }else{ @endphp
-                                             <td>Service Not Found</td>
-                                             @php } @endphp
+                                                <td>{{ $country->name }}</td>
+                                                 <td colspan = "3"><img src = "{{ asset($country->flag) }}" ></td>
+                                                  @if(!empty($country->domains))
+                                                 <td colspan = "3">
+                                                       @php
+                                                    $displayedServices = [];
+                                                    @endphp
+                                                    
+                                                    @foreach($country->domains as $domain)
+                                                        @if(isset($domain->service) && !empty($domain->service) && !in_array($domain->service->id, $displayedServices))
+                                                            <ul>
+                                                                <li>{{ $domain->service->name }}</li>
+                                                            </ul>
+                                                            @php
+                                                            $displayedServices[] = $domain->service->id;
+                                                            @endphp
+                                                        @endif
+                                                    @endforeach
+                                                 </td>
+                                             @else
+                                                <td colspan = "3">Service Not Found</td>
+                                             @endif
                                             <td colspan = "3"> <!-- Added action column -->
                                                 <!-- Add your action buttons or links here -->
                                                 <a href="{{ route('country.edit', ['country_id' => $country->id]) }}" class="btn btn-primary">Edit</a>
