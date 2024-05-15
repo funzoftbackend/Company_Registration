@@ -96,7 +96,6 @@
                                 <span>No flag uploaded</span>
                             @endif
                         </div>
-
                         <div class="form-group">
                             <label for="flag">New Country Flag (200x100 pixels)</label>
                             <input id="flag" type="file" class="form-control-file" name="flag" accept="image/*">
@@ -106,7 +105,6 @@
                                 </span>
                             @enderror
                         </div>
-
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>
                 </div>

@@ -2,8 +2,12 @@
 <style>
  
     @media (min-width: 1200px) { 
-        .step1{
+        .step1.form-control{
             margin-left: 13px !important;
+            
+        }
+        .step.form-control,.step1.form-control{
+            width: 30% !important;
         }
         .zmdi.zmdi-menu{
             margin-top: -16px;
@@ -29,8 +33,9 @@
     padding-right: 8% !important;
   }
   #countries{
-      height: 150px;
+      height: auto;
       width: 30%;
+      margin-left: 7% !important;
   }
 }
     @media (max-width:578px) { 
@@ -85,6 +90,21 @@
                                             @enderror
                                         </div>
                                     </div>
+                                     <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class = "domain" for="countries">Select Domain</label>
+                                            <select id="domains" class="m-2 text-center form-control" name="domains[]" multiple required>
+                                                @foreach($domains as $domain)
+                                                <option value="{{ $domain->id}}" @if(old('domains') == $domain->id) selected @endif>{{ucfirst($domain->name)}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('countries')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
     
                                     <div class="col-md-6">
                                         <div class="form-group step">
@@ -117,14 +137,14 @@
                     <div class="form-group step">
                         <label for="step_${stepCount}">Business Step ${stepCount}</label>
                         <input id="step_${stepCount}" type="text" class="step form-control" name="steps[]" placeholder="Step Name ${stepCount}">
-                        <button type="button" class="btn btn-danger delete-step-level">Delete</button>
+                        <button type="button" class="btn btn-danger delete-step">Delete</button>
                     </div>
                 `;
                 document.getElementById('service_steps').appendChild(stepDiv);
                 stepCount++;
             });
               document.addEventListener('click', function(event) {
-                if (event.target.classList.contains('delete-step-level')) {
+                if (event.target.classList.contains('delete-step')) {
                     event.target.closest('.appendedrow').remove();
                     stepCount--;
                 }

@@ -71,7 +71,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/application-create', [ApplicationController::class, 'create'])->name('application.create');
     Route::post('/application-store', [ApplicationController::class, 'store'])->name('application.store');
     Route::get('/applications', [ApplicationController::class, 'index'])->name('application.index');
-    Route::get('/application/{user}', [ApplicationController::class, 'show'])->name('application.show');
+    Route::get('/application/{application}', [ApplicationController::class, 'show'])->name('application-details.show');
+    Route::post('/application-proceed/{application}', [ApplicationController::class, 'proceed'])->name('application.proceed');
+    Route::post('/application-reject', [ApplicationController::class, 'reject'])->name('application.reject');
     Route::get('/edit-application', [ApplicationController::class, 'edit'])->name('application.edit');
     Route::put('/application-update/{application}', [ApplicationController::class, 'update'])->name('application.update');
     Route::delete('/delete-application/{application}', [ApplicationController::class, 'destroy'])->name('application.destroy');

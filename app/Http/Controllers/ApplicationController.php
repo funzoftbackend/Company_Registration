@@ -1,6 +1,9 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Company;
+use App\Models\Partner;
+use App\Models\ApplicationReason;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -43,9 +46,33 @@ class ApplicationController extends Controller
 
     public function show(application $application)
     {
-        return view('application.show', compact('application'));
+        $selectedapplication = Application::find($application->id);
+        $company = Company::where('application_id',$application->id)->first();
+        $partners = Partner::where('company_id',$company->id)->get();
+        $user = User::find($selectedapplication->user_id);
+        return view('application.show', compact('partners','user','company','selectedapplication'));
     }
-
+    public function proceed(application $application)
+    {
+        $selectedapplication = Application::find($application->id);
+        $selectedapplication->status = '';
+        return redirect()->route('application.index')->with('success', 'Application Forwarded Successfully.');
+    }
+     public function reject(Request $request)
+    {
+        $validatedData = $request->validate([
+            'application_id' => 'required|exists:applications,id',
+            'reason' => 'required|string',
+        ]);
+        ApplicationReason::create([
+            'application_id' => $validatedData['application_id'],
+            'reason' => $validatedData['reason'],
+        ]);
+            $selectedapplication = Application::find($validatedData['application_id']);
+            $selectedapplication->status = 'rejected';
+            $selectedapplication->save();
+        return redirect()->route('application.index')->with('success', 'Application Rejected Successfully.');
+    }
     public function edit()
     {
         $application_id = $_GET['application_id'];

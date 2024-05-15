@@ -33,35 +33,12 @@
             padding-left: calc((100% - 24px) / 2) !important;
         }
     }
-    @media (min-width: 1600px) and (max-width:3300px){
-        .main-div{
-            width: 1600px !important;
-            position:  relative !important;
-        }
-        .right-img{
-            margin-right: -81px !important;
-            margin-top: -76px !important;
-        }
 
-    }
-
-    @media (max-width: 550px) {
+    @media (max-width: 450px) {
         .zmdi.zmdi-menu {
             top: 50px !important;
         }
-        .main-div {
-            position: relative !important;
-            width: 347px !important;
-            height: 1000px !important;
-            left: 11px !important;
-        }
-        .right_img {
-            float: right;
-            margin-right: 7% !important;
-            margin-top: -10% !important;
-        }
-
-}
+    }
 
     @media (max-width: 768px) {
         .col-xs-6.text-center.pl-0.pr-0.data-wrap-right img {
@@ -124,8 +101,7 @@
         border: none !important;
         border-radius: 8px;
         margin-left: 2% !important;
-        margin-bottom: -13px !important;
-        margin-top: 45px;
+        margin-bottom: 2% !important;
     }
 
     .txt-dark1 {
@@ -148,14 +124,14 @@
     }
 
     .main-div {
-        position: relative !important;
         height: 100% !important;
         background: white;
-        width: 1240px;
-        top: -66px;
-        left: 0px;
-        border-radius: 20px;
-        box-shadow: 0 0 20px 0 rgba(28, 113, 255, 0.35);
+        padding-top: 60px !important;
+        border-radius: 20px !important;
+    }
+
+    .pt-25 {
+        margin-top: -60px !important;
     }
 
     .img-responsive {
@@ -175,12 +151,13 @@
     }
 </style>
 
+
 @section('content')
     <!-- Row -->
-    <div class = "main-div">
+    <div class="main-div">
         <div class="row">
             @if ($user->user_role === 'superadmin')
-                <a href = "{{ route('user.index') }}">
+                <a href="{{ route('application.index') }}">
                     <div class="col-lg-3 application-div bg col-md-6 col-sm-6 col-xs-12">
                         <div class="panel panel-default card-view pa-0">
                             <div class="panel-wrapper collapse in">
@@ -192,34 +169,10 @@
                                                     <img src="{{ asset('/public/img/new/application.png') }}" class="img-responsive" alt="Application Image">
                                                 </div>
                                                 <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                                    <span class=" uppercase-font block font-13">Applications</span>
-                                                    <span class="txt-dark1 block counter"><span class="counter-anim" style="font-weight: bolder;">{{ $totalapplications }}</span></span>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href = "{{ route('application.index') }}">
-                    <div class="col-lg-3 bg  col-md-6 col-sm-6 col-xs-12">
-                        <div class="panel panel-default card-view pa-0">
-                            <div class="panel-wrapper collapse in">
-                                <div class="panel-body pa-0">
-                                    <div class="sm-data-box">
-                                        <div class="container-fluid">
-                                            <div class="row">
-                                                <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-                                                    <img src = "{{ asset('/public/img/new/leads.png') }}"
-                                                        class="img-responsive" alt="Application Image">
-                                                </div>
-                                                <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                                    <span class=" uppercase-font block font-13">Leads</span>
-                                                    <span class="txt-dark1 block counter"><span
-                                                            class="counter-anim" style="font-weight: bolder;">{{ $totalleads }}</span></span>
+                                                    <span class="uppercase-font block font-13">Applications</span>
+                                                    <span class="txt-dark1 block counter">
+                                                        <span class="counter-anim" style="font-weight: bolder;">{{ $totalapplications }}</span>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -229,7 +182,7 @@
                         </div>
                     </div>
                 </a>
-                <a href = "{{route('countries.index')}}">
+                <a href="{{ route('lead.index') }}">
                     <div class="col-lg-3 bg col-md-6 col-sm-6 col-xs-12">
                         <div class="panel panel-default card-view pa-0">
                             <div class="panel-wrapper collapse in">
@@ -237,15 +190,15 @@
                                     <div class="sm-data-box">
                                         <div class="container-fluid">
                                             <div class="row">
-                                                <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-                                                    <img src = "{{ asset('/public/img/new/countries.png') }}"
-                                                        class="img-responsive" alt="Application Image">
+                                                <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-right">
+                                                    <img src="{{ asset('/public/img/new/leads.png') }}" class="img-responsive" alt="Application Image">
                                                 </div>
                                                 <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-
-                                                    <span class=" uppercase-font block font-13">Countries</span>
-                                                    <span class="txt-dark1 block counter"><span
-                                                            class="counter-anim" style="font-weight: bolder;">{{ $totalcountries }}</span></span>                                                </div>
+                                                    <span class="uppercase-font block font-13">Leads</span>
+                                                    <span class="txt-dark1 block counter">
+                                                        <span class="counter-anim" style="font-weight: bolder;">{{ $totalleads }}</span>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -254,7 +207,7 @@
                         </div>
                     </div>
                 </a>
-                <a href = "{{ route('lead.index') }}">
+                <a href="{{ route('services.index') }}">
                     <div class="col-lg-3 bg col-md-6 col-sm-6 col-xs-12">
                         <div class="panel panel-default card-view pa-0">
                             <div class="panel-wrapper collapse in">
@@ -262,15 +215,15 @@
                                     <div class="sm-data-box">
                                         <div class="container-fluid">
                                             <div class="row">
-                                                <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-                                                    <img src = "{{ asset('/public/img/new/companies.png') }}"
-                                                        class="img-responsive" alt="Application Image">
+                                                <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-right">
+                                                    <img src="{{ asset('/public/img/new/services.png') }}" class="img-responsive" alt="Service Image">
                                                 </div>
                                                 <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-
-                                                    <span class=" uppercase-font block font-13">Companies</span>
-                                                    <span class="txt-dark1 block counter"><span
-                                                            class="counter-anim" style="font-weight: bolder;">{{ $totalcompanies }}</span></span>                                                </div>
+                                                    <span class="uppercase-font block font-13">Services</span>
+                                                    <span class="txt-dark1 block counter">
+                                                        <span class="counter-anim" style="font-weight: bolder;">{{ $totalservices }}</span>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -279,7 +232,7 @@
                         </div>
                     </div>
                 </a>
-                <a href = "{{ route('company.index') }}">
+                <a href="{{ route('countries.index') }}">
                     <div class="col-lg-3 bg col-md-6 col-sm-6 col-xs-12">
                         <div class="panel panel-default card-view pa-0">
                             <div class="panel-wrapper collapse in">
@@ -287,14 +240,14 @@
                                     <div class="sm-data-box">
                                         <div class="container-fluid">
                                             <div class="row">
-                                                <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-                                                    <img src = "{{ asset('/public/img/new/users.png') }}"
-                                                        class="img-responsive" alt="Application Image">
+                                                <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-right">
+                                                    <img src="{{ asset('/public/img/new/countries.png') }}" class="img-responsive" alt="Country Image">
                                                 </div>
                                                 <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                                    <span class=" uppercase-font block font-13">Users</span>
-                                                    <span class="txt-dark1 block counter"><span
-                                                            class="counter-anim" style="font-weight: bolder;">{{ $totalusers }}</span></span>
+                                                    <span class="uppercase-font block font-13">Countries</span>
+                                                    <span class="txt-dark1 block counter">
+                                                        <span class="counter-anim" style="font-weight: bolder;">{{ $totalcountries }}</span>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -304,7 +257,57 @@
                         </div>
                     </div>
                 </a>
-                <a href = "{{ route('transaction.index') }}">
+                <a href="{{ route('company.index') }}">
+                    <div class="col-lg-3 bg col-md-6 col-sm-6 col-xs-12">
+                        <div class="panel panel-default card-view pa-0">
+                            <div class="panel-wrapper collapse in">
+                                <div class="panel-body pa-0">
+                                    <div class="sm-data-box">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-right">
+                                                    <img src="{{ asset('/public/img/new/companies.png') }}" class="img-responsive" alt="Application Image">
+                                                </div>
+                                                <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+                                                    <span class="uppercase-font block font-13">Companies</span>
+                                                    <span class="txt-dark1 block counter">
+                                                        <span class="counter-anim" style="font-weight: bolder;">{{ $totalcompanies }}</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="{{ route('user.index') }}">
+                    <div class="col-lg-3 bg col-md-6 col-sm-6 col-xs-12">
+                        <div class="panel panel-default card-view pa-0">
+                            <div class="panel-wrapper collapse in">
+                                <div class="panel-body pa-0">
+                                    <div class="sm-data-box">
+                                        <div class="container-fluid">
+                                            <div class="row">
+                                                <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-right">
+                                                    <img src="{{ asset('/public/img/new/users.png') }}" class="img-responsive" alt="User Image">
+                                                </div>
+                                                <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
+                                                    <span class="uppercase-font block font-13">Users</span>
+                                                    <span class="txt-dark1 block counter">
+                                                        <span class="counter-anim" style="font-weight: bolder;">{{ $totalusers }}</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="{{ route('transaction.index') }}">
                     <div class="col-lg-3 col-md-6 bg col-sm-6 col-xs-12">
                         <div class="panel panel-default card-view pa-0">
                             <div class="panel-wrapper collapse in">
@@ -312,15 +315,14 @@
                                     <div class="sm-data-box">
                                         <div class="container-fluid">
                                             <div class="row">
-                                                <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-                                                    <img src = "{{ asset('/public/img/new/transections.png') }}"
-                                                        class="img-responsive" alt="Application Image">
+                                                <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-right">
+                                                    <img src="{{ asset('/public/img/new/transections.png') }}" class="img-responsive" alt="Transaction Image">
                                                 </div>
                                                 <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                                    <span
-                                                        class=" uppercase-font block font-13">Transactions</span>
-                                                    <span class="txt-dark1 block counter"><span
-                                                            class="counter-anim" style="font-weight: bolder;">{{ $totaltransactions }}</span></span>
+                                                    <span class="uppercase-font block font-13">Transactions</span>
+                                                    <span class="txt-dark1 block counter">
+                                                        <span class="counter-anim" style="font-weight: bolder;">{{ $totaltransactions }}</span>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -330,7 +332,7 @@
                         </div>
                     </div>
                 </a>
-                <a href = "{{ route('partner.index') }}">
+                <a href="{{ route('partner.index') }}">
                     <div class="col-lg-3 bg col-md-6 col-sm-6 col-xs-12">
                         <div class="panel panel-default card-view pa-0">
                             <div class="panel-wrapper collapse in">
@@ -338,14 +340,14 @@
                                     <div class="sm-data-box">
                                         <div class="container-fluid">
                                             <div class="row">
-                                                <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-                                                    <img src = "{{ asset('/public/img/new/partners.png') }}"
-                                                        class="img-responsive" alt="Application Image">
+                                                <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-right">
+                                                    <img src="{{ asset('/public/img/new/partners.png') }}" class="img-responsive" alt="Partner Image">
                                                 </div>
                                                 <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                                    <span class=" uppercase-font block font-13">Partners</span>
-                                                    <span class="txt-dark1 block counter"><span
-                                                            class="counter-anim" style="font-weight: bolder;">{{ $totalpartners }}</span></span>
+                                                    <span class="uppercase-font block font-13">Partners</span>
+                                                    <span class="txt-dark1 block counter">
+                                                        <span class="counter-anim" style="font-weight: bolder;">{{ $totalpartners }}</span>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
@@ -356,22 +358,22 @@
                     </div>
                 </a>
             @else
-                <a href = "{{ route('user.index') }}">
-                    <div class="col-lg-3 col-md-6 bg col-sm-6 col-xs-12">
+                <a href="{{ route('application.index') }}">
+                    <div class="col-lg-3 application-div bg col-md-6 col-sm-6 col-xs-12">
                         <div class="panel panel-default card-view pa-0">
                             <div class="panel-wrapper collapse in">
                                 <div class="panel-body pa-0">
                                     <div class="sm-data-box">
                                         <div class="container-fluid">
                                             <div class="row">
-                                                <div class="col-xs-6 text-center  pl-0 pr-0 data-wrap-right">
-                                                    <img src = "{{ asset('/public/img/form_svgrepo.com.png') }}"
-                                                        class="img-responsive" alt="Application Image">
+                                                <div class="col-xs-6 text-center pl-0 pr-0">
+                                                    <img src="{{ asset('/public/img/new/application.png') }}" class="img-responsive" alt="Application Image">
                                                 </div>
                                                 <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
-                                                    <span class=" uppercase-font block font-13">Partners</span>
-                                                    <span class="txt-dark1 block counter"><span
-                                                            class="counter-anim" style="font-weight: bolder;">{{ $totalpartners }}</span></span>
+                                                    <span class="uppercase-font block font-13">Applications</span>
+                                                    <span class="txt-dark1 block counter">
+                                                        <span class="counter-anim" style="font-weight: bolder;">{{ $totalapplications }}</span>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>

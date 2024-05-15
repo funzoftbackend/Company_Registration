@@ -33,89 +33,86 @@
             @media (min-width: 768px) and (max-width: 1440px) {
                 .background-image {
                     margin-left: 770px;
-                    margin-top: -1080px !important;
+                    margin-top: -1300px !important;
                     width: 640px !important;
                     height: 541px;
                 }
                 .col-lg-6.col-md-6.col-sm-8.col-xs-10.col-lg-offset-3.col-md-offset-3.col-sm-offset-2.col-xs-offset-1.position-relative {
-                    margin-top: 200px !important;
+                    margin-top: 100px !important;
                 }
 
                 .small-image-2 {
-                    bottom: 405px !important;
-                    right: -1113px !important;
-                    width: 211px !important;
+                    position: absolute !important;
+                    bottom: 506px !important;
+                    right: -1090px !important;
+                    width: 214px !important;
                 }
 
                 .small-image-3 {
-                    left: 440% !important;
-                    top: -439px !important;
-                    width: 77px !important;
+                    position: absolute !important;
+                    left: 433% !important;
+                    top: -541px !important;
+                    width: 79px !important;
+                }
+                .small-image-4 {
+                    position: absolute !important;
+                    width: 344px !important;
+                    height: 140px !important;
+                    top: -841px !important;
+                    left: 1170px !important;
+                }
+                .small-image-1 {
+                    position: absolute !important;
+                    bottom: 558px !important;
+                    left: 1280px !important;
+                    width: 204px !important;
                 }
             }
             @media (min-width : 1600px) and (max-width : 3000px) {
                 .col-lg-6.col-md-6.col-sm-8.col-xs-10.col-lg-offset-3.col-md-offset-3.col-sm-offset-2.col-xs-offset-1.position-relative {
-                    margin-top: 134px !important;
+                    margin-top: 7px !important;
                 }
             }
-            @media (max-width: 767px) {
-            .col-md-6.col-md-offset-3 {
-                width: 100% !important;
-                margin-left: auto !important;
-                margin-right: auto !important;
-            }
 
-            .background-image {
-                margin-left: auto !important;
-                margin-right: auto !important;
-                margin-top: 20px !important; /* Adjust this value as needed */
-                width: 80% !important; /* Adjust this value as needed */
-                height: auto !important;
-            }
-
-        }
-
-            @media (min-width: 1200px) and (max-width: 3000px) {
+            @media (min-width: 1441px) and (max-width: 3000px) {
                 .background-image {
                     margin-left: 770px;
-                    margin-top: -1105px !important;
+                    margin-top: -1112px !important;
                     width: 669px;
                     height: 533px;
                 }
-
                 .small-image-2 {
-                    bottom: 405px !important;
+                    position: absolute !important;
+                    bottom: 409px;
                     right: -1113px !important;
                     width: 211px !important;
                 }
 
                 .small-image-3 {
-                    left: 440% !important;
-                    top: -439px !important;
-                    width: 77px !important;
+                    position: absolute !important;
+                    left: 1430px !important;
+                    top: -444px !important;
+                    width: 79px !important;
+                }
+                .small-image-4 {
+                    position: absolute !important;
+                    width: 344px !important;
+                    height: 140px !important;
+                    top: -731px !important;
+                    left: 1199px !important;
+                }
+                .small-image-1 {
+                    position: absolute !important;
+                    bottom: 458px !important;
+                    left: 1291px !important;
+                    width: 217px !important;
                 }
             }
 
-            @media (max-width: 3000px) {
-
-            }
-
-            .small-image-4 {
-                position: absolute !important;
-                width: 344px !important;
-                height: 140px !important;
-                top: -750px !important;
-                left: 1187px !important;
-            }
-
-            .small-image-1 {
-                bottom: 451px !important;
-                left: 1297px !important;
-                width: 180px !important;
-            }
 
             .col-sm-8 {
                 margin-left: -82% !important;
+                margin-bottom: 201px !important;
             }
 
             .form-wrap {
@@ -215,10 +212,9 @@
             .container {
                 position: relative;
                 width: 650px;
-                /* Width of the background image */
                 height: 450px;
-                /* Height of the background image */
             }
+
 
             #checkbox_2 {
                 margin-left: 2px !important;
@@ -238,43 +234,101 @@
                 color: #D6222B;
                 margin-right: -80px;
             }
-
-            .small-image {
-                position: absolute;
-            }
-            @media (max-width: 767px) {
+            @media (min-width: 300px) and (max-width: 767px) {
             .col-md-6.col-md-offset-3 {
                 width: 100% !important;
                 margin-left: auto !important;
                 margin-right: auto !important;
             }
+            .form-group {
+                margin-bottom: 13px;
+                width: 66%;
+            }
+            .forgot-password-link a {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 50px;
+                color: #D6222B;
+                margin-right: 55px;
+            }
 
             .background-image {
-                margin-left: auto !important;
-                margin-right: auto !important;
-                margin-top: 20px !important; /* Adjust this value as needed */
-                width: 80% !important; /* Adjust this value as needed */
-                height: auto !important;
+                width: 347px !important;
+                height: 446px !important;
+                padding-bottom: 36px !important;
+                margin-top: -66% !important;
+                margin-left: -2px !important;
+            }
+            .small-image-3 {
+                bottom: -118px !important;
+                left: 124px !important;
+                width: 71px !important;
+            }
+            .small-image {
+                position: relative;
+            }
+            .small-image-2 {
+                bottom: -118px !important;
+                right: -135px !important;
+                width: 164px !important;
+                height: 50px !important;
+            }
+            .small-image-1 {
+                bottom: -125px !important;
+                left: 183px !important;
+                width: 179px !important;
+            }
+            .small-image-4 {
+                position: absolute !important;
+                width: 175px !important;
+                height: 128px !important;
+                top: -88px !important;
+                left: 207px !important;
+            }
+            .col-sm-8 {
+                margin-left: -75% !important;
+                margin-bottom: -18px !important;
+            }
+            .forgot-password-link {
+                width: 343px !important;
+                height: 21px !important;
+                position: relative !important;
+                text-align: right !important;
+                margin-bottom: 20px !important;
+                top: -53px !important;
+            }
+            .header-text {
+                font-size: 14px !important;
+                margin-top: 3px !important;
+                margin-left: -389PX !important;
+                line-height: 18px !important;
+                height: 61px !important;
+            }
+            .sp-header {
+                height: 70px;
+                padding: 4px 359px;
+            }
+            .btn-primary{
+                width: 65% !important;
+            }
+            .signup-text {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 35px;
+                text-align: center;
+                width: 288px;
+                height: 21px;
             }
 
             .container {
                 width: 100%;
             }
-
-            .form-wrap {
-                width: 80%; /* Adjust this value as needed */
-                margin: 0 auto;
-            }
-
-            .col-sm-4 {
-                margin-left: auto;
-            }
-
-            .col-sm-8 {
-                margin-left: auto !important;
+            .auth-form-wrap {
+                padding: 0px 383px !important;
             }
         }
-
 
         </style>
 </head>
@@ -349,7 +403,7 @@
                                                     <div class="col-md-6">
                                                         <div class="form-group">
                                                             <div class="checkbox checkbox-primary">
-                                                                <input id="checkbox_2" required="" type="checkbox">
+                                                                <input id="checkbox_2" type="checkbox">
                                                                 <label for="checkbox_2">Remember me</label>
                                                             </div>
                                                         </div>

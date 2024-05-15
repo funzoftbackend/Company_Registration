@@ -15,6 +15,9 @@
 }   
     }
       @media (min-width: 1200px) { 
+         ul.m-2{
+             margin-left:30% !important;
+         }
         .zmdi.zmdi-menu{
             margin-top: -16px;
         }
@@ -42,14 +45,30 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
+                                      <th colspan = "3">Domains & Steps</th>
                                         <th colspan = "3">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 
                                     @foreach($services as $service)
+  
                                         <tr>
                                             <td>{{ $service->name }}</td>
+                                            <td>
+                                                <ul>
+                                                    @foreach($service->domains as $domain)
+                                                        <li>
+                                                            <strong>{{ $domain->name }}</strong>
+                                                            <ul class="m-2">
+                                                                @foreach($domain->steps as $step)
+                                                                    <li>{{ $step->name }}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </td>
                                             <td colspan = "3"> <!-- Added action column -->
                                                 <!-- Add your action buttons or links here -->
                                                 <a href="{{ route('service.edit', ['service_id' => $service->id]) }}" class="btn btn-primary">Edit</a>
