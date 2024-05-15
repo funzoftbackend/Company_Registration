@@ -336,7 +336,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('lead.index') }}" data-toggle="collapse" data-target="#dropdown_dr_lv1"
+                        <a href="{{ route('services.index') }}" data-toggle="collapse" data-target="#dropdown_dr_lv1"
                             data-item="services" onclick="setActive(this)">
                             <div class="pull-left pull-left1"><img class ="mr-20"
                                     src = "{{ asset('/public/img/side_img/service.png') }}"><span
