@@ -31,7 +31,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 Route::post('/signup', [APIController::class, 'signup']);
 Route::post('/login', [APIController::class, 'login']);
-
+ Route::get('/get-countries', [APIController::class, 'get_countries']);
+Route::get('/get-services', [APIController::class, 'get_services']);
 Route::post('/forgotPassword', [ForgotPasswordController::class, 'forgotPassword'])->name('forgot.password');
 Route::post('/verifyCode', [ForgotPasswordController::class, 'verifyCode']);
 Route::post('/resetPassword', [ResetPasswordController::class, 'resetPassword']);

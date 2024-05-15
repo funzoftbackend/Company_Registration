@@ -58,6 +58,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/country-store', [CountryController::class, 'store'])->name('country.store');
     Route::get('/service-create', [CountryController::class, 'service_create'])->name('service.create');
     Route::post('/service-store', [CountryController::class, 'store_service'])->name('service.store');
+    Route::post('/domain-store', [CountryController::class, 'domain_store'])->name('domain.store');
     Route::get('/services', [CountryController::class, 'service_index'])->name('services.index');
      Route::get('/edit-service', [CountryController::class, 'edit_service'])->name('service.edit');
     Route::put('/service-update/{service}', [CountryController::class, 'update_service'])->name('service.update');

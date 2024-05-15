@@ -5,10 +5,11 @@ use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use App\Models\ServiceSteps;
+use App\Models\DomainSteps;
 use Illuminate\Support\Facades\DB;
 use App\Models\Service;
-use App\Models\CountryService;
+use App\Models\ServiceDomain;
+use App\Models\CountryDomain;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Str;
@@ -17,12 +18,22 @@ class CountryController extends Controller
 {
     public function index()
     {
-        $countries = Country::with('services')->get();
+        $countries = Country::with(['domains.service' => function ($query) {
+            $query->distinct();
+        }])->distinct()->get();
         return view('country.index', compact('countries'));
     }
     public function service_index()
-    {
-        $services = Service::with('countries')->get();
+    { 
+       $services = Service::with('domains')->get();
+       foreach($services as $service){
+          foreach($service->domains as $domain){
+              $countryDomains = CountryDomain::where('domain_id',$domain->id)->get();
+              foreach($countryDomains as $countryDomain){
+                  $domain->steps = DomainSteps::where('country_domain_id',$countryDomain->id)->get();
+              }
+          }
+       }
         return view('service.index', compact('services'));
     }
 
@@ -67,16 +78,31 @@ class CountryController extends Controller
             'countries' => 'required|array',
         ]);
         $service = Service::firstOrCreate(['name' => $request->input('service_name')]);
-        $countries = $request->input('countries');
-        foreach ($request->input('countries') as $country_id) {
-            CountryService::create([
-                'service_id' => $service->id,
-                'country_id' => $country_id,
-            ]);
-        }
-        return redirect()->route('services.index')->with('success', 'Service Created Successfully.');
+        $country_ids = $request->input('countries');
+        return redirect()->route('service.create',['service_id' => $service->id,'country_ids' => implode(',', $country_ids)])->with('success' ,'Service Created Successfully.');
     }
-    
+    public function domain_store(Request $request)
+    {
+        $request->validate([
+            'domains' => 'required|array',
+        ]);
+        $domains = $request->input('domains');
+      foreach ($domains as $domain) {
+            $serviceDomain = ServiceDomain::create([
+                'service_id' => $request->service_id,
+                'name' => $domain,
+            ]);
+            foreach ($request->input('countries') as $country) {
+                CountryDomain::create([
+                    'domain_id' => $serviceDomain->id,
+                    'country_id' => $country,
+                ]);
+            }
+        }
+
+         
+        return redirect()->route('services.index')->with('success', 'Service Domains Created Successfully.');
+    }
 
     public function show(Country $country)
     {
@@ -86,36 +112,35 @@ class CountryController extends Controller
     public function edit()
     {
         $country_id = $_GET['country_id'];
-        $country = Country::with('steps')->where('id',$country_id)->first();
+        $country = Country::where('id',$country_id)->first();
         return view('country.edit', compact('country'));
     }
     public function edit_service()
     {
         $service_id = $_GET['service_id'];
         $service = Service::find($service_id);
-        $country_ids = DB::table('country_service')
-                ->where('service_id', $service_id)
+        $domains = ServiceDomain::where('service_id',$service_id)->get();
+        foreach($domains as $domain){
+        $country_ids = DB::table('country_domain')
+                ->where('domain_id', $domain->id)
                 ->pluck('country_id')
                 ->toArray();
+        }
         $countries = Country::whereIn('id', $country_ids)->get();
-        return view('service.edit', compact('service','countries'));
+        return view('service.edit', compact('domains','service','countries'));
     }
    public function update(Request $request, Country $country)
     {
-    $country = Country::findOrFail($id);
-
+    $country = Country::findOrFail($country->id);
     $request->validate([
         'name' => 'required|string|max:255',
         'flag' => [
             'nullable',
             'image',
-            'mimes:jpeg,png,jpg,gif',
-            'dimensions:min_width=200,min_height=100,max_width=200,max_height=100',
-            Rule::dimensions()->ratio(2),
-            'max:2048', // max 2MB
+            'dimensions:min_width=110,min_height=110,max_width=120,max_height=120',
         ],
     ]);
-
+     
     if ($request->hasFile('flag')) {
         $imageName = time().'.'.$request->flag->extension();
         $request->flag->move(public_path('img/flags/'), $imageName);
@@ -134,20 +159,23 @@ class CountryController extends Controller
         'countries' => 'required|array',
         'steps' => 'required|array',
         'steps.*' => 'required|string',
+        'domains' => 'required|array',
         ]);
         $service = Service::find($id);
         foreach ($request->input('countries') as $country_id) {
-            
-        $countryService = CountryService::where('country_id', $country_id)
-                                        ->where('service_id', $service->id)
-                                        ->first();
-
+        foreach($request->input('domains') as $domain){
+        $countrydomains = CountryDomain::where('country_id', $country_id)
+                                        ->where('domain_id', $domain)
+                                        ->get();
+            foreach($countrydomains as $countrydomain){
             foreach ($request->input('steps') as $step) {
-                $serviceStep = new ServiceSteps();
-                $serviceStep->country_service_id = $countryService->id;
+                $serviceStep = new DomainSteps();
+                $serviceStep->country_domain_id = $countrydomain->id;
                 $serviceStep->name = $step;
                 $serviceStep->save();
             }
+            }
+        }
         }
     
         return redirect()->route('services.index')->with('success', 'Service updated successfully.');

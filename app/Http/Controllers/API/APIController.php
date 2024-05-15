@@ -10,6 +10,10 @@ use App\Models\User;
 use App\Models\Designation;
 use App\Models\CompanyType;
 use App\Models\Partner;
+use App\Models\Country;
+use App\Models\CountryService;
+use App\Models\ServiceSteps;
+use App\Models\Service;
 use App\Mail\UserEmail;
 use App\Models\Application;
 use App\Models\Transaction;
@@ -345,6 +349,16 @@ class APIController extends Controller
         $applications = Application::with('user','company')->where('user_id',$user->id)->get();
         return response()->json(['application' => $applications,'success' => 'true','message' => 'Application Details Fetched Successfully']);
     }
-
+    public function get_countries()
+    {
+        $countries = Country::all();
+        return response()->json(['countries' => $countries,'success' => 'true','message' => 'Countries Fetched Successfully']);
+    }
+     public function get_services()
+    {
+        $services = Service::with('domains')->get();
+        
+        return response()->json(['services' => $services,'success' => 'true','message' => 'Services Fetched Successfully']);
+    }
    
 }

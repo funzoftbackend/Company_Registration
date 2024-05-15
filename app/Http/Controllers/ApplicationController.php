@@ -11,7 +11,6 @@ class ApplicationController extends Controller
     public function index()
     {
         $applications = Application::with('user')->get();
-      
         return view('application.index', compact('applications'));
     }
 

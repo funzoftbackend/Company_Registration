@@ -6,19 +6,22 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Country;
-class Country extends Authenticatable
+
+class DomainSteps extends Authenticatable
 {
     use HasFactory, Notifiable;
-    protected $table = 'countries';
+    protected $table = 'domain_steps';
     protected $fillable = [
         'name',
-        'flag'
+        'country_domain_id'
     ];
-   
-    public function domains()
+    public function domain()
     {
-        return $this->belongsToMany(ServiceDomain::class, 'country_domain', 'country_id', 'domain_id');
+        return $this->belongsTo(Domain::class, 'country_domain_id');
+    }
+    public function countryDomain()
+    {
+        return $this->belongsTo(CountryDomain::class);
     }
 }
 

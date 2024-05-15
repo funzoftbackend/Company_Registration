@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Country;
+use App\Models\DomainSteps;
+use App\Models\CountryDomain;
+use App\Models\ServiceDomain;
 class Service extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -14,9 +16,11 @@ class Service extends Authenticatable
     protected $fillable = [
         'name',
     ];
-    public function countries()
+   
+
+     public function domains()
     {
-        return $this->belongsToMany(Country::class);
+        return $this->hasMany(ServiceDomain::class);
     }
   
 }

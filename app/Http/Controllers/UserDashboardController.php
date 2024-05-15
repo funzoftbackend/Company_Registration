@@ -13,6 +13,7 @@ use App\Models\Lead;
 use App\Models\Transaction;
 use App\Models\Country;
 use App\Models\Partner;
+use App\Models\Service;
 class UserDashboardController extends Controller
 {
     public function index()
@@ -24,6 +25,7 @@ class UserDashboardController extends Controller
     $totalusers = User::all()->count();
     $totalcompanies = Company::all()->count();
     $totalcountries = Country::all()->count();
+    $totalservices = Service::all()->count();
     if($user->user_role == "superadmin"){
     $totalapplications = Application::all()->count();
     }
@@ -32,6 +34,6 @@ class UserDashboardController extends Controller
     }
     
     $totalleads = Lead::all()->count();
-    return view('dashboard.index',compact('totalpartners','totalcountries','user','totaltransactions','totalusers','totalapplications','totalleads','totalcompanies'));
+    return view('dashboard.index',compact('totalservices','totalpartners','totalcountries','user','totaltransactions','totalusers','totalapplications','totalleads','totalcompanies'));
     }  
 }
