@@ -50,7 +50,6 @@
                                         <th>Status</th>
                                         <th>Suggested Names</th>
                                         <th>Activities</th>
-                                        <th>Application</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -68,7 +67,6 @@
                                             <td>{{ $company->status }}</td>
                                             <td>{{ $company->suggested_names }}</td>
                                             <td>{{ $company->activities }}</td>
-                                            <td>{{ $company->application_id }}</td>
                                             <td> <!-- Added action column -->
                                                 <!-- Add your action buttons or links here -->
                                                 <a href="{{ route('company.edit', ['company_id' => $company->id]) }}" class="btn btn-primary">Edit</a>
