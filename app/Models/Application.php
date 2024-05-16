@@ -12,7 +12,8 @@ class Application extends Model
     protected $fillable = [
         'user_id',
         'type',
-        'payment_status'
+        'payment_status',
+         'status'
     ];
 
     public function user()

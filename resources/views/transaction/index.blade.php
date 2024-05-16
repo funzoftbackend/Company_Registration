@@ -5,9 +5,7 @@
     .table-responsive {
     overflow-x: auto;
 }
- .page-wrapper{
-            min-height:566px !important;
-        }
+
 .zmdi.zmdi-menu{
             margin-left: 26px;
             margin-top: 6px;
@@ -48,7 +46,7 @@
                                         <th>Method</th>
                                         <th>TID</th>
                                         <th>Currency</th>
-                                      
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>

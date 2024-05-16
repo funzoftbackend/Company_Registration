@@ -2,6 +2,9 @@
 <style>
  
     @media (min-width: 1200px) { 
+        #select-all-countries{
+            margin-left: 7%;
+        }
         .step1.form-control{
             margin-left: 13px !important;
             
@@ -89,6 +92,10 @@
                                                 </span>
                                             @enderror
                                         </div>
+                                         <div class="form-group">
+                                            <label class = "country" for="select-all-countries">Select All Countries</label>
+                                            <input id="select-all-countries" type="checkbox" name="select_all_countries">
+                                        </div>
                                     </div>
                                      <div class="col-md-6">
                                         <div class="form-group">
@@ -103,6 +110,10 @@
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label class = "domain" for="select-all-select_all_domains">Select All Domains</label>
+                                            <input id="select-all-domains" type="checkbox" name="select_all_domains">
                                         </div>
                                     </div>
     
@@ -149,6 +160,31 @@
                     stepCount--;
                 }
             });
+          
         });
+           document.getElementById('select-all-countries').addEventListener('change', function () {
+            var countriesSelect = document.getElementById('countries');
+            if (this.checked) {
+                for (var i = 0; i < countriesSelect.options.length; i++) {
+                    countriesSelect.options[i].selected = true;
+                }
+            } else {
+                for (var i = 0; i < countriesSelect.options.length; i++) {
+                    countriesSelect.options[i].selected = false;
+                }
+            }
+           });
+             document.getElementById('select-all-domains').addEventListener('change', function () {
+            var domainsSelect = document.getElementById('domains');
+            if (this.checked) {
+                for (var i = 0; i < domainsSelect.options.length; i++) {
+                    domainsSelect.options[i].selected = true;
+                }
+            } else {
+                for (var i = 0; i < domainsSelect.options.length; i++) {
+                    domainsSelect.options[i].selected = false;
+                }
+            }
+             });
     </script>
 @endsection

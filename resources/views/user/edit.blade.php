@@ -67,7 +67,7 @@
                                             <label for="user_role">User Role</label>
                                             <select id="user_role" class="m-1 text-center form-control" name="user_role" required>
                                                 @foreach($country_steps as $step)
-                                                <option {{ $user->user_role === $step->name ? 'selected' : '' }} value="{{$step->id}}"       >{{$step->name}}</option>
+                                                <option {{ $user->user_role === $step ? 'selected' : '' }} value="{{$step}}"       >{{$step}}</option>
                                                 @endforeach
                                             </select>
                                             @error('user_role')
@@ -80,25 +80,25 @@
                                     <div class = "col-md-6">
                                         <div class="form-group">
                                             <label  for="mobile_no">Mobile No</label>
-                                            <input id="mobile_no" type="text" placeholder="Mobile Number" class="m-22 text-center form-control" name="mobile_no" value="{{ $user->mobile_no }}" required>
+                                            <input id="mobile_no" type="text" placeholder="Mobile Number" class="m-22 text-center form-control" name="mobile_no" value="{{ $user->mobile_no }}" >
                                         </div>
                                     </div>
                                     <div class = "col-md-6">
                                     <div class="form-group">
                                             <label for="country">Country</label>
-                                            <input id="country" type="text" placeholder="Country" class="m-233 text-center form-control" name="country" value="{{ $user->country }}" required>
+                                            <input id="country" type="text" placeholder="Country" class="m-233 text-center form-control" name="country" value="{{ $user->country }}" >
                                         </div>
                                     </div>
                                      <div class = "col-md-6">
                                     <div class="form-group">
                                         <label for="name">Package Name</label>
-                                        <input id="name" type="text" class="m-6 text-center form-control" placeholder="Package Name" name="package_name" value="{{ $user->package_name }}" required autofocus>
+                                        <input id="name" type="text" class="m-6 text-center form-control" placeholder="Package Name" name="package_name" value="{{ $user->package_name }}" autofocus>
                                     </div>
                                     </div>
                                     <div class = "col-md-6">
                                         <div class="form-group">
                                         <label for="email">Package Price</label>
-                                        <input id="package_price" type="number" class="m-5 text-center form-control" placeholder="Package Price" name="package_price" value="{{ $user->package_price }}" required>
+                                        <input id="package_price" type="number" class="m-5 text-center form-control" placeholder="Package Price" name="package_price" value="{{ $user->package_price }}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -134,13 +134,13 @@
                                     <div class = "col-md-6">
                                     <div class="form-group">
                                             <label for="country">Amount</label>
-                                            <input id="amount" type="number" placeholder="Amount" class="m-233 text-center form-control" name="amount" value="{{ $user->amount }}" required>
+                                            <input id="amount" type="number" placeholder="Amount" class="m-233 text-center form-control" name="amount" value="{{ $user->amount }}" >
                                         </div>
                                     </div>
                                     <div class = "col-md-6">
                                     <div class="form-group">
                                             <label for="amount_type">Country</label>
-                                            <input id="amount_type" type="text" placeholder="Amount Type" class="m-233 text-center form-control" name="amount_type" value="{{ $user->amount_type }}" required>
+                                            <input id="amount_type" type="text" placeholder="Amount Type" class="m-233 text-center form-control" name="amount_type" value="{{ $user->amount_type }}" >
                                         </div>
                                     </div>
                                 </div>

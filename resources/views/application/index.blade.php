@@ -52,7 +52,11 @@
                                 <tbody>
                                     @foreach($applications as $application)
                                         <tr>
+                                                                                        @if($application->user)
                                             <td>{{ $application->user->name }}</td>
+                                            @else
+                                            <td>User Not Found</td>
+                                            @endif
                                             <td>{{ $application->type }}</td>
                                             <td>{{ $application->payment_status }}</td>
                                             <td>{{ $application->status }}</td>

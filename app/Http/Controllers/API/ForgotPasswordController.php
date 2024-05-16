@@ -31,8 +31,7 @@ class ForgotPasswordController extends Controller
             ['email' => $user->email],
             ['email' => $user->email, 'code' => $code]
         );
-        Mail::to($user->email)->send(new ResetPasswordMail($code));
-
+        Mail::to($user->email)->send(new ResetPasswordMail($code,$user->email,url('login')));
         return response()->json(['message' => 'Code sent to your email']);
     }
     public function resendVerificationCode(Request $request)
@@ -52,7 +51,7 @@ class ForgotPasswordController extends Controller
             ['email' => $user->email],
             ['email' => $user->email, 'code' => $code]
         );
-        Mail::to($user->email)->send(new ResetPasswordMail($code));
+        Mail::to($user->email)->send(new ResetPasswordMail($code,$user->email,url('login')));
     
         return response()->json(['message' => 'Code sent to your email']);
     }

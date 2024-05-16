@@ -27,12 +27,43 @@
     <!-- Font Awesome CSS CDN -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <style>
+        .navbar-heading h1 {
+        color: white !important;
+        text-align: center;
+        font-size: 31.15px;
+        font-family: 'Inter', sans-serif !important;
+        font-weight: 500;
+    }
+
+    .left-img {
+        height: 38px !important;
+        width: 38px !important;
+    }
+
+    .icon-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 44.67px;
+        height: 44.67px;
+        border: 3.12px solid white;
+        border-radius: 20px;
+        font-size: 11px;
+    }
+
+    .fa-sign-out {
+        color: white;
+    }
+
+    .right-nav-text1 {
+        color: #ffffff;
+    }
 
         /* Responsive adjustments */
         .navbar-heading h1 {
             color: white !important;
             text-align: center;
-            font-size: 25.15px;
+            font-size: 31.15px;
             font-family: 'Inter', sans-serif !important;
             font-weight: 500;
         }
@@ -43,23 +74,24 @@
         }
 
         .icon-container {
-            display: flex !important;
-            justify-content: center !important;
-            align-items: center !important;
-            width: 36.67px !important;
-            height: 36.67px !important;
-            border: 3.12px solid white !important;
-            border-radius: 20px !important;
-            font-size: 11px !important;
-            padding-bottom: 11px !important;
-            padding-top: 13px !important;
-            margin-bottom: 8px !important;
-            margin-right: -19px !important;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 44.67px;
+            height: 44.67px;
+            border: 3.12px solid white;
+            border-radius: 20px;
+            font-size: 11px;
         }
 
         .fa-sign-out {
             color: white;
         }
+
+        /* .right-nav-text1 {
+            color: #ffffff;
+        } */
+
         @media (min-width: 1000px) and (max-width: 1200px) {
             .zmdi.zmdi-menu {
                 margin-left: 9px !important;
@@ -96,88 +128,54 @@
         }
 
           /* Media Query for mobile screens below 578px */
-        @media (max-width: 578px) {
-            .pt-25{
-                height: 1397px !important;
-                }
-            .navbar-heading h1 {
-                font-size: 23px;
-                margin-left: 77px !important;
-                line-height: 20px;
-                margin-bottom: -13px !important;
+    @media (max-width: 578px) {
+        .pt-25{
+            height: 1397px !important;
             }
-            .icon-container {
-            margin-right: 8px !important;
-            }
-
-            .dataTables_filter{
-                    margin-left: 40%;
-                }
-            .right-nav-text{
-                padding-left: 10px !important;
-            }
-            .right_div {
-                margin-right: 2% !important;
-                margin-left: 3% !important;
-                margin-top: 4% !important;
-            }
-            .col-xs-6 img,.col-xs-6 h1 {
-                max-width: 80%;
-            }
-            .pl-0 {
-                padding-left: 10px !important;
-            }
-            .col-xs-6 {
-                width: 44% !important;
-            }
-            .left-img {
-                margin-top: 6px ;
-                margin-left: -183px;
-            }
-            .font-13{
-                padding-top: 40px !important;
-            }
-            .application-div .img-responsive {
-                margin-top: 51px;
-                margin-left: 45px !important;
-            }
-            .fa.fa-sign-out {
-                position: absolute;
-                top: 7px !important;
-                right: 6px !important;
-            }
-            .page-wrapper{
-                min-height: 1600px !important;
-            }
-            .main-div {
-                height: 1480px !important;
-                background: white;
-                padding-top: 25px !important;
-                border-radius: 20px !important;
-            }
-            .col-xs-12{
-                margin-top: 4% !important;
-            }
+        .navbar-heading h1 {
+            font-size: 23px;
+            margin-left: 77px !important;
+            line-height: 20px;
+            margin-bottom: -13px !important;
         }
-        @media (min-width: 320px) and (max-width: 400px) {
-                .left-img {
-                margin-top: -11px;
-                margin-left: -250px;
-            }
+        .right_div {
+            margin-right: 2% !important;
+            margin-left: 3% !important;
+            margin-top: 4% !important;
         }
-
+        .col-xs-6 img,.col-xs-6 h1 {
+            max-width: 80%;
+        }
+        .pl-0 {
+            padding-left: 10px !important;
+        }
+        .col-xs-6 {
+            width: 44% !important;
+        }
+        .left-img {
+            margin-top: 8px !important;
+            margin-left: -186px !important;
+        }
+        .font-13{
+            padding-top: 40px !important;
+        }
+        .application-div .img-responsive {
+            margin-top: 51px;
+            margin-left: 45px !important;
+        }
+        .fa.fa-sign-out {
+            position: absolute;
+            top: 10px !important;
+            right: 9px !important;
+    }
+    }
         @media (min-width: 1200px) {
-            .navbar.navbar-inverse.navbar-fixed-top {
-                min-height: 50px !important;
-            }
             .left-img {
                 margin-left: 2px !important;
                 height: 34px !important;
-                margin-top: 9px !important;
+                margin-top: 13px !important;
             }
-            .right-nav-text{
-                margin-left: 0px;
-            }
+
             .navbar.navbar-inverse.navbar-fixed-top .nav-header .logo-wrap .brand-img {
                 margin-left: 0%;
                 width: 30px !important;
@@ -224,6 +222,11 @@
             color: #1E4483;
         }
 
+        .fa-angle-right {
+            margin-top: 27px !important;
+            color: #1E4483;
+        }
+
         .pull-left.pull-left2,
         .pull-left.pull-left3 {
             width: 200px;
@@ -235,6 +238,10 @@
             align-items: center;
             padding: 5px !important;
         }
+
+        /* .pull-left.pull-left2 {
+            background-color: #1E4483;
+        } */
 
         .pull-left.pull-left3 {
             background-color: #ED1C25;
@@ -254,6 +261,7 @@
             margin: 10px 0px 0px 0px !important;
         }
 
+        /* Left sidebar */
         .side-nav .nav>li>a {
             display: flex;
             align-items: center;
@@ -272,6 +280,7 @@
             flex: 1;
         }
 
+        /* Preloader */
         .preloader-it {
             display: flex;
             justify-content: center;
@@ -339,7 +348,7 @@
                         data-target="#dashboard_dr" onclick="setActive(this)">
                         <div class="pull-left pull-left2">
                             <img class ="mr-20" src = "{{ asset('/public/img/side_img/dashboard1.png') }}"><span
-                                class="right-nav-text text ">Dashboard</span>
+                                class="right-nav-text text">Dashboard</span>
                         </div>
 
                     </a>
@@ -363,7 +372,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('services.index') }}" data-toggle="collapse" data-target="#dropdown_dr_lv1"
+                        <a href="{{ route('lead.index') }}" data-toggle="collapse" data-target="#dropdown_dr_lv1"
                             data-item="services" onclick="setActive(this)">
                             <div class="pull-left pull-left1"><img class ="mr-20"
                                     src = "{{ asset('/public/img/side_img/service.png') }}"><span
@@ -550,11 +559,6 @@
                     document.querySelector('.nav.navbar-nav.side-nav.nicescroll-bar li:second-child a .right-nav-text').classList.add(
                     'right-nav-text1');
             }
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('.table').DataTable();
         });
     </script>
 

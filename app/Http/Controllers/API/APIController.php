@@ -11,8 +11,9 @@ use App\Models\Designation;
 use App\Models\CompanyType;
 use App\Models\Partner;
 use App\Models\Country;
-use App\Models\CountryService;
-use App\Models\ServiceSteps;
+use App\Models\CountryDomain;
+use App\Models\ServiceDomain;
+use App\Models\DomainSteps;
 use App\Models\Service;
 use App\Mail\UserEmail;
 use App\Models\Application;
@@ -78,6 +79,7 @@ class APIController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'mobile_no' => 'required',
+            'country_id' => 'required',
             // 'passport_one_img' => 'required',
             // 'passport_two_img' => 'required',
 
@@ -91,6 +93,7 @@ class APIController extends Controller
         $user->mobile_no = $request->mobile_no;
         $user->email = $request->email;
         $user->user_role = $request->user_role;
+        $user->country_id = $request->country_id;
         $user->password = bcrypt($password);
         $user->save();
         Mail::to($user->email)->send(new UserEmail($user->email, $password, url('login')));
@@ -100,15 +103,15 @@ class APIController extends Controller
     public function update_country(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'country' => 'required',
+            'country_id' => 'required',
         ]);
          if ($validator->fails()) {
-            if ($errors->has('country')) {
-                return response()->json(['success' => 'false','message' => $errors->first('country')], 422);
+            if ($errors->has('country_id')) {
+                return response()->json(['success' => 'false','message' => $errors->first('country_id')], 422);
             }
         }
         $user = Auth::user();
-        $user->country = $request->country;
+        $user->country_id = $request->country_id;
         $user->save();
         return response()->json([ 'success' => 'true','message' => 'Country Updated Successfully']);
     }
@@ -239,6 +242,7 @@ class APIController extends Controller
             $validator = Validator::make($request->all(), [
                 'company_name' => 'required|string|max:255',
                 'capital' => 'required|string',
+                'country_id' => 'required|string',
                 'currency' => 'required|string',
                 'number_of_partners' => 'required|string',
                 'owner_nationality' => 'required|string',
@@ -250,7 +254,7 @@ class APIController extends Controller
                 'partners_name' => 'required|string',
                 'partners_url' => 'required|string',
                 'partners_designation' => 'required|string',
-                'application_type' => 'required',
+                'type_id' => 'required',
                 // 'payment_status' => 'required',
             ]);
     
@@ -261,10 +265,14 @@ class APIController extends Controller
             $companyType = CompanyType::firstOrCreate(['name' => $request->company_type]);
             }
             $user = Auth::user();
+            $domain = ServiceDomain::find($request->type_id);
+            $countrydomain = CountryDomain::where('domain_id',$domain->id)->where('country_id',$user->country_id)->first();
+            $status = DomainSteps::where('country_domain_id',$countrydomain->id)->first();
             $application = new Application();
             $application->user_id = $user->id;
-            $application->type = $request->application_type;
+            $application->type = $request->type_id;
             $application->payment_status = $request->payment_status;
+            $application->status = $status->name;
             $application->save();
             $company = new Company();
             $company->name = $request->company_name;
@@ -347,7 +355,23 @@ class APIController extends Controller
     {
         $user = Auth::user();
         $applications = Application::with('user','company')->where('user_id',$user->id)->get();
+        foreach($applications as $application){
+            $domain = ServiceDomain::find($application->type);
+            $countryDomain = CountryDomain::where('domain_id',$domain->id)->where('country_id',$user->country_id)->first();
+            $application->steps = DomainSteps::where('country_domain_id',$countryDomain->id)->get();
+        }
         return response()->json(['application' => $applications,'success' => 'true','message' => 'Application Details Fetched Successfully']);
+    }
+      public function get_application_by_id(Request $request)
+    {
+        $selectedapplication = Application::find($request->id);
+        $domain = ServiceDomain::find($selectedapplication->type);
+            $countryDomain = CountryDomain::where('domain_id',$domain->id)->where('country_id',$user->country_id)->first();
+            $selectedapplication->steps = DomainSteps::where('country_domain_id',$countryDomain->id)->get();
+        $company = Company::where('application_id',$selectedapplication->id)->first();
+        $partners = Partner::where('company_id',$company->id)->get();
+        $user = User::find($selectedapplication->user_id);
+        return response()->json(['application' => $selectedapplication,'partners' => $partners,'user' =>$user,'company'=> $company,'selectedapplication' => $selectedapplication,'success' => 'true','message' => 'Application Details Fetched Successfully']);
     }
     public function get_countries()
     {

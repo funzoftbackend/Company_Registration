@@ -5,6 +5,8 @@ use App\Models\Company;
 use App\Models\Partner;
 use App\Models\ApplicationReason;
 use App\Models\Application;
+use App\Models\DomainSteps;
+use App\Models\ServiceDomain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
@@ -13,14 +15,21 @@ class ApplicationController extends Controller
 {
     public function index()
     {
-        $applications = Application::with('user')->get();
+        $user = Auth::user();
+        if($user->user_role != 'superadmin'){
+        $applications = Application::with('user')->where('status',$user->user_role)->get();
+        }
+        else{
+           $applications = Application::with('user')->get(); 
+        }
         return view('application.index', compact('applications'));
     }
 
     public function create()
     {
         $users = User::where('user_role','employee')->get();
-        return view('application.create',compact('users'));
+        $domains = ServiceDomain::all();
+        return view('application.create',compact('users','domains'));
     }
 
     public function store(Request $request)
@@ -35,10 +44,12 @@ class ApplicationController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
+        $status = DomainSteps::first();
         $application = new Application();
         $application->user_id = $request->user_id;
         $application->type = $request->type;
         $application->payment_status = $request->payment_status;
+        $application->status = $status->name;
         $application->save();
         return redirect()->route('application.index')->with('success', 'Application created successfully.');
     }
@@ -55,7 +66,14 @@ class ApplicationController extends Controller
     public function proceed(application $application)
     {
         $selectedapplication = Application::find($application->id);
-        $selectedapplication->status = '';
+        $domain = ServiceDomain::find($selectedapplication);
+        $countryDomain = CountryDomain::where('country_id',$user->country)->where('domain_id',$domain->id);
+        $currentStep = DomainSteps::select('id')->where('name', $selectedapplication->status)->where('country_domain_id', $countryDomain->id)->first();
+        $current_id = $currentStep->id;
+        $next_id = $current_id + 1;
+        $nextStep = DomainSteps::select('name')->find($next_id);
+        $selectedapplication->status = $nextStep->name;
+        $selectedapplication->save();
         return redirect()->route('application.index')->with('success', 'Application Forwarded Successfully.');
     }
      public function reject(Request $request)
@@ -78,8 +96,8 @@ class ApplicationController extends Controller
         $application_id = $_GET['application_id'];
         $application = Application::find($application_id);
         $users = User::where('user_role','employee')->get();
-        
-        return view('application.edit', compact('users','application'));
+        $domains = ServiceDomain::all();
+        return view('application.edit', compact('users','domains','application'));
     }
 
     public function update(Request $request, Application $application)

@@ -73,7 +73,12 @@
                                     <div class = "col-md-6">
                                     <div class="form-group">
                                         <label for="type">Type</label>
-                                        <input id="type" type="text" class="m-2 text-center form-control" placeholder="Type" name="type" value="{{ $application->type }}" required autofocus>
+                                        <select id="type" class="m-1 text-center form-control" name="type" required>
+                                                @foreach($domains as $domain)
+                                                <option value="{{$domain->id}}" {{ $domain->id === $application->type ? 'selected' : '' }}>{{ucfirst($domain->name)}}</option>
+                                                @endforeach
+                                        @error('type')
+                                            </select>
                                         @error('type')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

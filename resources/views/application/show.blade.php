@@ -12,7 +12,11 @@
                             <tbody>
                                 <tr>
                                     <th>User Name</th>
+                                    @if($user)
                                     <td>{{ $user->name }}</td>
+                                     @else
+                                    <td>User Not Found</td>
+                                    @endif
                                 </tr>
                                 <tr>
                                     <th>Company Name</th>

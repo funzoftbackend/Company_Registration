@@ -76,28 +76,27 @@
                                             
                                         </div>
                                     </div>
-                                      <div class = "col-md-6">
-                                    <div class="form-group">
-                                        <label for="type">Type</label>
-                                        <input id="type" type="text" class="m-2 text-center form-control" placeholder="Type" name="type" value="{{ old('type') }}" required autofocus>
-                                        @error('type')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                        @enderror
-                                    </div>
+                                    <div class = "col-md-6">
+                                        <div class="form-group">
+                                            <label for="type">Type</label>
+                                               <select id="type" class="m-2 text-center form-control" name="type" required>
+                                                    @foreach($domains as $domain)
+                                                    <option value="{{$domain->id}}" {{ $domain->id === old('type') ? 'selected' : '' }}>{{ucfirst($domain->name)}}</option>
+                                                    @endforeach
+                                                </select>
+                                        </div>
                                     </div>
                                     <div class = "col-md-6">
-                                    <div class="form-group">
-                                        <label for="payment_status">Payment Status</label>
-                                        <input id="payment_status" type="text" class="m-6 text-center form-control" placeholder="Payment Status" name="payment_status" value="{{ old('payment_status') }}" required autofocus>
-                                        @error('payment_status')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                        @enderror
+                                        <div class="form-group">
+                                            <label for="payment_status">Payment Status</label>
+                                            <input id="payment_status" type="text" class="m-6 text-center form-control" placeholder="Payment Status" name="payment_status" value="{{ old('payment_status') }}" required autofocus>
+                                            @error('payment_status')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                            @enderror
+                                        </div>
                                     </div>
-                            </div>
                             <button type="submit" class="btn btn-primary">Create</button>
                         </form>
                     </div>

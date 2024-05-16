@@ -24,6 +24,67 @@
     <link href="{{ asset('/public/vendors/bower_components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet"
         type="text/css">
         <style>
+            @media (min-width: 3001px) {
+                body {
+                    overflow: hidden;
+                }
+                .container {
+                    width: 100%;
+                }
+                .row {
+                    margin-right: -15px;
+                    margin-left: -15px;
+                    margin-top: 4% !important;
+                }
+
+                .auth-form-wrap {
+                    padding: 0px 383px !important;
+                }
+
+                .background-image {
+                    margin-left: 842px;
+                    margin-top: -1119px !important;
+                    width: 520px;
+                    height: 529px;
+                }
+
+                .small-image-2 {
+                    position: absolute !important;
+                    bottom: 423px !important;
+                    right: -1041px !important;
+                    width: 204px !important;
+                }
+
+                .small-image-3 {
+                    position: absolute !important;
+                    left: 1359px !important;
+                    top: -456px !important;
+                    width: 79px !important;
+                }
+
+                .small-image-5 {
+                    position: absolute !important;
+                    width: 310px !important;
+                    height: 140px !important;
+                    top: -744px !important;
+                    left: 1148px !important;
+                }
+
+                .small-image-1 {
+                    position: absolute !important;
+                    bottom: 468px !important;
+                    left: 1220px !important;
+                    width: 217px !important;
+                }
+
+                .col-lg-6.col-md-6.col-sm-8.col-xs-10.col-lg-offset-3.col-md-offset-3.col-sm-offset-2.col-xs-offset-1.position-relative {
+                    margin-top: 7px !important;
+                }
+            }
+
+
+/* Adjust other specific elements as needed */
+
             @media (max-width: 1440px) {
                 .col-lg-6.col-md-6.col-sm-8.col-xs-10.col-lg-offset-3.col-md-offset-3.col-sm-offset-2.col-xs-offset-1.position-relative {
                     margin-top: 200px !important;
@@ -31,11 +92,14 @@
             }
 
             @media (min-width: 768px) and (max-width: 1440px) {
+                body {
+                    overflow: hidden;
+                }
                 .background-image {
-                    margin-left: 770px;
-                    margin-top: -1300px !important;
-                    width: 640px !important;
-                    height: 541px;
+                    margin-left: 842px;
+                    margin-top: -1307px !important;
+                    width: 520px;
+                    height: 529px;
                 }
                 .col-lg-6.col-md-6.col-sm-8.col-xs-10.col-lg-offset-3.col-md-offset-3.col-sm-offset-2.col-xs-offset-1.position-relative {
                     margin-top: 100px !important;
@@ -54,7 +118,7 @@
                     top: -541px !important;
                     width: 79px !important;
                 }
-                .small-image-4 {
+                .small-image-5 {
                     position: absolute !important;
                     width: 344px !important;
                     height: 140px !important;
@@ -63,22 +127,26 @@
                 }
                 .small-image-1 {
                     position: absolute !important;
-                    bottom: 558px !important;
+                    bottom: 553px !important;
                     left: 1280px !important;
                     width: 204px !important;
                 }
             }
-            @media (min-width : 1600px) and (max-width : 3000px) {
+            @media (min-width : 1600px) and (max-width : 3600px) {
                 .col-lg-6.col-md-6.col-sm-8.col-xs-10.col-lg-offset-3.col-md-offset-3.col-sm-offset-2.col-xs-offset-1.position-relative {
                     margin-top: 7px !important;
                 }
             }
 
             @media (min-width: 1441px) and (max-width: 3000px) {
+
+                body {
+                    overflow: hidden;
+                }
                 .background-image {
-                    margin-left: 770px;
-                    margin-top: -1112px !important;
-                    width: 669px;
+                    margin-left: 847px;
+                    margin-top: -1110px !important;
+                    width: 520px;
                     height: 533px;
                 }
                 .small-image-2 {
@@ -94,7 +162,7 @@
                     top: -444px !important;
                     width: 79px !important;
                 }
-                .small-image-4 {
+                .small-image-5 {
                     position: absolute !important;
                     width: 344px !important;
                     height: 140px !important;
@@ -153,7 +221,7 @@
             }
 
             .sp-header {
-                height: 60px;
+                height: 55px;
                 padding: 18px 338px;
                 gap: 10px;
                 background-color: #D6222B;
@@ -162,8 +230,8 @@
             }
 
             .header-text {
-                font-size: 16px;
-                line-height: 30px;
+                font-size: 14px;
+                line-height: 18px;
                 color: #FFFFFF;
                 margin: 0 auto;
             }
@@ -237,7 +305,7 @@
             @media (min-width: 300px) and (max-width: 767px) {
             .col-md-6.col-md-offset-3 {
                 width: 100% !important;
-                margin-left: auto !important;
+                margin-left: 0% !important;
                 margin-right: auto !important;
             }
             .form-group {
@@ -254,40 +322,39 @@
             }
 
             .background-image {
-                width: 347px !important;
+                width: 305px !important;
                 height: 446px !important;
-                padding-bottom: 36px !important;
-                margin-top: -66% !important;
-                margin-left: -2px !important;
+                padding-bottom: 35px !important;
+                margin-top: -506px !important;
+                margin-left: 7px !important;
             }
             .small-image-3 {
-                bottom: -118px !important;
-                left: 124px !important;
-                width: 71px !important;
+                bottom: 89px !important;
+                left: 302px !important;
+                width: 72px !important;
             }
             .small-image {
-                position: relative;
+                position: relative !important;
             }
             .small-image-2 {
-                bottom: -118px !important;
-                right: -135px !important;
+                bottom: 0px !important;
+                right: 39px !important;
                 width: 164px !important;
                 height: 50px !important;
             }
             .small-image-1 {
-                bottom: -125px !important;
-                left: 183px !important;
+                bottom: 44px !important;
+                left: 194px !important;
                 width: 179px !important;
             }
-            .small-image-4 {
-                position: absolute !important;
-                width: 175px !important;
+            .small-image-5 {
+                width: 167px !important;
                 height: 128px !important;
-                top: -88px !important;
-                left: 207px !important;
+                top: -289px !important;
+                left: 134px !important;
             }
             .col-sm-8 {
-                margin-left: -75% !important;
+                margin-left: -80% !important;
                 margin-bottom: -18px !important;
             }
             .forgot-password-link {
@@ -301,7 +368,7 @@
             .header-text {
                 font-size: 14px !important;
                 margin-top: 3px !important;
-                margin-left: -389PX !important;
+                margin-left: -385PX !important;
                 line-height: 18px !important;
                 height: 61px !important;
             }
@@ -448,8 +515,8 @@
                 <img src="{{ asset('/public/img/small/no_1.png') }}" alt="1" class="small-image small-image-1">
                 <img src="{{ asset('/public/img/small/no_2.png') }}" alt="2" class="small-image small-image-2">
                 <img src="{{ asset('/public/img/small/no_3.png') }}" alt="3" class="small-image small-image-3">
-                <img src="{{ asset('/public/img/small/no_4.png') }}" alt="small image 4" class="small-image small-image-4">
-                <img src="{{ asset('/public/img/Group_4.png') }}" alt="background" class="background-image">
+                <img src="{{ asset('/public/img/small/no_5.png') }}" alt="small image 5" class="small-image small-image-5">
+                <img src="{{ asset('/public/img/Group_5.png') }}" alt="background" class="background-image">
             </div>
         </div>
     </div>

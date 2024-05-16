@@ -25,6 +25,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/upload-passport-url-image', [APIController::class, 'upload_passport_url_image']);
     Route::post('/logout', [APIController::class, 'logout']);
     Route::get('/get-applications', [APIController::class, 'get_applications']);
+    Route::get('/get-application-by-id', [APIController::class, 'get_application_by_id']);
     Route::post('/edit_profile', [APIController::class, 'edit_profile']);
     Route::get('/get-available-company-types', [APIController::class, 'get_available_company_types']);
     Route::get('/get-available-designations', [APIController::class, 'get_available_designations']);

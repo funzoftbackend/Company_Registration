@@ -4316,7 +4316,9 @@ table.dataTable > caption + thead > tr:first-child > td, table.dataTable > capti
   padding-right: 15px; }
 .dataTables_wrapper .dataTables_filter input, .dataTables_wrapper .dataTables_length select {
   height: 25px; }
-
+.dataTables_wrapper .dataTables_filter input{
+    border: 1px solid;
+}
 .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover, .dataTables_wrapper .dataTables_paginate .paginate_button:hover, .dataTables_wrapper .dataTables_paginate .paginate_button:active, .dataTables_wrapper .dataTables_paginate .paginate_button:focus {
   background: #8BC34A;
   border-color: #8BC34A;
@@ -4345,7 +4347,7 @@ table.dataTable thead .sorting::after, table.dataTable thead .sorting_asc::after
   display: block;
   font-family: FontAwesome;
   position: absolute;
-  right: 10px;
+  right: -2px;
   top: 15px;
   font-size: 14px; }
 
