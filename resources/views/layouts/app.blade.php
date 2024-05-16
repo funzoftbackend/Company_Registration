@@ -507,7 +507,7 @@
             anchors.forEach(a => {
                 a.classList.remove('active');
                 a.querySelector('.pull-left').classList.remove('pull-left3');
-                a.querySelector('.right-nav-text').classList.remove('right-nav-text1');
+                
             });
 
             if (isDashboardUrl) {
@@ -539,7 +539,11 @@
             }
         });
     </script>
-
+    <script>
+        $(document).ready(function() {
+            $('.table').DataTable();
+        });
+    </script>
 </body>
 
 </html>
