@@ -103,6 +103,9 @@
                 line-height: 20px;
                 margin-bottom: -13px !important;
             }
+            .right-nav-text{
+                padding-left: 10px !important;
+            }
             .right_div {
                 margin-right: 2% !important;
                 margin-left: 3% !important;
@@ -134,7 +137,16 @@
                 right: 9px !important;
             }
             .page-wrapper{
-                min-height: 1500px !important;
+                min-height: 1592px !important;
+            }
+            .main-div {
+                height: 1480px !important;
+                background: white;
+                padding-top: 25px !important;
+                border-radius: 20px !important;
+            }
+            .col-xs-12{
+                margin-top: 4% !important;
             }
         }
         @media screen and (min-width: 320px) and (max-width: 400px) {
@@ -150,7 +162,9 @@
                 height: 34px !important;
                 margin-top: 13px !important;
             }
-
+            .right-nav-text{
+                margin-left: 0px;
+            }
             .navbar.navbar-inverse.navbar-fixed-top .nav-header .logo-wrap .brand-img {
                 margin-left: 0%;
                 width: 30px !important;
@@ -336,7 +350,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('services.index') }}" data-toggle="collapse" data-target="#dropdown_dr_lv1"
+                        <a href="{{ route('lead.index') }}" data-toggle="collapse" data-target="#dropdown_dr_lv1"
                             data-item="services" onclick="setActive(this)">
                             <div class="pull-left pull-left1"><img class ="mr-20"
                                     src = "{{ asset('/public/img/side_img/service.png') }}"><span
@@ -457,7 +471,6 @@
         function setActive(element) {
             // Remove active class from all anchor tags
             const anchors = document.querySelectorAll('.nav.navbar-nav.side-nav.nicescroll-bar li a');
-
             if (anchors.length === 0) {
                 // Add active class to the first li anchor tag
                 document.querySelector('.nav.navbar-nav.side-nav.nicescroll-bar li:second-child a').classList.add('active');
@@ -494,6 +507,7 @@
             anchors.forEach(a => {
                 a.classList.remove('active');
                 a.querySelector('.pull-left').classList.remove('pull-left3');
+                a.querySelector('.right-nav-text').classList.remove('right-nav-text1');
             });
 
             if (isDashboardUrl) {

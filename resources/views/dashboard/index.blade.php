@@ -62,10 +62,6 @@
             margin-left: 45px !important;
         }
 
-        .main-div {
-            height: auto !important;
-        }
-
         .zmdi.zmdi-menu {
             position: absolute;
             top: 32px;
