@@ -11,6 +11,7 @@ use App\Models\Designation;
 use App\Models\CompanyType;
 use App\Models\Partner;
 use App\Models\Country;
+use App\Models\ApplicationReason;
 use App\Models\CountryDomain;
 use App\Models\ServiceDomain;
 use App\Models\DomainSteps;
@@ -235,20 +236,30 @@ class APIController extends Controller
             return response()->json(['user'=>$user,'success' => 'false','message' => 'Error Updating User Profile']);
             }
     } 
+    public function get_profile()
+    {
+        $loggedin_user = Auth::user();
+        $user = User::find($loggedin_user->id);
+        if($user){
+            return response()->json(['user'=> $user,'success' => 'true','message' => 'User Profile Fetched Successfully']);
+            }
+            else{
+            return response()->json(['user'=>$user,'success' => 'false','message' => 'Error Fetching User Profile']);
+            }
+    } 
     public function save_details(Request $request)
     {
         $user = Auth::user();
-        if ($request->application_type == "company_registration") {
+        // if ($request->application_type == "company_registration") {
             $validator = Validator::make($request->all(), [
                 'company_name' => 'required|string|max:255',
-                'capital' => 'required|string',
-                'country_id' => 'required|string',
-                'currency' => 'required|string',
-                'number_of_partners' => 'required|string',
+                'capital' => 'required',
+                'country_id' => 'required',
+                'currency' => 'required',
+                'number_of_partners' => 'required',
                 'owner_nationality' => 'required|string',
                 'company_type' => 'required|string',
                 'financial_year_ending_date' => 'required|date',
-                'status' => 'required|string',
                 'suggested_names' => 'required|string',
                 'activities' => 'required|string',
                 'partners_name' => 'required|string',
@@ -271,9 +282,14 @@ class APIController extends Controller
             $application = new Application();
             $application->user_id = $user->id;
             $application->type = $request->type_id;
-            $application->payment_status = $request->payment_status;
-            $application->status = $status->name;
+            $application->status = $status->id;
             $application->save();
+            
+            $latest_transaction = Transaction::where('user_id',$user->id)->latest()->first();
+            if($latest_transaction){
+            $latest_transaction->application_id = $application->id;
+            $latest_transaction->save();
+            }
             $company = new Company();
             $company->name = $request->company_name;
             $company->capital = $request->capital;
@@ -305,10 +321,94 @@ class APIController extends Controller
             }
     
             return response()->json(['application_id' => $application->id, 'success' => 'true', 'message' => 'Details Saved Successfully']);
-        } else {
-            return response()->json(['success' => 'false', 'message' => 'Application Type Not Defined or Enter Valid Application Type']);
-        }
+       
     }
+    public function update_details(Request $request, $id)
+{
+    $user = Auth::user();
+    
+    $validator = Validator::make($request->all(), [
+        'company_name' => 'required|string|max:255',
+        'capital' => 'required',
+        'country_id' => 'required',
+        'currency' => 'required',
+        'number_of_partners' => 'required',
+        'owner_nationality' => 'required|string',
+        'company_type' => 'required|string',
+        'financial_year_ending_date' => 'required|date',
+        'suggested_names' => 'required|string',
+        'activities' => 'required|string',
+        'partners_name' => 'required|string',
+        'partners_url' => 'required|string',
+        'partners_designation' => 'required|string',
+        'type_id' => 'required',
+        'payment_status' => 'sometimes|required',
+    ]);
+
+    if ($validator->fails()) {
+        return response()->json(['success' => 'false', 'message' => $validator->errors()->first()], 422);
+    }
+
+    if ($request->company_type != 'Others') {
+        $companyType = CompanyType::firstOrCreate(['name' => $request->company_type]);
+    }
+
+    $domain = ServiceDomain::find($request->type_id);
+    $countrydomain = CountryDomain::where('domain_id', $domain->id)->where('country_id', $user->country_id)->first();
+    $status = DomainSteps::where('country_domain_id', $countrydomain->id)->first();
+    
+    $application = Application::find($id);
+    if (!$application) {
+        return response()->json(['success' => 'false', 'message' => 'Application not found'], 404);
+    }
+
+    $application->type = $request->type_id;
+    $application->payment_status = $request->payment_status ?? $application->payment_status;
+    $application->is_rejected = 0;
+    $application->status = $status->id;
+    $application->save();
+    
+    $company = $application->company;
+    if (!$company) {
+        $company = new Company();
+        $company->application_id = $application->id;
+    }
+    $company->name = $request->company_name;
+    $company->capital = $request->capital;
+    $company->currency = $request->currency;
+    $company->number_of_partners = $request->number_of_partners;
+    $company->owner_nationality = $request->owner_nationality;
+    $company->company_type = $request->company_type;
+    $company->financial_year_ending_date = $request->financial_year_ending_date;
+    $company->status = $request->status ?? $company->status;
+    $company->suggested_names = $request->suggested_names;
+    $company->activities = $request->activities;
+    $company->save();
+
+    // Update partners
+    $partnersNames = explode(',', $request->partners_name);
+    $partnersURLs = explode(',', $request->partners_url);
+    $partnersDesignations = explode(',', $request->partners_designation);
+
+    // Delete old partners
+    Partner::where('company_id', $company->id)->delete();
+
+    // Save new partners
+    foreach ($partnersNames as $index => $partnerName) {
+        if ($partnersDesignations[$index] != 'Others') {
+            $designation = Designation::firstOrCreate(['name' => $partnersDesignations[$index]]);
+        }
+        $partner = new Partner();
+        $partner->company_id = $company->id;
+        $partner->name = $partnerName;
+        $partner->passport_url = $partnersURLs[$index];
+        $partner->designation = $partnersDesignations[$index];
+        $partner->save();
+    }
+
+    return response()->json(['application_id' => $application->id, 'success' => 'true', 'message' => 'Details Updated Successfully']);
+}
+
     public function save_user_detail(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -359,6 +459,10 @@ class APIController extends Controller
             $domain = ServiceDomain::find($application->type);
             $countryDomain = CountryDomain::where('domain_id',$domain->id)->where('country_id',$user->country_id)->first();
             $application->steps = DomainSteps::where('country_domain_id',$countryDomain->id)->get();
+            $reason = ApplicationReason::where('application_id',$application->id)->latest()->first();
+            if($reason){
+            $application->reason = $reason->reason;
+            }
         }
         return response()->json(['application' => $applications,'success' => 'true','message' => 'Application Details Fetched Successfully']);
     }

@@ -24,9 +24,15 @@
     <link href="{{ asset('/public/vendors/bower_components/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet"
         type="text/css">
         <style>
+            @media(min-width: 5450px){
+                .col-lg-6.col-md-6.col-sm-8.col-xs-10.col-lg-offset-3.col-md-offset-3.col-sm-offset-2.col-xs-offset-1.position-relative{
+                    margin-top: -830px !important;
+                }
+            }
+
             @media (min-width: 3001px) {
                 body {
-                    overflow: hidden;
+                    overflow:auto !important;
                 }
                 .container {
                     width: 100%;
@@ -40,12 +46,16 @@
                 .auth-form-wrap {
                     padding: 0px 383px !important;
                 }
+                .col-lg-8{
+                    margin-left: -82% ;
+                    margin-bottom: 300px !important; ;
+                }
 
                 .background-image {
-                    margin-left: 842px;
-                    margin-top: -1119px !important;
-                    width: 520px;
-                    height: 529px;
+                    margin-left: 832px;
+                    margin-top: -1131px !important;
+                    width: 534px;
+                    height: 589px;
                 }
 
                 .small-image-2 {
@@ -78,33 +88,24 @@
                 }
 
                 .col-lg-6.col-md-6.col-sm-8.col-xs-10.col-lg-offset-3.col-md-offset-3.col-sm-offset-2.col-xs-offset-1.position-relative {
-                    margin-top: 7px !important;
+                    margin-top: -534px;
+                    position: absolute !important;
                 }
             }
 
 
 /* Adjust other specific elements as needed */
 
-            @media (max-width: 1440px) {
+            @media (min-width:1024px) and (max-width: 1440px) {
                 .col-lg-6.col-md-6.col-sm-8.col-xs-10.col-lg-offset-3.col-md-offset-3.col-sm-offset-2.col-xs-offset-1.position-relative {
-                    margin-top: 200px !important;
-                }
-            }
-
-            @media (min-width: 768px) and (max-width: 1440px) {
-                body {
-                    overflow: hidden;
+                    margin-top: 110px !important;
                 }
                 .background-image {
-                    margin-left: 842px;
-                    margin-top: -1307px !important;
-                    width: 520px;
-                    height: 529px;
+                    margin-left: 833px;
+                    margin-top: -1295px !important;
+                    width: 564px;
+                    height: 566px;
                 }
-                .col-lg-6.col-md-6.col-sm-8.col-xs-10.col-lg-offset-3.col-md-offset-3.col-sm-offset-2.col-xs-offset-1.position-relative {
-                    margin-top: 100px !important;
-                }
-
                 .small-image-2 {
                     position: absolute !important;
                     bottom: 506px !important;
@@ -132,22 +133,69 @@
                     width: 204px !important;
                 }
             }
-            @media (min-width : 1600px) and (max-width : 3600px) {
-                .col-lg-6.col-md-6.col-sm-8.col-xs-10.col-lg-offset-3.col-md-offset-3.col-sm-offset-2.col-xs-offset-1.position-relative {
-                    margin-top: 7px !important;
+            @media (min-width: 768px) and (max-width: 1023px) {
+
+                .background-image {
+                    margin-left: 833px;
+                    margin-top: -1295px !important;
+                    width: 564px;
+                    height: 566px;
                 }
+                .col-lg-6.col-md-6.col-sm-8.col-xs-10.col-lg-offset-3.col-md-offset-3.col-sm-offset-2.col-xs-offset-1.position-relative{
+                    margin-top: -264px;
+                }
+                .col-lg-6.col-md-6.col-sm-8.col-xs-10.col-lg-offset-3.col-md-offset-3.col-sm-offset-2 {
+                    margin-top: 0% !important;
+                    position: absolute !important;
+                }
+                .small-image-2 {
+                    position: absolute !important;
+                    bottom: 506px !important;
+                    right: -1090px !important;
+                    width: 214px !important;
+                }
+
+                .small-image-3 {
+                    position: absolute !important;
+                    left: 433% !important;
+                    top: -541px !important;
+                    width: 79px !important;
+                }
+                .small-image-5 {
+                    position: absolute !important;
+                    width: 344px !important;
+                    height: 140px !important;
+                    top: -841px !important;
+                    left: 1170px !important;
+                }
+                .small-image-1 {
+                    position: absolute !important;
+                    bottom: 553px !important;
+                    left: 1280px !important;
+                    width: 204px !important;
+                }
+
             }
 
+            @media (min-width: 768px) and (max-width: 1440px) {
+                body {
+                    overflow:auto !important;
+                }
+
+            }
             @media (min-width: 1441px) and (max-width: 3000px) {
 
                 body {
-                    overflow: hidden;
+                    overflow: auto !important;
+                }
+                .col-lg-6.col-md-6.col-sm-8.col-xs-10.col-lg-offset-3.col-md-offset-3.col-sm-offset-2.col-xs-offset-1.position-relative {
+                    margin-top: -20% !important;
                 }
                 .background-image {
                     margin-left: 847px;
-                    margin-top: -1110px !important;
-                    width: 520px;
-                    height: 533px;
+                    margin-top: -1044px !important;
+                    width: 550px;
+                    height: 611px;
                 }
                 .small-image-2 {
                     position: absolute !important;
@@ -180,7 +228,7 @@
 
             .col-sm-8 {
                 margin-left: -82% !important;
-                margin-bottom: 201px !important;
+                margin-bottom: 122px ;
             }
 
             .form-wrap {
@@ -190,8 +238,7 @@
             .col-sm-4 {
                 margin-left: 40%;
             }
-
-            .custom-font {
+           .custom-font {
                 font-family: 'Manrope', sans-serif;
                 font-weight: 200;
                 font-size: 23px;
@@ -221,7 +268,7 @@
             }
 
             .sp-header {
-                height: 55px;
+                height: 45px;
                 padding: 18px 338px;
                 gap: 10px;
                 background-color: #D6222B;
@@ -302,7 +349,77 @@
                 color: #D6222B;
                 margin-right: -80px;
             }
+            @media(min-width:300px) and (max-width:380px){
+                 .small-image-3 {
+                bottom: 10px !important;
+                left: 102px !important;
+                width: 72px !important;
+            }
+            .small-image {
+                position: relative !important;
+            }
+            .small-image-2 {
+               bottom: 10px !important;
+                right: -34% !important;
+                width: 164px !important;
+                height: 50px !important;
+            }
+            .small-image-1 {
+                bottom: 4px !important;
+                left: 170px !important;
+                width: 179px !important;
+            }
+             .header-text {
+                margin-left: -370px !important;
+            }
+             .logo-img{
+                    margin-top: -9px !important;
+                }
+            .small-image-5 {
+                left: 179px !important;
+                height: 128px !important;
+                top: -289px !important;
+               left: 174px !important;
+                width: 180px;
+            }
+            }
+            @media(min-width:384px) and (max-width:767px){
+                .logo-img{
+                    margin-top: -29px !important;
+                }
+                .small-image-3 {
+                bottom: 89px !important;
+                left: 302px !important;
+                width: 72px !important;
+            }
+             .header-text {
+                margin-left: -347px !important;
+            }
+            .small-image {
+                position: relative !important;
+            }
+            .small-image-2 {
+                bottom: 0px !important;
+                right: 39px !important; 
+                width: 164px !important;
+                height: 50px !important;
+            }
+            .small-image-1 {
+                bottom: 44px !important;
+                left: 194px !important;
+                width: 179px !important;
+            }
+            .small-image-5 {
+                width: 167px !important;
+                height: 128px !important;
+                top: -289px !important;
+                left: 134px !important;
+            }
+            }
             @media (min-width: 300px) and (max-width: 767px) {
+             .position-relative {
+                margin-top: 70% !important;
+              }
             .col-md-6.col-md-offset-3 {
                 width: 100% !important;
                 margin-left: 0% !important;
@@ -328,31 +445,7 @@
                 margin-top: -506px !important;
                 margin-left: 7px !important;
             }
-            .small-image-3 {
-                bottom: 89px !important;
-                left: 302px !important;
-                width: 72px !important;
-            }
-            .small-image {
-                position: relative !important;
-            }
-            .small-image-2 {
-                bottom: 0px !important;
-                right: 39px !important;
-                width: 164px !important;
-                height: 50px !important;
-            }
-            .small-image-1 {
-                bottom: 44px !important;
-                left: 194px !important;
-                width: 179px !important;
-            }
-            .small-image-5 {
-                width: 167px !important;
-                height: 128px !important;
-                top: -289px !important;
-                left: 134px !important;
-            }
+            
             .col-sm-8 {
                 margin-left: -80% !important;
                 margin-bottom: -18px !important;
@@ -366,11 +459,11 @@
                 top: -53px !important;
             }
             .header-text {
-                font-size: 14px !important;
+                font-size: 17px !important;
                 margin-top: 3px !important;
-                margin-left: -385PX !important;
+                /*margin-left: -347PX !important;*/
                 line-height: 18px !important;
-                height: 61px !important;
+                height: 58px !important;
             }
             .sp-header {
                 height: 70px;
@@ -395,6 +488,10 @@
             .auth-form-wrap {
                 padding: 0px 383px !important;
             }
+        }
+        .logo-img{
+            Width :141.95px;
+            Height: 98.11px;
         }
 
         </style>
@@ -430,6 +527,9 @@
                             <div class="auth-form ml-auto mr-auto no-float">
                                 <div class="row">
                                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                                        <div class="mb-30">
+                                            <img src="{{ asset('/public/img/logo_7.webp') }}" class="logo-img" alt="Logo image">
+                                        </div>
                                         <div class="mb-30">
                                             <h2 class="text-start txt-dark mb-10 custom-font business-house">BUSINESS
                                                 HOUSE</h2>
@@ -512,11 +612,11 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-8 col-xs-10 col-lg-offset-3 col-md-offset-3 col-sm-offset-2 col-xs-offset-1 position-relative">
-                <img src="{{ asset('/public/img/small/no_1.png') }}" alt="1" class="small-image small-image-1">
-                <img src="{{ asset('/public/img/small/no_2.png') }}" alt="2" class="small-image small-image-2">
-                <img src="{{ asset('/public/img/small/no_3.png') }}" alt="3" class="small-image small-image-3">
-                <img src="{{ asset('/public/img/small/no_5.png') }}" alt="small image 5" class="small-image small-image-5">
-                <img src="{{ asset('/public/img/Group_5.png') }}" alt="background" class="background-image">
+                <img src="{{ asset('/public/img/small/no_1.webp') }}" alt=1" class="small-image small-image-1">
+                <img src="{{ asset('/public/img/small/no_2.webp') }}" alt=2" class="small-image small-image-2">
+                <img src="{{ asset('/public/img/small/no_3.webp') }}" alt=3" class="small-image small-image-3">
+                <img src="{{ asset('/public/img/small/no_5.webp') }}" alt=small image 5" class="small-image small-image-5">
+                <img src="{{ asset('/public/img/Group_6.webp') }}" alt="background" class="background-image">
             </div>
         </div>
     </div>

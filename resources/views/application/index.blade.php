@@ -1,31 +1,24 @@
+
 @extends('layouts.app')
 <style>
 @media (max-width: 578px) { 
     .table-responsive {
     overflow-x: auto;
-}
-.zmdi.zmdi-menu{
-            margin-left: 26px;
-            margin-top: 6px;
-        }
-#toggle_nav_btn{
-    padding-top:19px !important;
-}   
+    }.col-md-8{
+    padding-right: 7px !important;
+    }
     }
       @media (min-width: 1200px) { 
-        .zmdi.zmdi-menu{
-            margin-top: -16px;
-        }
-        .page-wrapper{
-            min-height:1020px !important;
-        }
         .mt-2{
             margin-top:4%;
+        }
+        .main-div{
+            padding-right:14px;
         }
     }
 </style>
 @section('content')
-    <div class="container">
+    <div class="main-div">
         <div class="row justify-content-center mb-3">
             <div class="col-md-8 text-right">
                 <a href="{{ route('application.create') }}" class="btn btn-success">Add New Application</a>
@@ -57,24 +50,17 @@
                                             @else
                                             <td>User Not Found</td>
                                             @endif
-                                            <td>{{ $application->type }}</td>
+                                            <td>{{ $application->type->name }}</td>
                                             <td>{{ $application->payment_status }}</td>
+                                             @if(!empty($application->status))
                                             <td>{{ $application->status }}</td>
+                                            @else
+                                            <td>Status Not Found</td>
+                                            @endif</td>
                                             <td> <!-- Added action column -->
                                                 <!-- Add your action buttons or links here -->
                                                 <a href="{{ route('application-details.show', ['application' => $application->id]) }}" class="btn btn-info">View Detail</a>
-                                                <form method="POST" id="delete" action="{{ route('application.proceed', $application->id) }}">
-                                                        @csrf
-                                                        <input type = "hidden" name = "application_id" value = "{{$application->id}}">
-                                                        <button type="submit" class="btn btn-success">Proceed Forward</button>
-                                                    </form>
-                                                <button type="button" class="btn btn-danger reject-button mt-2" data-application-id="{{ $application->id }}">Reject</button>
-                                                <form method="POST" id="reject-form-{{ $application->id }}" action="{{ route('application.reject') }}" style="display: none;">
-                                                    @csrf
-                                                    <input type="hidden" name="application_id" value="{{ $application->id }}">
-                                                    <input type="text" name="reason" class="form-control reason-input" placeholder="Enter rejection reason" required>
-                                                    <button type="submit" class="btn btn-danger mt-2">Confirm Rejection</button>
-                                                </form>
+                                                
                                             </td>
                                         </tr>
                                     @endforeach

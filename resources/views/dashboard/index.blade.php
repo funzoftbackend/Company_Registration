@@ -1,10 +1,5 @@
 @extends('layouts.app')
 <style>
-    @media (min-width: 1000px) and (max-width: 1200px) {
-        .zmdi.zmdi-menu {
-            margin-left: 9px !important;
-        }
-    }
     @media (min-width: 320px) and (max-width: 400px) {
         .left-img {
             margin-top: 8px !important;
@@ -12,8 +7,8 @@
         }
     }
     @media (min-width: 768px) {
-        .col-xs-6.text-center.pl-0.pr-0.data-wrap-right img {
-            margin-left: 70px !important;
+        .col-xs-6.text-center.pl-0.pr-0.data-wrap-right .img {
+            margin-left: 50px !important;
         }
 
         .row {
@@ -23,12 +18,12 @@
 
     @media (min-width: 1200px) {
         .col-xs-6.text-center.pl-0.pr-0.data-wrap-left {
-            padding-top: 54px;
+            padding-top: 50px !important;
         }
 
-        .page-wrapper {
-            min-height: 690px !important;
-        }
+        /*.page-wrapper {*/
+        /*    min-height: 690px !important;*/
+        /*}*/
 
         .nav.navbar-nav.side-nav.nicescroll-bar {
             margin-left: -6px !important;
@@ -63,8 +58,12 @@
             padding-bottom: -10px !important;
         }
 
-        .col-xs-6.text-center.pl-0.pr-0.data-wrap-right img {
-            margin-left: 45px !important;
+        .col-xs-6.text-center.pl-0.pr-0.data-wrap-right .img {
+            margin-left: 25px !important;
+        }
+        .application-div .img-responsive {
+            margin-top: 34px;
+            margin-left: 50px !important;
         }
 
         .zmdi.zmdi-menu {
@@ -100,8 +99,8 @@
 
     .col-lg-3 {
         border: none !important;
-        border-radius: 8px;
-        margin-left: 2% !important;
+        border-radius: 27px !important;
+        margin-left: 1% !important;
         margin-bottom: 2% !important;
     }
 
@@ -115,7 +114,7 @@
         font-family: 'Poppins', sans-serif !important;
         font-weight: 600 !important;
         font-size: 14px !important;
-        line-height: 21px !important;
+        line-height: 32px !important;
         letter-spacing: -1% !important;
         color: #1E4483 !important;
     }
@@ -124,33 +123,32 @@
         margin-left: 155px;
     }
 
-    .main-div {
-        height: 100% !important;
-        background: white !important;
-        border: 1px solid #1C71FF;
-        box-shadow: 0px 0px 20px 0px #1C71FF59;
-        padding-top: 60px !important;
-        border-radius: 20px !important;
-    }
+    
 
     .pt-25 {
         margin-top: -60px !important;
     }
 
     .img-responsive {
-        width: 65px;
-        height: 65px;
-        margin-left: 60px !important;
-        margin-top: 25px ;
+        width: 84px;
+        height: 84px;
+        margin-left: 37px !important;
+        margin-top: 17px ;
     }
 
     .application-div .img-responsive {
-        margin-top: 42px;
-        margin-left: 66px !important;
+        margin-top: 34px;
+        margin-left: 37px !important;
     }
 
     .page-wrapper {
         background: #e8f1fe !important;
+    }
+    .counter-anim{
+        font-size:30px !important;
+    }
+    .main-div{
+        height:100% !important;
     }
 </style>
 
@@ -375,7 +373,7 @@
                                                 <div class="col-xs-6 text-center pl-0 pr-0 data-wrap-left">
                                                     <span class="uppercase-font block font-13">Applications</span>
                                                     <span class="txt-dark1 block counter">
-                                                        <span class="counter-anim" style="font-weight: bolder;">{{ $totalapplications }}</span>
+                                                        <span class="counter-anim" style="font-weight: bolder; font-size:30px">{{ $totalapplications }}</span>
                                                     </span>
                                                 </div>
                                             </div>

@@ -1,7 +1,14 @@
 @extends('layouts.app')
-
+<style>
+    .mt-2{
+            margin-top:1%;
+        }
+    .col-md-6{
+        width:50%;
+    }
+</style>
 @section('content')
-    <div class="container">
+    <div class="main-div">
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
@@ -64,7 +71,10 @@
                                         <ul>
                                             @foreach ($partners as $partner)
                                                     <li>{{ $partner->name }}</li>
-                                                    <li><a href="{{ $partner->passport_url }}">{{ $partner->passport_url }}</a></li>
+                                        @php
+                                        $url = url('') . '/public/' . $partner->passport_url;
+                                        @endphp
+                                                    <li><a href="{{$url}}">{{ $partner->passport_url }}</a></li>
                                                     <li>{{$partner->designation}}</li>
                                             @endforeach
                                         </ul>
@@ -72,10 +82,51 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <a href="{{ route('application.index') }}"><button class = "btn btn-primary">Back To Application List</button></a>
+                            <div class="row">
+                                    <div class = "col-md-12">
+                                        <div class = "col-md-6">
+                                            <form method="POST" id="delete" action="{{ route('application.proceed', $selectedapplication->id) }}">
+                                                                    @csrf
+                                                                    <input type = "hidden" name = "application_id" value = "{{$selectedapplication->id}}">
+                                                                    <button type="submit" class="btn btn-success">Proceed Forward</button>
+                                            </form>
+                                        </div>
+                                         <div class = "col-md-6">
+                                            <button type="button" class="btn btn-danger reject-button mt-2" data-application-id="{{ $selectedapplication->id }}">Reject</button>
+                                                            <form method="POST" id="reject-form-{{ $selectedapplication->id }}" action="{{ route('application.reject') }}" style="display: none;">
+                                                                @csrf
+                                                                <input type="hidden" name="application_id" value="{{ $selectedapplication->id }}">
+                                                                <input type="text" name="reason" class="form-control reason-input" placeholder="Enter rejection reason" required>
+                                                                <button type="submit" class="btn btn-danger mt-2">Confirm Rejection</button>
+                                           
+                                        </div>
+                                    </div>
+                            </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+     <script>
+        // Show reason input when reject button is clicked
+        document.addEventListener('DOMContentLoaded', function () {
+            const rejectButtons = document.querySelectorAll('.reject-button');
+
+            rejectButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    const applicationId = this.getAttribute('data-application-id');
+                    const rejectForm = document.getElementById('reject-form-' + applicationId);
+                    const reasonInput = rejectForm.querySelector('.reason-input');
+
+                    // Toggle display of the reject form
+                    rejectForm.style.display = rejectForm.style.display === 'none' ? 'block' : 'none';
+
+                    // If the form is displayed, focus on the reason input
+                    if (rejectForm.style.display === 'block') {
+                        reasonInput.focus();
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

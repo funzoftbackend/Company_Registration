@@ -24,7 +24,7 @@
     }
 </style>
 @section('content')
-    <div class="container">
+    <div class="main-div">
         <div class="row justify-content-center mb-3">
             <div class="col-md-8 text-right">
                 <a href="{{ route('country.create') }}" class="btn btn-success">Add New Country</a>
@@ -42,9 +42,9 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th colspan = "3">Flag</th>
-                                        <th colspan = "3">Services</th>
-                                        <th colspan = "3">Action</th>
+                                        <th>Flag</th>
+                                        <th>Services</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -53,9 +53,9 @@
                                     
                                         <tr>
                                                 <td>{{ $country->name }}</td>
-                                                 <td colspan = "3"><img src = "{{ asset($country->flag) }}" ></td>
+                                                 <td ><img src = "{{ asset($country->flag) }}" ></td>
                                                   @if(!empty($country->domains))
-                                                 <td colspan = "3">
+                                                 <td >
                                                        @php
                                                     $displayedServices = [];
                                                     @endphp
@@ -72,9 +72,9 @@
                                                     @endforeach
                                                  </td>
                                              @else
-                                                <td colspan = "3">Service Not Found</td>
+                                                <td >Service Not Found</td>
                                              @endif
-                                            <td colspan = "3"> <!-- Added action column -->
+                                            <td > <!-- Added action column -->
                                                 <!-- Add your action buttons or links here -->
                                                 <a href="{{ route('country.edit', ['country_id' => $country->id]) }}" class="btn btn-primary">Edit</a>
                                                 <form method="POST" id="delete" action="{{ route('country.destroy', $country->id) }}">

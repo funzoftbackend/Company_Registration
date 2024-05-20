@@ -26,7 +26,7 @@
     }
 </style>
 @section('content')
-    <div class="container">
+    <div class="main-div">
         <div class="row justify-content-center mb-3">
             <div class="col-md-8 text-right">
                 <a href="{{ route('partner.create') }}" class="btn btn-success">Add New Partner</a>

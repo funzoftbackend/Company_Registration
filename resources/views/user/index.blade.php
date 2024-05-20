@@ -6,25 +6,10 @@
     .table-responsive {
     overflow-x: auto;
 }
-        .zmdi.zmdi-menu{
-            margin-left: 26px;
-            margin-top: 6px;
-        }
-    #toggle_nav_btn{
-    padding-top:19px !important;
-    }   
-    }
-    @media (min-width: 1200px) { 
-        .zmdi.zmdi-menu{
-            margin-top: -16px;
-        }
-        .page-wrapper{
-            min-height:1020px !important;
-        }
-    }
+
 </style>
 @section('content')
-    <div class="container">
+    <div class="main-div">
         <div class="row justify-content-center mb-3">
             <div class="col-md-8 text-right">
                 <a href="{{ route('user.create') }}" class="btn btn-success">Add New User</a>
@@ -61,7 +46,12 @@
                                             <td>{{ $user->email }}</td>
                                             <td>{{ ucfirst($user->user_role) }}</td>
                                             <td>{{ $user->mobile_no }}</td>
-                                            <td>{{ ucfirst($user->country) }}</td>
+                                            @if(!empty($user->country->name))
+                                            <td>{{ ucfirst($user->country->name)
+                                            }}</td>
+                                            @else
+                                            <td>Country Not Found</td>
+                                            @endif
                                             <td>{{ ucfirst($user->package_name) }}</td>
                                             <td>{{ $user->package_price }}</td>
                                             <td>{{ $user->passport_one_img }}</td>

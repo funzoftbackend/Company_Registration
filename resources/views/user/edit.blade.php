@@ -7,21 +7,9 @@
         }
         
     }
-    @media (min-width: 1200px) { 
-        .zmdi.zmdi-menu{
-            margin-top: -16px;
-        }
-        .page-wrapper{
-            min-height:1020px !important;
-        }
-    }
     @media (max-width:578px) { 
         .form-row{
             width: 1170px !important;
-        }
-        .zmdi.zmdi-menu{
-            margin-left: 26px;
-            margin-top: 26px;
         }
         .m-1 {
         margin-left: 1% !important;
@@ -38,7 +26,7 @@
     }
 </style>
 @section('content')
-    <div class="container">
+    <div class="main-div">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">

@@ -46,7 +46,7 @@
     }
 </style>
 @section('content')
-    <div class="container">
+    <div class="main-div">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -89,7 +89,7 @@
                                     <div class = "col-md-6">
                                     <div class="form-group">
                                         <label for="payment_status">Payment Status</label>
-                                        <input id="payment_status" type="text" class="m-6 text-center form-control" placeholder="Payment Status" name="payment_status" value="{{ $application->payment_status }}" required autofocus>
+                                        <input id="payment_status" type="text" class="m-6 text-center form-control" placeholder="Payment Status" name="payment_status" value="{{ $application->payment_status }}" autofocus>
                                         @error('payment_status')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Models\DomainSteps;
 use App\Models\User;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Mail;
@@ -15,6 +16,9 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $users = User::where('id','!=',$user->id)->get();
+        foreach($users as $user){
+            $user->country = Country::select('name')->find($user->country_id);
+        }
         return view('user.index', compact('users'));
     }
 
