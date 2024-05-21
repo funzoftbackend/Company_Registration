@@ -1,20 +1,31 @@
 
 @extends('layouts.app')
 <style>
-@media (max-width: 578px) { 
+@media (max-width: 578px) {
     .table-responsive {
     overflow-x: auto;
     }.col-md-8{
     padding-right: 7px !important;
     }
     }
-      @media (min-width: 1200px) { 
+      @media (min-width: 1200px) {
         .mt-2{
             margin-top:4%;
         }
         .main-div{
             padding-right:14px;
         }
+    }
+    .btn-info {
+        color: #fff;
+        background-color: #17a2b8 !important;
+        border-color: #17a2b8 !important;
+    }
+
+    .btn-info:hover {
+        color: #fff !important;
+        background-color: #138496 !important;
+        border-color: #117a8b !important;
     }
 </style>
 @section('content')
@@ -60,7 +71,7 @@
                                             <td> <!-- Added action column -->
                                                 <!-- Add your action buttons or links here -->
                                                 <a href="{{ route('application-details.show', ['application' => $application->id]) }}" class="btn btn-info">View Detail</a>
-                                                
+
                                             </td>
                                         </tr>
                                     @endforeach
