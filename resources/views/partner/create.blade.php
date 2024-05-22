@@ -138,7 +138,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="DOB">DOB</label>
-                                        <input id="DOB" type="date" class="m-77 text-center form-control" placeholder="DOB" name="DOB" value="{{ old('DOB') }}" required>
+                                        <input id="DOB" type="text" class="m-77 text-center form-control" placeholder="DOB" name="DOB" value="{{ old('DOB') }}" required>
                                         @error('DOB')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -160,7 +160,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="passport_date_of_expiry">Passport Expiry Date</label>
-                                        <input id="passport_date_of_expiry" type="date" class="m-77 text-center form-control" placeholder="Passport Expiry Date" name="passport_date_of_expiry" value="{{ old('passport_date_of_expiry') }}" required>
+                                        <input id="passport_date_of_expiry" type="text" class="m-77 text-center form-control" placeholder="Passport Expiry Date" name="passport_date_of_expiry" value="{{ old('passport_date_of_expiry') }}" required>
                                         @error('passport_date_of_expiry')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -171,7 +171,7 @@
                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="passport_date_of_issue">Passport Issue Date</label>
-                                        <input id="passport_date_of_issue" type="date" class="m-77 text-center form-control" placeholder="Passport Issue Date" name="passport_date_of_issue" value="{{ old('passport_date_of_issue') }}" required>
+                                        <input id="passport_date_of_issue" type="text" class="m-77 text-center form-control" placeholder="Passport Issue Date" name="passport_date_of_issue" value="{{ old('passport_date_of_issue') }}" required>
                                         @error('passport_date_of_issue')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

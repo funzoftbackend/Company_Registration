@@ -32,9 +32,16 @@
     <div class="main-div">
         <div class="row justify-content-center mb-3">
             <div class="col-md-8 text-right">
+                <select id="filter-dropdown" class="form-control">
+                    <option value="">All</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="not_rejected">Not Rejected</option>
+                </select>
                 <a href="{{ route('application.create') }}" class="btn btn-success">Add New Application</a>
+                 
             </div>
         </div>
+       
 
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -43,7 +50,7 @@
 
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table">
+                            <table id="applications-table" class="table">
                                 <thead>
                                     <tr>
                                         <th>User</th>
@@ -83,27 +90,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        // Show reason input when reject button is clicked
-        document.addEventListener('DOMContentLoaded', function () {
-            const rejectButtons = document.querySelectorAll('.reject-button');
-
-            rejectButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    const applicationId = this.getAttribute('data-application-id');
-                    const rejectForm = document.getElementById('reject-form-' + applicationId);
-                    const reasonInput = rejectForm.querySelector('.reason-input');
-
-                    // Toggle display of the reject form
-                    rejectForm.style.display = rejectForm.style.display === 'none' ? 'block' : 'none';
-
-                    // If the form is displayed, focus on the reason input
-                    if (rejectForm.style.display === 'block') {
-                        reasonInput.focus();
-                    }
-                });
-            });
-        });
-    </script>
 @endsection

@@ -37,7 +37,12 @@
             font-family: 'Inter', sans-serif !important;
             font-weight: 500;
         }
-       
+        .mb-2{
+            margin-top: -5%;
+        }
+          .ml-2 {
+            margin-left:2%;
+        }
         .left-img {
             height: 38px !important;
             width: 38px !important;
@@ -817,6 +822,34 @@
     </script>
     <script>
         $(document).ready(function() {
+            var table = $('#applications-table').DataTable();
+              $('#filter-dropdown').change(function() {
+                    var filter = $(this).val();
+            
+                    $.ajax({
+                        url: '{{ route('applications.filter') }}',
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            filter: filter
+                        },
+                        success: function(response) {
+                            // Clear the DataTable
+                            table.clear().draw();
+            
+                            // Add new data to the DataTable
+                            $.each(response, function(index, application) {
+                                table.row.add([
+                                    application.user ? application.user.name : 'User Not Found',
+                                    application.type ? application.type.name : 'Type Not Found',
+                                    application.payment_status,
+                                    application.status ? application.status : 'Status Not Found',
+                                    '<a href="/application-details/' + application.id + '" class="btn btn-info">View Detail</a>'
+                                ]).draw();
+                            });
+                        }
+                    });
+                });
             $('.table').DataTable();
         });
     </script>
