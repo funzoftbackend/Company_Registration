@@ -124,6 +124,61 @@
                                         @enderror
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="nationality">Nationality</label>
+                                        <input id="nationality" type="text" class="m-77 text-center form-control" placeholder="Nationality" name="nationality" value="{{ old('nationality') }}" required>
+                                        @error('nationality')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="DOB">DOB</label>
+                                        <input id="DOB" type="date" class="m-77 text-center form-control" placeholder="DOB" name="DOB" value="{{ old('DOB') }}" required>
+                                        @error('DOB')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="passport_number">Passport Number</label>
+                                        <input id="passport_number" type="text" class="m-77 text-center form-control" placeholder="Passport Number" name="passport_number" value="{{ old('passport_number') }}" required>
+                                        @error('passport_number')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="passport_date_of_expiry">Passport Expiry Date</label>
+                                        <input id="passport_date_of_expiry" type="date" class="m-77 text-center form-control" placeholder="Passport Expiry Date" name="passport_date_of_expiry" value="{{ old('passport_date_of_expiry') }}" required>
+                                        @error('passport_date_of_expiry')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                               <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="passport_date_of_issue">Passport Issue Date</label>
+                                        <input id="passport_date_of_issue" type="date" class="m-77 text-center form-control" placeholder="Passport Issue Date" name="passport_date_of_issue" value="{{ old('passport_date_of_issue') }}" required>
+                                        @error('passport_date_of_issue')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Create</button>
                         </form>

@@ -263,6 +263,11 @@ class APIController extends Controller
                 'suggested_names' => 'required|string',
                 'activities' => 'required|string',
                 'partners_name' => 'required|string',
+                'partner_nationality' => 'required|string',
+                'partner_passport_no' => 'required|string',
+                'partner_passport_date_of_expiry' => 'required|string',
+                'partner_date_of_birth' => 'required|string',
+                'partner_passport_date_of_issue' => 'required|string',
                 'partners_url' => 'required|string',
                 'partners_designation' => 'required|string',
                 'type_id' => 'required',
@@ -308,6 +313,11 @@ class APIController extends Controller
             $partnersNames = explode(',', $request->partners_name);
             $partnersURLs = explode(',', $request->partners_url);
             $partnersDesignations = explode(',', $request->partners_designation);
+            $partner_nationality = explode(',', $request->partner_nationality);
+            $partner_date_of_birth = explode(',', $request->partner_date_of_birth);
+            $partner_passport_no = explode(',', $request->partner_passport_no);
+            $partner_passport_date_of_expiry = explode(',', $request->partner_passport_date_of_expiry);
+            $partner_passport_date_of_issue = explode(',', $request->partner_passport_date_of_issue);
             foreach ($partnersNames as $index => $partnerName) {
                 if($partnersDesignations[$index] != 'Others'){
                 $designation = Designation::firstOrCreate(['name' => $partnersDesignations[$index]]);
@@ -316,6 +326,11 @@ class APIController extends Controller
                 $partner->company_id = $company->id;
                 $partner->name = $partnerName;
                 $partner->passport_url = $partnersURLs[$index];
+                $partner->nationality = $partner_nationality[$index];
+                $partner->DOB = $partner_date_of_birth[$index];
+                $partner->passport_number = $partner_passport_no[$index];
+                $partner->passport_date_of_expiry = $partner_passport_date_of_expiry[$index];
+                $partner->passport_date_of_issue = $partner_passport_date_of_issue[$index];
                 $partner->designation = $partnersDesignations[$index];
                 $partner->save();
             }
@@ -339,6 +354,11 @@ class APIController extends Controller
         'suggested_names' => 'required|string',
         'activities' => 'required|string',
         'partners_name' => 'required|string',
+        'partner_nationality' => 'required|string',
+        'partner_passport_no' => 'required|string',
+        'partner_passport_date_of_expiry' => 'required|string',
+        'partner_date_of_birth' => 'required|string',
+        'partner_passport_date_of_issue' => 'required|string',
         'partners_url' => 'required|string',
         'partners_designation' => 'required|string',
         'type_id' => 'required',
@@ -386,19 +406,25 @@ class APIController extends Controller
     $partnersNames = explode(',', $request->partners_name);
     $partnersURLs = explode(',', $request->partners_url);
     $partnersDesignations = explode(',', $request->partners_designation);
-
-    // Delete old partners
+    $partner_nationality = explode(',', $request->partner_nationality);
+    $partner_date_of_birth = explode(',', $request->partner_date_of_birth);
+    $partner_passport_no = explode(',', $request->partner_passport_no);
+    $partner_passport_date_of_expiry = explode(',', $request->partner_passport_date_of_expiry);
+    $partner_passport_date_of_issue = explode(',', $request->partner_passport_date_of_issue);
     Partner::where('company_id', $company->id)->delete();
-
-    // Save new partners
     foreach ($partnersNames as $index => $partnerName) {
-        if ($partnersDesignations[$index] != 'Others') {
-            $designation = Designation::firstOrCreate(['name' => $partnersDesignations[$index]]);
+        if($partnersDesignations[$index] != 'Others'){
+        $designation = Designation::firstOrCreate(['name' => $partnersDesignations[$index]]);
         }
         $partner = new Partner();
         $partner->company_id = $company->id;
         $partner->name = $partnerName;
         $partner->passport_url = $partnersURLs[$index];
+        $partner->nationality = $partner_nationality[$index];
+        $partner->DOB = $partner_date_of_birth[$index];
+        $partner->passport_number = $partner_passport_no[$index];
+        $partner->passport_date_of_expiry = $partner_passport_date_of_expiry[$index];
+        $partner->passport_date_of_issue = $partner_passport_date_of_issue[$index];
         $partner->designation = $partnersDesignations[$index];
         $partner->save();
     }
@@ -470,11 +496,20 @@ class APIController extends Controller
                 $partnerNames = [];
                 $partnerPassports = [];
                 $partnerDesignations = [];
-    
+                $partner_nationality = [];
+                $partner_date_of_birth = [];
+                $partner_passport_no = [];
+                $partner_passport_date_of_expiry = [];
+                $partner_passport_date_of_issue = [];
                 foreach ($partners as $partner) {
                     $partnerNames[] = $partner->name;
                     $partnerPassports[] = $partner->passport_url;
                     $partnerDesignations[] = $partner->designation;
+                    $partner_nationality[] = $partner->nationality;
+                    $partner_date_of_birth[] = $partner->DOB;
+                    $partner_passport_no[] = $partner->passport_number;
+                    $partner_passport_date_of_expiry[] = $partner->passport_date_of_expiry;
+                    $partner_passport_date_of_issue[] = $partner->passport_date_of_issue;
                 }
     
                 $company->partner_names = implode(',', $partnerNames);

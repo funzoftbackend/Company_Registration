@@ -47,6 +47,11 @@
                                         <th>Name</th>
                                         <th>Passport Url</th>
                                         <th>Designation</th>
+                                        <th>Nationality</th>
+                                        <th>DOB</th>
+                                        <th>Passport Number</th>
+                                        <th>Passport Expiry Date</th>
+                                        <th>Passport Issue Date</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -58,6 +63,11 @@
                                             <td>{{ ucfirst($partner->name) }}</td>
                                             <td class="text-center">{{ $partner->passport_url }}</td>
                                             <td>{{ $partner->designation }}</td>
+                                            <td>{{ $partner->nationality }}</td>
+                                            <td>{{ $partner->DOB }}</td>
+                                            <td>{{ $partner->passport_number }}</td>
+                                            <td>{{ $partner->passport_date_of_expiry }}</td>
+                                            <td>{{ $partner->passport_date_of_issue }}</td>
                                             <td> <!-- Added action column -->
                                                 <!-- Add your action buttons or links here -->
                                                 <a href="{{ route('partner.edit', ['partner_id' => $partner->id]) }}" class="btn btn-primary">Edit</a>

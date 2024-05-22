@@ -13,6 +13,12 @@ class Partner extends Model
         'company_id',
         'name',
         'passport_url',
+        'designation',
+        'nationality',
+        'DOB',
+        'passport_number',
+        'passport_date_of_expiry',
+        'passport_date_of_issue'
     ];
 
     public function company()
