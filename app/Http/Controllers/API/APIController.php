@@ -515,6 +515,11 @@ class APIController extends Controller
                 $company->partner_names = implode(',', $partnerNames);
                 $company->partner_passports = implode(',', $partnerPassports);
                 $company->partner_designations = implode(',', $partnerDesignations);
+                $company->partner_nationality = implode(',', $partner_nationality);
+                $company->partner_date_of_birth = implode(',', $partner_date_of_birth);
+                $company->partner_passport_no = implode(',', $partner_passport_no);
+                $company->partner_passport_date_of_expiry = implode(',', $partner_passport_date_of_expiry);
+                $company->partner_passport_date_of_issue = implode(',', $partner_passport_date_of_issue);
             }
         }
         return response()->json(['application' => $applications,'success' => 'true','message' => 'Application Details Fetched Successfully']);

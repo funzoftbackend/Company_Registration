@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 class ApplicationController extends Controller
 {
-    public function index()
+   public function index()
     {
         $user = Auth::user();
         $applications = Application::with('user')->get();
@@ -44,6 +44,42 @@ class ApplicationController extends Controller
         return view('application.index', ['applications' => $filteredApplications]);
     }
 
+    public function filterApplications(Request $request)
+    {
+        $user = Auth::user();
+        $applicationsQuery = Application::with('user');
+        
+        if ($request->filter == 'rejected') {
+            $applicationsQuery->where('is_rejected', 1);
+        } elseif ($request->filter == 'not_rejected') {
+            $applicationsQuery->where('is_rejected', 0);
+        }
+    
+        $applications = $applicationsQuery->get();
+    
+        foreach ($applications as $application) {
+            $application_done_by = User::find($application->user_id);
+            $countryDomain = CountryDomain::where('domain_id', $application->type)
+                            ->where('country_id', $user->user_role != 'superadmin' ? $user->country_id : $application_done_by->country_id)
+                            ->first();
+    
+            if ($countryDomain) {
+                $status = DomainSteps::find($application->status);
+                $application->status = $status ? $status->name : null;
+                $application->type = ServiceDomain::select('name')->find($application->type);
+            }
+        }
+    
+        $filteredApplications = $applications->filter(function($application) use ($user) {
+            if ($user->user_role != 'superadmin') {
+                return $application->status == $user->user_role;
+            } else {
+                return true;
+            }
+        });
+    
+        return response()->json($filteredApplications);
+    }
 
     public function create()
     {
