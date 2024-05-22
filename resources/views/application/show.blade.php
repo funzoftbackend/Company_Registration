@@ -188,12 +188,14 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="btn-container">
+                                    @IF($selectedapplication->is_rejected == 0)
                                     <form method="POST" id="delete"
                                         action="{{ route('application.proceed', $selectedapplication->id) }}">
                                         @csrf
                                         <input type="hidden" name="application_id" value="{{ $selectedapplication->id }}">
                                         <button type="submit" class="btn btn-success">Proceed Forward</button>
                                     </form>
+                                    @endif
                                     <div id="rejectModal_{{ $selectedapplication->id }}" class="modal" tabindex="-1"
                                         role="dialog">
                                         <div class="modal-dialog" role="document">

@@ -355,7 +355,6 @@ class APIController extends Controller
 
     $domain = ServiceDomain::find($request->type_id);
     $countrydomain = CountryDomain::where('domain_id', $domain->id)->where('country_id', $user->country_id)->first();
-    $status = DomainSteps::where('country_domain_id', $countrydomain->id)->first();
     
     $application = Application::find($id);
     if (!$application) {
@@ -365,9 +364,7 @@ class APIController extends Controller
     $application->type = $request->type_id;
     $application->payment_status = $request->payment_status ?? $application->payment_status;
     $application->is_rejected = 0;
-    $application->status = $status->id;
     $application->save();
-    
     $company = $application->company;
     if (!$company) {
         $company = new Company();
@@ -459,9 +456,30 @@ class APIController extends Controller
             $domain = ServiceDomain::find($application->type);
             $countryDomain = CountryDomain::where('domain_id',$domain->id)->where('country_id',$user->country_id)->first();
             $application->steps = DomainSteps::where('country_domain_id',$countryDomain->id)->get();
+            $application_status = DomainSteps::find($application->status);
+            $application->status = $application_status->level;
             $reason = ApplicationReason::where('application_id',$application->id)->latest()->first();
-            if($reason){
+            if($reason && $application->is_rejected == 1){
             $application->reason = $reason->reason;
+            }else{
+            $application->reason = '';
+            }
+            $company = $application->company;
+            if ($company) {
+                $partners = Partner::where('company_id', $company->id)->get();
+                $partnerNames = [];
+                $partnerPassports = [];
+                $partnerDesignations = [];
+    
+                foreach ($partners as $partner) {
+                    $partnerNames[] = $partner->name;
+                    $partnerPassports[] = $partner->passport_url;
+                    $partnerDesignations[] = $partner->designation;
+                }
+    
+                $company->partner_names = implode(',', $partnerNames);
+                $company->partner_passports = implode(',', $partnerPassports);
+                $company->partner_designations = implode(',', $partnerDesignations);
             }
         }
         return response()->json(['application' => $applications,'success' => 'true','message' => 'Application Details Fetched Successfully']);

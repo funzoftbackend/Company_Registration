@@ -13,7 +13,8 @@ class DomainSteps extends Authenticatable
     protected $table = 'domain_steps';
     protected $fillable = [
         'name',
-        'country_domain_id'
+        'country_domain_id',
+        'level'
     ];
     public function domain()
     {

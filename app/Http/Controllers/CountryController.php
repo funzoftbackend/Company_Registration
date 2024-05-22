@@ -168,10 +168,11 @@ class CountryController extends Controller
                                         ->where('domain_id', $domain)
                                         ->get();
             foreach($countrydomains as $countrydomain){
-            foreach ($request->input('steps') as $step) {
+            foreach ($request->input('steps') as $index => $step) {
                 $serviceStep = new DomainSteps();
                 $serviceStep->country_domain_id = $countrydomain->id;
                 $serviceStep->name = $step;
+                $serviceStep->level = $index + 1;
                 $serviceStep->save();
             }
             }
