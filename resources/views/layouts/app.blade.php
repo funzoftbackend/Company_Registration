@@ -844,7 +844,7 @@
                                     application.type ? application.type.name : 'Type Not Found',
                                     application.payment_status,
                                     application.status ? application.status : 'Status Not Found',
-                                    '<a href="/application-details/' + application.id + '" class="btn btn-info">View Detail</a>'
+                                    '<a href="/application/' + application.id + '" class="btn btn-info">View Detail</a>'
                                 ]).draw();
                             });
                         }
