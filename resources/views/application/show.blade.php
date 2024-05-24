@@ -83,15 +83,18 @@
             margin-left: 0 !important;
             width: 100% !important;
         }
+
         .btn-danger {
             height: 50px;
         }
+
         .btn-container {
             width: 100%;
             flex-direction: column;
             align-items: flex-start;
         }
-        .main-div{
+
+        .main-div {
             height: 100% !important;
         }
 
@@ -104,6 +107,7 @@
         .modal-content {
             width: 60%;
         }
+
         .btn-primary {
             margin-top: 10px !important;
         }
@@ -111,127 +115,117 @@
 </style>
 
 @section('content')
-    <div class="main-div">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Application Details</div>
+<div class="main-div">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Application Details</div>
 
-                    <div class="card-body">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <th>User Name</th>
-                                    @if ($user)
-                                        <td>{{ $user->name }}</td>
-                                    @else
-                                        <td>User Not Found</td>
-                                    @endif
-                                </tr>
-                                <tr>
-                                    <th>Company Name</th>
-                                    <td>{{ $company->name }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Company Capital</th>
-                                    <td>{{ $company->capital }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Company Currency</th>
-                                    <td>{{ $company->currency }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Company Type</th>
-                                    <td>{{ $company->company_type }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Number of Partners</th>
-                                    <td>{{ $company->number_of_partners }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Owner Nationality</th>
-                                    <td>{{ $company->owner_nationality }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Company Status</th>
-                                    <td>{{ $company->status }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Company Suggested Name</th>
-                                    <td>{{ $company->suggested_names }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Financial Year Ending Date</th>
-                                    <td>{{ $company->financial_year_ending_date }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Company Activities</th>
-                                    <td>{{ $company->activities }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Partners Details</th>
-                                    <td>
-                                        <ul>
-                                            @foreach ($partners as $partner)
-                                                <li>{{ $partner->name }}</li>
-                                                @php
-                                                    $url = url('') . '/public/' . $partner->passport_url;
-                                                @endphp
-                                                <li><a href="{{ $url }}">{{ $partner->passport_url }}</a></li>
-                                                <li>{{ $partner->designation }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="btn-container">
-                                    @IF($selectedapplication->is_rejected == 0)
-                                    <form method="POST" id="delete"
-                                        action="{{ route('application.proceed', $selectedapplication->id) }}">
-                                        @csrf
-                                        <input type="hidden" name="application_id" value="{{ $selectedapplication->id }}">
-                                        <button type="submit" class="btn btn-success">Proceed Forward</button>
-                                    </form>
-                                    @endif
-                                    <div id="rejectModal_{{ $selectedapplication->id }}" class="modal" tabindex="-1"
-                                        role="dialog">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Rejection Reason</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border: none; background: none;">
-                                                        <span aria-hidden="true">×</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form method="POST" id="reject-form-{{ $selectedapplication->id }}"
-                                                        action="{{ route('application.reject') }}">
-                                                        @csrf
-                                                        <input type="hidden" name="application_id"
-                                                            value="{{ $selectedapplication->id }}">
-                                                        <div class="form-group">
-                                                            <textarea name="reason" class="form-control" id="reason" placeholder="Enter rejection reason"
-                                                                style="width: 100%; height: 100px;" required></textarea>
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-primary"
-                                                        data-dismiss="modal">Cancel</button>
-                                                    <button type="button" class="btn btn-danger mt-2"
-                                                        onclick="submitRejectForm('{{ $selectedapplication->id }}')">Confirm
-                                                        Rejection</button>
-                                                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <th>User Name</th>
+                                @if ($user)
+                                    <td>{{ $user->name }}</td>
+                                @else
+                                    <td>User Not Found</td>
+                                @endif
+                            </tr>
+                            <tr>
+                                <th>Company Name</th>
+                                <td>{{ $company->name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Company Capital</th>
+                                <td>{{ $company->capital }}</td>
+                            </tr>
+                            <tr>
+                                <th>Company Currency</th>
+                                <td>{{ $company->currency }}</td>
+                            </tr>
+                            <tr>
+                                <th>Company Type</th>
+                                <td>{{ $company->company_type }}</td>
+                            </tr>
+                            <tr>
+                                <th>Number of Partners</th>
+                                <td>{{ $company->number_of_partners }}</td>
+                            </tr>
+                            <tr>
+                                <th>Owner Nationality</th>
+                                <td>{{ $company->owner_nationality }}</td>
+                            </tr>
+                            <tr>
+                                <th>Company Status</th>
+                                <td>{{ $company->status }}</td>
+                            </tr>
+                            <tr>
+                                <th>Company Suggested Name</th>
+                                <td>{{ $company->suggested_names }}</td>
+                            </tr>
+                            <tr>
+                                <th>Financial Year Ending Date</th>
+                                <td>{{ $company->financial_year_ending_date }}</td>
+                            </tr>
+                            <tr>
+                                <th>Company Activities</th>
+                                <td>{{ $company->activities }}</td>
+                            </tr>
+                            <tr>
+                                <th>Partners Details</th>
+                                <td>
+                                    <ul>
+                                        @foreach ($partners as $partner)
+                                            <li>{{ $partner->name }}</li>
+                                            @php
+                                                $url = url('') . '/public/' . $partner->passport_url;
+                                            @endphp
+                                            <li><a href="{{ $url }}">{{ $partner->passport_url }}</a></li>
+                                            <li>{{ $partner->designation }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="btn-container">
+                                @if($selectedapplication->is_rejected == 0)
+                                <form method="POST" id="delete" action="{{ route('application.proceed', $selectedapplication->id) }}">
+                                    @csrf
+                                    <input type="hidden" name="application_id" value="{{ $selectedapplication->id }}">
+                                    <button type="submit" class="btn btn-success">Proceed Forward</button>
+                                </form>
+                                @endif
+                                <div id="rejectModal_{{ $selectedapplication->id }}" class="modal" tabindex="-1" role="dialog">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Rejection Reason</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border: none; background: none;">
+                                                    <span aria-hidden="true">×</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form method="POST" id="reject-form-{{ $selectedapplication->id }}" action="{{ route('application.reject') }}">
+                                                    @csrf
+                                                    <input type="hidden" name="application_id" value="{{ $selectedapplication->id }}">
+                                                    <div class="form-group">
+                                                        <textarea name="reason" class="form-control reason-input" placeholder="Enter rejection reason" style="width: 100%; height: 100px;" required></textarea>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+                                                <button type="button" class="btn btn-danger mt-2" onclick="submitRejectForm('{{ $selectedapplication->id }}')">Confirm Rejection</button>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <button type="button" class="btn btn-danger reject-button" data-toggle="modal"
-                                        data-target="#rejectModal_{{ $selectedapplication->id }}">Reject</button>
                                 </div>
+
+                                <button type="button" class="btn btn-danger reject-button" data-application-id="{{ $selectedapplication->id }}" data-toggle="modal" data-target="#rejectModal_{{ $selectedapplication->id }}">Reject</button>
                             </div>
                         </div>
                     </div>
@@ -239,31 +233,35 @@
             </div>
         </div>
     </div>
-    <script>
-        function submitRejectForm(applicationId) {
-            // Submit the form when the Confirm Rejection button is clicked
+</div>
+
+<script>
+    function submitRejectForm(applicationId) {
+        var reasonInput = document.querySelector('#reject-form-' + applicationId + ' .reason-input');
+        if (reasonInput.value.trim() === '') {
+            alert('Please enter a rejection reason first.');
+        } else {
             document.getElementById('reject-form-' + applicationId).submit();
         }
-        // Show reason input when reject button is clicked
-        document.addEventListener('DOMContentLoaded', function() {
-            const rejectButtons = document.querySelectorAll('.reject-button');
+    }
 
-            rejectButtons.forEach(function(button) {
-                button.addEventListener('click', function() {
-                    const applicationId = this.getAttribute('data-application-id');
-                    const rejectForm = document.getElementById('reject-form-' + applicationId);
-                    const reasonInput = rejectForm.querySelector('.reason-input');
+    document.addEventListener('DOMContentLoaded', function() {
+        const rejectButtons = document.querySelectorAll('.reject-button');
 
-                    // Toggle display of the reject form
-                    rejectForm.style.display = rejectForm.style.display === 'none' ? 'block' :
-                        'none';
-
-                    // If the form is displayed, focus on the reason input
-                    if (rejectForm.style.display === 'block') {
-                        reasonInput.focus();
-                    }
-                });
+        rejectButtons.forEach(function(button) {
+            button.addEventListener('click', function() {
+                const applicationId = this.getAttribute('data-application-id');
+                const modal = document.getElementById('rejectModal_' + applicationId);
+                modal.style.display = 'block';
             });
         });
-    </script>
+
+        document.querySelectorAll('.close, .btn-primary').forEach(function(element) {
+            element.addEventListener('click', function() {
+                const modal = this.closest('.modal');
+                modal.style.display = 'none';
+            });
+        });
+    });
+</script>
 @endsection

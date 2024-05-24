@@ -72,7 +72,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Create Transaction</div>
+                    <div class="card-header">Update Transaction</div>
 
                     <div class="card-body">
                         <form method="POST" action="{{ route('transaction.update',$transaction->id) }} ">
@@ -138,7 +138,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary">Create</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </form>
                     </div>
                 </div>

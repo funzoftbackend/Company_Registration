@@ -15,6 +15,7 @@ use App\Models\ApplicationReason;
 use App\Models\CountryDomain;
 use App\Models\ServiceDomain;
 use App\Models\DomainSteps;
+use App\Models\DomainPrices;
 use App\Models\Service;
 use App\Mail\UserEmail;
 use App\Models\Application;
@@ -250,7 +251,8 @@ class APIController extends Controller
     public function save_details(Request $request)
     {
         $user = Auth::user();
-        // if ($request->application_type == "company_registration") {
+        $domain = ServiceDomain::find($request->type_id);
+        if ($domain->service_id == 1) {
             $validator = Validator::make($request->all(), [
                 'company_name' => 'required|string|max:255',
                 'capital' => 'required',
@@ -336,6 +338,27 @@ class APIController extends Controller
             }
     
             return response()->json(['application_id' => $application->id, 'success' => 'true', 'message' => 'Details Saved Successfully']);
+        }else{
+           $validator = Validator::make($request->all(), [
+                'CRN' => 'required',
+                'type_id' => 'required'
+            ]);
+            if ($validator->fails()) {
+                return response()->json(['success' => 'false', 'message' => $validator->errors()->first()], 422);
+            }
+            $company = Company::where('CRN',$request->CRN)->first();
+            if($company){
+            $user = Auth::user();
+            $domain = ServiceDomain::find($request->type_id);
+            $countrydomain = CountryDomain::where('domain_id',$domain->id)->where('country_id',$user->country_id)->first();
+            $status = DomainSteps::where('country_domain_id',$countrydomain->id)->first();
+            $application = new Application();
+            $application->user_id = $user->id;
+            $application->type = $request->type_id;
+            $application->status = $status->id;
+            $application->save(); 
+            }
+        }
        
     }
     public function update_details(Request $request, $id)
@@ -543,6 +566,22 @@ class APIController extends Controller
      public function get_services()
     {
         $services = Service::with('domains')->get();
+        foreach($services as $service){
+            foreach($service->domains as $domain){
+                $standard_price = DomainPrices::select('price')->where('domain_id',$domain->id)->where('package_name','Standard')->first();
+                $premium_price = DomainPrices::select('price')->where('domain_id',$domain->id)->where('package_name','Premium')->first();
+                $gold_price = DomainPrices::select('price')->where('domain_id',$domain->id)->where('package_name','Gold')->first();
+                if($standard_price){
+                $domain->standard_price = $standard_price->price;
+                }
+                if($premium_price){
+                $domain->premium_price = $premium_price->price;
+                }
+                if($gold_price){
+                $domain->gold_price = $gold_price->price;
+                }
+            }
+        }
         
         return response()->json(['services' => $services,'success' => 'true','message' => 'Services Fetched Successfully']);
     }

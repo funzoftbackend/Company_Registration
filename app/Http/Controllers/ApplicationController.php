@@ -134,11 +134,26 @@ class ApplicationController extends Controller
         $selectedapplication->status = $nextStep->id;
         $selectedapplication->save();
         }else{
-            $company = Company::where('application_id',$application->id)->first();
-            $company->status = 'registered';
-            $company->save();
+          return redirect()->route('application.enter_crn', ['application' => $application->id]);
         }
         return redirect()->route('application.index')->with('success', 'Application Forwarded Successfully.');
+    }
+        public function enterCrnForm(Application $application)
+    {
+        return view('application.enter_crn', compact('application'));
+    }
+
+    public function saveCrn(Request $request, Application $application)
+    {
+        $request->validate([
+            'CRN' => 'required',
+        ]);
+        $company = Company::where('application_id', $application->id)->first();
+        $company->CRN = $request->CRN;
+        $company->status = 'registered';
+        $company->save();
+    
+        return redirect()->route('application.index')->with('success', 'Company Registered Successfully.');
     }
      public function reject(Request $request)
     {

@@ -37,7 +37,7 @@
             font-family: 'Inter', sans-serif !important;
             font-weight: 500;
         }
-        .mb-2{
+        .mbb-2{
             margin-top: -5%;
         }
           .ml-2 {

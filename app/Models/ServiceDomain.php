@@ -27,5 +27,9 @@ class ServiceDomain extends Authenticatable
     {
         return $this->belongsToMany(CountryDomain::class, 'country_domain');
     }
+      public function prices()
+    {
+        return $this->belongsToMany(DomainPrices::class, 'domain_prices');
+    }
 }
 

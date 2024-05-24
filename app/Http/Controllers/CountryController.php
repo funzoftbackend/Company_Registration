@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Models\DomainSteps;
+use App\Models\DomainPrices;
 use Illuminate\Support\Facades\DB;
 use App\Models\Service;
 use App\Models\ServiceDomain;
@@ -81,28 +82,55 @@ class CountryController extends Controller
         $country_ids = $request->input('countries');
         return redirect()->route('service.create',['service_id' => $service->id,'country_ids' => implode(',', $country_ids)])->with('success' ,'Service Created Successfully.');
     }
-    public function domain_store(Request $request)
+   public function domain_store(Request $request)
     {
         $request->validate([
             'domains' => 'required|array',
+            'domains.*' => 'required|string|max:255',
+            'prices' => 'required|array',
+            'prices.*' => 'required|array',
+            'unit' => 'required|array',
+            'unit.*' => 'required|array',
+            'package_name' => 'required|array',
+            'package_name.*' => 'required|array',
+            'countries' => 'required|array',
+            'countries.*' => 'required|integer|exists:countries,id',
         ]);
+        
         $domains = $request->input('domains');
-      foreach ($domains as $domain) {
+        $prices = $request->input('prices');
+        $units = $request->input('unit');
+        $packageNames = $request->input('package_name');
+        $countries = $request->input('countries');
+        foreach ($domains as $domainIndex => $domain) {
+            
             $serviceDomain = ServiceDomain::create([
                 'service_id' => $request->service_id,
                 'name' => $domain,
             ]);
-            foreach ($request->input('countries') as $country) {
+    
+            foreach ($countries as $country) {
                 CountryDomain::create([
                     'domain_id' => $serviceDomain->id,
                     'country_id' => $country,
                 ]);
             }
+            if (isset($prices[$domainIndex+1]) && isset($units[$domainIndex+1]) && isset($packageNames[$domainIndex+1])) {
+                foreach ($prices[$domainIndex+1] as $priceIndex => $price) {
+                    DomainPrices::create([
+                        'domain_id' => $serviceDomain->id,
+                        'price' => $price,
+                        'unit' => $units[$domainIndex+1][$priceIndex],
+                        'package_name' => $packageNames[$domainIndex+1][$priceIndex],
+                    ]);
+                }
+            }
         }
-
-         
+    
         return redirect()->route('services.index')->with('success', 'Service Domains Created Successfully.');
     }
+
+
 
     public function show(Country $country)
     {

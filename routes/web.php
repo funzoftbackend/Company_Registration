@@ -45,6 +45,8 @@ Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/post_login', [LoginController::class, 'post_login'])->name('post_login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('application/{application}/enter-crn', [ApplicationController::class, 'enterCrnForm'])->name('application.enter_crn');
+    Route::post('application/{application}/enter-crn', [ApplicationController::class, 'saveCrn'])->name('application.save_crn');
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
     Route::get('/create', [UserController::class, 'create'])->name('user.create');
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
