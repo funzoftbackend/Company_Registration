@@ -59,10 +59,16 @@
                     <div class="card-header">Create Application</div>
 
                     <div class="card-body">
+                     @if($user->user_role != 'Lead Manager')
                     <form method="POST" action="{{ route('application.store')}}">
-                            @csrf
+                    @csrf
+                    @else
+                    <form method = "GET" action="{{ route('manager_domain_check')}}">
+                    @endif
+
                             <div class="form-row">
                                 <div class = "row">
+                                    @if($user->user_role != 'Lead Manager')
                                     <div class = "col-md-6">
                                         <div class="form-group">
                                          
@@ -76,6 +82,7 @@
                                             
                                         </div>
                                     </div>
+                                    @endif
                                     <div class = "col-md-6">
                                         <div class="form-group">
                                             <label for="type">Type</label>
@@ -89,7 +96,7 @@
                                     <div class = "col-md-6">
                                         <div class="form-group">
                                             <label for="payment_status">Payment Status</label>
-                                            <input id="payment_status" type="text" class="m-6 text-center form-control" placeholder="Payment Status" name="payment_status" value="{{ old('payment_status') }}" autofocus>
+                                            <input id="payment_status" type="text" class="m-6 text-center form-control" placeholder="Payment Status" name="payment_status" value="50" autofocus>
                                             @error('payment_status')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
