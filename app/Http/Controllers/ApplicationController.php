@@ -48,7 +48,6 @@ class ApplicationController extends Controller
     }
     public function save_details(Request $request)
     {
-        
         $user = Auth::user();
         $domain = ServiceDomain::find($request->type_id);
         if ($domain->service_id == 1) {
@@ -58,7 +57,7 @@ class ApplicationController extends Controller
                 'country_id' => 'required',
                 'currency' => 'required',
                 'number_of_partners' => 'required|integer',
-                'owner_nationality' => 'required|string',
+                // 'owner_nationality' => 'required|string',
                 'company_type' => 'required|string',
                 'financial_year_ending_date' => 'required',
                 'suggested_names' => 'required|string',
@@ -83,7 +82,7 @@ class ApplicationController extends Controller
                 // 'payment_status' => 'required',
             ]);
             if ($validator->fails()) {
-                return redirect()->back()->with('error', $validator->errors()->first());
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
             }
             if($request->company_type != 'Others'){
             $companyType = CompanyType::firstOrCreate(['name' => $request->company_type]);
@@ -93,7 +92,7 @@ class ApplicationController extends Controller
             $countrydomain = CountryDomain::where('domain_id',$domain->id)->where('country_id',$user->country_id)->first();
             $status = DomainSteps::where('country_domain_id',$countrydomain->id)->first();
             $application = new Application();
-            $application->user_id = $user->id;
+            $application->user_id = $request->user_id;
             $application->type = $request->type_id;
             $application->status = $status->id;
             $application->save();
@@ -152,7 +151,7 @@ class ApplicationController extends Controller
                 'CRN' => 'Please Enter Company Registration Number first'
             ]);
             if ($validator->fails()) {
-                return redirect()->back()->with(['error' => 'false', 'message' => $validator->errors()->first()], 422);
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
             }
             $company = Company::where('CRN',$request->CRN)->first();
             if($company){
@@ -174,8 +173,9 @@ class ApplicationController extends Controller
     public function manager_domain_check(Request $request){
         $user = Auth::user();
         $type = $_GET['type'];
+        $user_id = $_GET['user_id'];
         $payment_status = $_GET['payment_status'];
-       return view('application.manager-create-application', ['type' => $type,'payment_status' => $payment_status,'user' => $user]);
+       return view('application.manager-create-application', ['user_id'=> $user_id,'type' => $type,'payment_status' => $payment_status,'user' => $user]);
     }
     public function filterApplications(Request $request)
     {
@@ -218,8 +218,14 @@ class ApplicationController extends Controller
     {
         $users = User::where('user_role',NULL)->get();
         $user = Auth::user();
+        if(isset($_GET['email'])){
+        $email = $_GET['email'];
+        $lead_user = User::where('email',$email)->first();
+        }else{
+        $lead_user = NULL;   
+        }
         $domains = ServiceDomain::all();
-        return view('application.create',compact('user','users','domains'));
+        return view('application.create',compact('lead_user','user','users','domains'));
     }
 
     public function store(Request $request)
@@ -231,7 +237,7 @@ class ApplicationController extends Controller
         ]);
     
         if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
+            return redirect()->back()->withInput()->with('error', $validator->errors()->first());
         }
         $user = Auth::user();
         $domain = ServiceDomain::find($request->type);
@@ -241,7 +247,7 @@ class ApplicationController extends Controller
         $countrydomain = CountryDomain::where('domain_id',$domain->id)->where('country_id',$user->country_id)->first();
         $status = DomainSteps::where('country_domain_id',$countrydomain->id)->first();
         $application = new Application();
-        $application->user_id = $user->id;   
+        $application->user_id = $request->user_id;   
         $application->type = $request->type;
         $application->payment_status = $request->payment_status;
         $application->status = $status->id;
@@ -286,9 +292,12 @@ class ApplicationController extends Controller
 
     public function saveCrn(Request $request, Application $application)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'CRN' => 'required',
         ]);
+        if ($validator->fails()) {
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
+            }
         $company = Company::where('application_id', $application->id)->first();
         $company->CRN = $request->CRN;
         $company->status = 'registered';
@@ -298,6 +307,13 @@ class ApplicationController extends Controller
     }
      public function reject(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+           'application_id' => 'required|exists:applications,id',
+            'reason' => 'required|string',
+        ]);
+        if ($validator->fails()) {
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
+            }
         $validatedData = $request->validate([
             'application_id' => 'required|exists:applications,id',
             'reason' => 'required|string',
@@ -328,7 +344,7 @@ class ApplicationController extends Controller
         ]);
     
         if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
+            return redirect()->back()->withInput()->with('error', $validator->errors()->first());
         }
         $data = [
             'user_id' => $request->user_id,

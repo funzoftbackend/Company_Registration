@@ -100,8 +100,8 @@
     .col-lg-3 {
         border: none !important;
         border-radius: 27px !important;
-        margin-left: 1% !important;
-        margin-bottom: 2% !important;
+        margin-left: 20px  !important;
+        margin-bottom: 20px !important;
     }
 
     .txt-dark1 {

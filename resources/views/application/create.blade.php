@@ -59,6 +59,11 @@
                     <div class="card-header">Create Application</div>
 
                     <div class="card-body">
+                    @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                      @if($user->user_role != 'Lead Manager')
                     <form method="POST" action="{{ route('application.store')}}">
                     @csrf
@@ -68,11 +73,14 @@
 
                             <div class="form-row">
                                 <div class = "row">
+                                    @if($user->user_role == 'Lead Manager')
+                                    <input id="user_id" type="hidden" class="m-6 text-center form-control" name="user_id" value="{{$lead_user->id}}" autofocus>
+                                    @endif
                                     @if($user->user_role != 'Lead Manager')
                                     <div class = "col-md-6">
                                         <div class="form-group">
                                          
-                                            
+                                             
                                             <label for="user_id">Application Submitted By</label>
                                             <select id="user_id" class="m-1 text-center form-control" name="user_id" required>
                                                 @foreach($users as $user)
@@ -97,11 +105,6 @@
                                         <div class="form-group">
                                             <label for="payment_status">Payment Status</label>
                                             <input id="payment_status" type="text" class="m-6 text-center form-control" placeholder="Payment Status" name="payment_status" value="50" autofocus>
-                                            @error('payment_status')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                            @enderror
                                         </div>
                                     </div>
                             <button type="submit" class="ml-2 btn btn-primary">Create</button>

@@ -33,6 +33,11 @@
                     <div class="card-header">Update User</div>
 
                     <div class="card-body">
+                        @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                         <form method="POST" action="{{ route('user.update',$user->id) }}">
                             @csrf
                             @method('PUT')
@@ -58,11 +63,6 @@
                                                 <option {{ $user->user_role === $step ? 'selected' : '' }} value="{{$step}}"       >{{$step}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('user_role')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                         </div>
                                     </div>
                                     <div class = "col-md-6">
@@ -93,11 +93,6 @@
                                         <div class="form-group">
                                             <label for="passport_one_img">Passport Front</label>
                                             <input id="passport_one_img" type="file" accept="image/*" class="m-5 text-center form-control" name="passport_one_img">
-                                            @error('passport_one_img')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                            
                                         </div>
                                     </div>
@@ -108,11 +103,6 @@
                                         <div class="form-group">
                                             <label for="passport_two_img">Passport Back</label>
                                             <input id="passport_two_img" type="file" accept="image/*" class="m-5 text-center form-control" name="passport_two_img">
-                                            @error('passport_two_img')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                             
                                         </div>
                                     </div>

@@ -33,10 +33,6 @@
             <div class="col-md-8 text-right">
                 <a href="{{ route('lead.create') }}" class="btn btn-success">Add New Lead</a>
             </div>
-            @elseif($user->user_role === 'Lead Manager')
-            <div class="col-md-8 text-right">
-                <a href="{{ route('application.create') }}" class="btn btn-success">Add New Application</a>
-            </div>
             @endif
         </div>
      
@@ -65,7 +61,7 @@
                                             <td>{{ $lead->phone_number }}</td>
                                             @if($user->user_role === 'Lead Manager')
                                             <td> 
-                                                <a href="{{ route('lead.edit', ['lead_id' => $lead->id]) }}" class="btn btn-primary">Edit</a>
+                                                <a href="{{ route('application.create',['email' => $lead->email]) }}" class="btn btn-success">Add New Application</a>
                                                 <form method="POST" id="delete" action="{{ route('lead.destroy', $lead->id) }}">
                                                     @csrf
                                                     @method('DELETE')

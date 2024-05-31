@@ -74,7 +74,8 @@
            margin-top: -2% !important;  
         }
         .mr-18{
-            margin-bottom: 11%;
+            margin-bottom: 14%;
+            margin-left:-3% !important;
         }
          }
         @media (min-width: 1000px) and (max-width: 1200px) {
@@ -382,12 +383,20 @@
         }
 
         .mr-18 {
-            Width: 66px;
-            Height: 45.15px;
+            Width: 40.15px;
+            Height: 35.15px;
         }
 
         .angle-bracket {
             margin-left: auto !important;
+        }
+        .business-text{
+            font-weight: bold;
+            margin-left: 9px !important;
+            margin-bottom: 18px !important;
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            color: #1E4483;
         }
     </style>
 </head>
@@ -430,10 +439,11 @@
         <!-- Left Sidebar Menu -->
         <div class="fixed-sidebar-left">
             <ul class="nav navbar-nav side-nav nicescroll-bar">
-                <li>
+               <li>
                     <a href="{{ route('dashboard') }}" data-toggle="collapse" data-target="#dashboard_dr">
                         <div class="pull-left pull-left1">
                             <img class="mr-18" src="{{ asset('/public/img/side_img/logo_7.webp') }}">
+                            <span class="business-text">BUSINESS HOUSE</span>
                         </div>
                     </a>
                 </li>
@@ -849,10 +859,47 @@
     </script>
     <script>
         $(document).ready(function() {
+       var table1 = $('#user-table').DataTable();
+        $('#user-filter-dropdown').change(function() {
+            var filter = $(this).val();
+            $.ajax({
+                url: '{{ route('user.filter') }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    user_role: filter
+                },
+                success: function(response) {
+                    table1.clear().draw();
+                    $.each(response.users, function(index, user) {
+                        table1.row.add([
+                            user.email,
+                            user.user_role ? user.user_role.charAt(0).toUpperCase() + user.user_role.slice(1) : 'User Role Not Found',
+                            user.mobile_no,
+                            user.country ? user.country.name.charAt(0).toUpperCase() + user.country.name.slice(1) : 'Country Not Found',
+                            user.package_name ? user.package_name.charAt(0).toUpperCase() + user.package_name.slice(1) : 'Package Name Not Found',
+                            user.package_price,
+                            user.passport_one_img,
+                            user.passport_two_img,
+                            user.amount,
+                            user.amount_type,
+                            '<a href="/user/' + user.id + '/edit" class="btn btn-primary">Edit</a>' +
+                            '<form method="POST" action="/user/' + user.id + '" style="display:inline;">' +
+                            '@csrf' +
+                            '@method("DELETE")' +
+                            '<button type="submit" class="btn btn-danger">Delete</button>' +
+                            '</form>'
+                        ]).draw();
+                    });
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
             var table = $('#applications-table').DataTable();
               $('#filter-dropdown').change(function() {
                     var filter = $(this).val();
-            
                     $.ajax({
                         url: '{{ route('applications.filter') }}',
                         method: 'POST',
@@ -861,7 +908,6 @@
                             filter: filter
                         },
                         success: function(response) {
-                            // Clear the DataTable
                             table.clear().draw();
             
                             // Add new data to the DataTable

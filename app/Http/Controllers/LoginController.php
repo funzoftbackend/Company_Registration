@@ -59,10 +59,13 @@ class LoginController extends Controller
     public function post_login(Request $request)
 {
     // Validate the request data
-    $request->validate([
+    $validator = Validator::make($request->all(), [
         'email' => 'required|email',
         'password' => 'required',
     ]);
+    if ($validator->fails()) {
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
+            }
     $credentials = $request->only('email', 'password');
     
     if (Auth::attempt($credentials)) {

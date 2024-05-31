@@ -36,8 +36,8 @@ class CompanyController extends Controller
             'application_id' => 'required|numeric',
         ]);
     
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
+       if ($validator->fails()) {
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
         }
     
         $company = new Company();
@@ -89,7 +89,7 @@ public function update(Request $request, Company $company)
         'application_id' => 'required|numeric',
     ]);
     if ($validator->fails()) {
-        return redirect()->back()->withErrors($validator)->withInput();
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
     }
     $data = [
         'name' => $request->name,

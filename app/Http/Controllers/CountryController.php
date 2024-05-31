@@ -51,7 +51,7 @@ class CountryController extends Controller
     
     public function store(Request $request)
     {
-        $request->validate([
+       $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
             'flag' => [
                 'required',
@@ -60,6 +60,9 @@ class CountryController extends Controller
                 'dimensions:min_width=700,min_height=450,max_width=800,max_height=500',
             ],
         ]);
+        if ($validator->fails()) {
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
+        }
         $imageName = time().'.'.$request->flag->extension();
         $request->flag->move(public_path('img/flags/'), $imageName);
         $imagePath = '/public/img/flags/'.$imageName; 
@@ -74,17 +77,20 @@ class CountryController extends Controller
 
     public function store_service(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'service_name' => 'required',
             'countries' => 'required|array',
         ]);
+        if ($validator->fails()) {
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
+            }
         $service = Service::firstOrCreate(['name' => $request->input('service_name')]);
         $country_ids = $request->input('countries');
         return redirect()->route('service.create',['service_id' => $service->id,'country_ids' => implode(',', $country_ids)])->with('success' ,'Service Created Successfully.');
     }
    public function domain_store(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'domains' => 'required|array',
             'domains.*' => 'required|string|max:255',
             'prices' => 'required|array',
@@ -96,7 +102,9 @@ class CountryController extends Controller
             'countries' => 'required|array',
             'countries.*' => 'required|integer|exists:countries,id',
         ]);
-        
+        if ($validator->fails()) {
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
+        }
         $domains = $request->input('domains');
         $prices = $request->input('prices');
         $units = $request->input('unit');
@@ -160,7 +168,7 @@ class CountryController extends Controller
    public function update(Request $request, Country $country)
     {
     $country = Country::findOrFail($country->id);
-    $request->validate([
+    $validator = Validator::make($request->all(), [
         'name' => 'required|string|max:255',
         'flag' => [
             'nullable',
@@ -168,7 +176,9 @@ class CountryController extends Controller
             'dimensions:min_width=110,min_height=110,max_width=120,max_height=120',
         ],
     ]);
-     
+     if ($validator->fails()) {
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
+        }
     if ($request->hasFile('flag')) {
         $imageName = time().'.'.$request->flag->extension();
         $request->flag->move(public_path('img/flags/'), $imageName);
@@ -183,12 +193,15 @@ class CountryController extends Controller
     }
     public function update_service(Request $request, $id)
     {
-         $request->validate([
+         $validator = Validator::make($request->all(), [
         'countries' => 'required|array',
         'steps' => 'required|array',
         'steps.*' => 'required|string',
         'domains' => 'required|array',
         ]);
+        if ($validator->fails()) {
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
+        }
         $service = Service::find($id);
         foreach ($request->input('countries') as $country_id) {
         foreach($request->input('domains') as $domain){

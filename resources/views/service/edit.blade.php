@@ -74,6 +74,11 @@
                 <div class="card-header">Update Service Steps</div>
 
                 <div class="card-body">
+                    @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <form method="POST" action="{{ route('service.update', $service->id) }}">
                         @csrf
                         @method('PUT')
@@ -86,11 +91,6 @@
                                                 <option value="{{ $country->id}}" @if(old('countries') == $country->id) selected @endif>{{ucfirst($country->name)}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('countries')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                         </div>
                                          <div class="form-group">
                                             <label class = "country" for="select-all-countries">Select All Countries</label>
@@ -105,11 +105,6 @@
                                                 <option value="{{ $domain->id}}" @if(old('domains') == $domain->id) selected @endif>{{ucfirst($domain->name)}}</option>
                                                 @endforeach
                                             </select>
-                                            @error('countries')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
                                         </div>
                                         <div class="form-group">
                                             <label class = "domain" for="select-all-select_all_domains">Select All Domains</label>

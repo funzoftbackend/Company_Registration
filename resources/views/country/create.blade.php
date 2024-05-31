@@ -75,26 +75,21 @@
                     <div class="card-header">Create Country</div>
 
                     <div class="card-body">
+                        @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                         <form method="POST" action="{{ route('country.store')}}" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label for="name">Country Name</label>
                                 <input id="name" type="text" class="name form-control" placeholder="Name" name="name" value="{{ old('name') }}" required autofocus>
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
 
                             <div class="form-group">
                                 <label for="flag">Country Flag (200x100 pixels)</label>
                                 <input id="flag" type="file" class="form-control-file" name="flag" accept="image/*" required>
-                                @error('flag')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                             </div>
 
 

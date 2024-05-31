@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="main-div">
+    @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+    @endif
     <h2>Enter Company Registration Number (CRN)</h2>
     <form method="POST" action="{{ route('application.save_crn', $application->id) }}">
         @csrf

@@ -35,7 +35,7 @@ class LeadController extends Controller
         ]);
     
         if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
         }
         $user  = Auth::user();
         $lead = new Lead();
@@ -78,7 +78,7 @@ class LeadController extends Controller
         ]);
     
         if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
+            return redirect()->back()->withInput()->with('error', $validator->errors()->first());
         }
         $user = Auth::user();
         $data = [

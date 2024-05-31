@@ -36,8 +36,8 @@ class PartnerController extends Controller
         ]);
     
         if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
+            }
         $partner = new Partner();
         $partner->company_id = $request->company_id;
         $partner->name = $request->name;
@@ -85,9 +85,9 @@ class PartnerController extends Controller
         ]);
     
     
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
+       if ($validator->fails()) {
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
+            }
         $data = [
             'company_id' => $request->company_id,
             'name' => $request->name,

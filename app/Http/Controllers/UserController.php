@@ -12,15 +12,31 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
-        $users = User::where('id','!=',$user->id)->get();
-        foreach($users as $user){
+        $query = User::where('id', '!=', $user->id);
+        
+        if ($request->has('user_role') && $request->user_role != '') {
+            $query->where('user_role', $request->user_role);
+        }
+        
+        $users = $query->get();
+        
+        foreach ($users as $user) {
             $user->country = Country::select('name')->find($user->country_id);
         }
-        return view('user.index', compact('users'));
+        
+        $roles = User::select('user_role')->distinct()->where('user_role','!=','Super Admin')->pluck('user_role');
+        
+        if ($request->ajax()) {
+            return response()->json(['users' => $users]);
+        }
+        
+        return view('user.index', compact('users', 'roles'));
     }
+
+
 
     public function create()
     {
@@ -38,8 +54,8 @@ class UserController extends Controller
         ]);
         
         if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
+            }
         // $imageName = time().'.'.$request->passport_one_img->extension();
         // $request->passport_one_img->move(public_path('img'), $imageName);
     
@@ -91,9 +107,8 @@ class UserController extends Controller
         ]);
     
         if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
-    
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
+            }
         $data = [
             'name' => $request->name,
             'email' => $request->email,

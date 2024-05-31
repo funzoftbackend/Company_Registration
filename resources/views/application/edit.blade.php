@@ -53,6 +53,11 @@
                     <div class="card-header">Update Application</div>
 
                     <div class="card-body">
+                        @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                         <form method="POST" action="{{ route('application.update',$application->id) }}">
                             @csrf
                             @method('PUT')
@@ -73,28 +78,17 @@
                                     <div class = "col-md-6">
                                     <div class="form-group">
                                         <label for="type">Type</label>
-                                        <select id="type" class="m-1 text-center form-control" name="type" required>
-                                                @foreach($domains as $domain)
-                                                <option value="{{$domain->id}}" {{ $domain->id === $application->type ? 'selected' : '' }}>{{ucfirst($domain->name)}}</option>
-                                                @endforeach
-                                        @error('type')
+                                            <select id="type" class="m-1 text-center form-control" name="type" required>
+                                                    @foreach($domains as $domain)
+                                                    <option value="{{$domain->id}}" {{ $domain->id === $application->type ? 'selected' : '' }}>{{ucfirst($domain->name)}}</option>
+                                                    @endforeach
                                             </select>
-                                        @error('type')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                        @enderror
                                     </div>
                                     </div>
                                     <div class = "col-md-6">
                                     <div class="form-group">
                                         <label for="payment_status">Payment Status</label>
                                         <input id="payment_status" type="text" class="m-6 text-center form-control" placeholder="Payment Status" name="payment_status" value="{{ $application->payment_status }}" autofocus>
-                                        @error('payment_status')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                        @enderror
                                     </div>
                                     </div>
                             </div>

@@ -75,6 +75,11 @@
                     <div class="card-header">Create Transaction</div>
 
                     <div class="card-body">
+                        @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                         <form method="POST" action="{{ route('transaction.store') }} ">
                             @csrf
 
@@ -95,22 +100,12 @@
                                     <div class="form-group">
                                         <label for="amount">Amount</label>
                                         <input id="amount" type="number" class="m-11 text-center form-control" placeholder="Amount" name="amount" value="{{ old('amount') }}" required>
-                                        @error('amount')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="method">Method</label>
                                         <input id="method" type="text" class="m-66 text-center form-control" placeholder="Method" name="method" value="{{ old('method') }}" required>
-                                        @error('method')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
                                 </div>
                                 
@@ -118,22 +113,12 @@
                                     <div class="form-group">
                                         <label for="tid">Owner Nationality</label>
                                         <input id="tid" type="text" class="m-77 text-center form-control" placeholder="Transaction Id" name="tid" value="{{ old('tid') }}" required>
-                                        @error('tid')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="currency">Currency</label>
                                         <input id="currency" type="text" class="m-0 text-center form-control" placeholder="Currency" name="currency" value="{{ old('currency') }}" required>
-                                        @error('currency')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
                                     </div>
                                 </div>
                             </div>

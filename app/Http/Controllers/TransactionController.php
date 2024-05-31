@@ -18,7 +18,7 @@ class TransactionController extends Controller
 
     public function create()
     {
-        $users = User::where('user_role','employee')->get();
+        $users = User::where('user_role',null)->get();
         return view('transaction.create',compact('users'));
     }
 
@@ -33,9 +33,9 @@ class TransactionController extends Controller
             'currency' => 'required',
         ]);
     
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
+       if ($validator->fails()) {
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
+            }
         $transaction = new Transaction();
             $transaction->user_id = $request->user_id;
             $transaction->amount = $request->amount;
@@ -75,8 +75,8 @@ class TransactionController extends Controller
             ]);
     
         if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
+                return redirect()->back()->withInput()->with('error', $validator->errors()->first());
+            }
         $data = [
             'user_id' => $request->user_id,
             'amount' => $request->amount,

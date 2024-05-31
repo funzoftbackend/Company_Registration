@@ -47,6 +47,11 @@
                     <div class="card-header">Create Lead</div>
 
                     <div class="card-body">
+                        @if(session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                     <form method="POST" action="{{ route('lead.store')}}">
                             @csrf
                             <div class="form-row">

@@ -71,6 +71,11 @@
             <div class="card">
                 <div class="card-header">Create Service and Domains</div>
                 <div class="card-body">
+                    @if(session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     @if(isset($_GET['service_id']))
                     <form method="POST" action="{{ route('domain.store')}}" enctype="multipart/form-data">
                         @csrf
@@ -120,11 +125,6 @@
                                 <div class="form-group">
                                     <label class="name" for="service_name">Name</label>
                                     <input id="service_name" type="text" class="m-2 text-center form-control" placeholder="Name" name="service_name" value="{{ old('service_name') }}" required autofocus>
-                                    @error('service_name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -135,11 +135,6 @@
                                         <option value="{{ $country->id}}" @if(old('countries') == $country->id) selected @endif>{{ucfirst($country->name)}}</option>
                                         @endforeach
                                     </select>
-                                    @error('countries')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group">
