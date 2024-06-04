@@ -75,6 +75,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/application-store', [ApplicationController::class, 'store'])->name('application.store');
     Route::get('/applications', [ApplicationController::class, 'index'])->name('application.index');
     Route::post('/applications/filter', [ApplicationController::class, 'filterApplications'])->name('applications.filter');
+    Route::post('/applications/filter-by-status', [ApplicationController::class, 'filter_by_status'])->name('applications.filter_by_status');
     Route::get('/application/{application}', [ApplicationController::class, 'show'])->name('application-details.show');
     Route::post('/application-proceed/{application}', [ApplicationController::class, 'proceed'])->name('application.proceed');
     Route::post('/application-reject', [ApplicationController::class, 'reject'])->name('application.reject');

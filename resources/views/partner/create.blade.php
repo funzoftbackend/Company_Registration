@@ -100,13 +100,19 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="passport_url">Passport Url</label>
-                                        <input id="passport_url" type="text" class="m-77 text-center form-control" placeholder="Passport Url" name="passport_url" value="{{ old('passport_url') }}" required>
+                                        <input type="file" class="m-6 text-center form-control" name="passport_url" autofocus>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="designation">Designation</label>
                                         <input id="designation" type="text" class="m-77 text-center form-control" placeholder="Designation" name="designation" value="{{ old('designation') }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="role">Role</label>
+                                        <input id="role" type="text" class="m-77 text-center form-control" placeholder="Role" name="role" value="{{ old('role') }}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -118,7 +124,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="DOB">DOB</label>
-                                        <input id="DOB" type="date" class="m-77 text-center form-control" placeholder="DOB" name="DOB" value="{{ old('DOB') }}" required>
+                                        <input id="DOB" type="text" class="m-77 text-center form-control" placeholder="DOB" name="DOB" value="{{ old('DOB') }}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -130,13 +136,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="passport_date_of_expiry">Passport Expiry Date</label>
-                                        <input id="passport_date_of_expiry" type="date" class="m-77 text-center form-control" placeholder="Passport Expiry Date" name="passport_date_of_expiry" value="{{ old('passport_date_of_expiry') }}" required>
+                                        <input id="passport_date_of_expiry" type="text" class="m-77 text-center form-control" placeholder="Passport Expiry Date" name="passport_date_of_expiry" value="{{ old('passport_date_of_expiry') }}" required>
                                     </div>
                                 </div>
                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="passport_date_of_issue">Passport Issue Date</label>
-                                        <input id="passport_date_of_issue" type="date" class="m-77 text-center form-control" placeholder="Passport Issue Date" name="passport_date_of_issue" value="{{ old('passport_date_of_issue') }}" required>
+                                        <input id="passport_date_of_issue" type="text" class="m-77 text-center form-control" placeholder="Passport Issue Date" name="passport_date_of_issue" value="{{ old('passport_date_of_issue') }}" required>
                                     </div>
                                 </div>
                             </div>

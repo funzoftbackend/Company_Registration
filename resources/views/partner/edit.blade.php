@@ -100,13 +100,19 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="passport_url">Passport Url</label>
-                                        <input id="passport_url" type="text" class="m-77 text-center form-control" placeholder="Passport Url" name="passport_url" value="{{ $partner->passport_url }}" required>
+                                        <input type="file" class="m-6 text-center form-control" name="passport_url" autofocus>
                                     </div>
                                 </div>
                                  <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="designation">Designation</label>
                                         <input id="designation" type="text" class="m-77 text-center form-control" placeholder="Designation" name="designation" value="{{ $partner->designation }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="role">Role</label>
+                                        <input id="role" type="text" class="m-77 text-center form-control" placeholder="Role" name="role" value="{{ $partner->role }}" required>
                                     </div>
                                 </div>
                                         <div class="col-md-6">
@@ -118,7 +124,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="DOB">DOB</label>
-                                        <input id="DOB" type="date" class="m-77 text-center form-control" placeholder="DOB" name="DOB" value="{{ $partner->DOB }}" required>
+                                        <input id="DOB" type="text" class="m-77 text-center form-control" placeholder="DOB" name="DOB" value="{{ $partner->DOB }}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">

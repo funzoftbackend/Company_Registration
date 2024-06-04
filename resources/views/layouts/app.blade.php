@@ -10,7 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Admin Dashboard</title>
     <meta name="author" content="hencework" />
-
+    <<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('/public/img/logo.png') }}">
     <link rel="icon" href="{{ asset('/public/img/company_logo.png') }}" type="image/x-icon">
@@ -29,13 +30,24 @@
     <!-- Font Awesome CSS CDN -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <style>
-        /* Responsive adjustments */
+        body {
+            color: #878787;
+            font-family: "Roboto", sans-serif;
+            font-size: 14px;
+            font-style: normal;
+            line-height: 1.5;
+            background: #e8f1fe !important;
+            overflow-x: hidden;
+         }
         .navbar-heading h1 {
             color: white !important;
             text-align: center;
             font-size: 25.15px;
             font-family: 'Inter', sans-serif !important;
             font-weight: 500;
+        }
+        .lead-table .btn.btn-danger {
+           margin-top:1%;
         }
         .mbb-2{
             margin-top: -5%;
@@ -71,7 +83,7 @@
             margin-bottom: -9% !important;
         }
         .application{
-           margin-top: -2% !important;  
+           margin-top: -2% !important;
         }
         .mr-18{
             margin-bottom: 14%;
@@ -138,11 +150,33 @@
             .pt-25 {
                 height: 1397px !important;
             }
+            .main-div{
+                padding-left: 0px !important;
+            }
             .navbar.navbar-inverse.navbar-fixed-top .mobile-only-brand {
-                /* width: 79% !important; */
                 background: none !important;
             }
-
+            #filter-dropdown {
+                height: 36px !important;
+                margin-bottom: 25px;
+            }
+            .fixed-sidebar-left .side-nav li {
+                width: 225px !important;
+                height: 42px !important;
+            }
+            .business-text{
+                font-weight: bold;
+                margin-left: 9px !important;
+                margin-bottom: 45px !important;
+                font-family: 'Poppins', sans-serif;
+                font-size: 15px !important;
+                color: #1E4483;
+            }
+            .mr-18 {
+                Width: 38.15px;
+                Height: 32.15px;
+                margin-bottom: 45px;
+            }
             .navbar-heading h1 {
                 font-size: 23px;
                 margin-left: 77px !important;
@@ -197,11 +231,11 @@
             }
 
             .page-wrapper {
-                min-height: 1600px !important;
+                min-height:auto !important;
             }
 
             .main-div {
-                /*height: 1480px !important;*/
+                /* height: 1480px !important; */
                 background: white;
                 padding-top: 25px !important;
                 border-radius: 20px !important;
@@ -300,15 +334,14 @@
             font-size: 14px !important;
         }
         .main-div {
-        /*height: 100% !important;*/
-        background: white !important;
-        border: 1px solid #1C71FF;
-        box-shadow: 0px 0px 20px 0px #1C71FF59;
-        padding-top: 60px !important;
-        border-radius: 20px !important;
-        padding-left: 14px !important;
-        padding-right:14px;
-        padding-bottom:14px;
+            background: white !important;
+            border: 1px solid #1C71FF;
+            box-shadow: 0px 0px 20px 0px #1C71FF59;
+            padding-top: 20px !important;
+            border-radius: 20px !important;
+            padding-left: 14px;
+            padding-right:14px;
+            padding-bottom:14px;
     }
         .pull-left.pull-left2,
         .pull-left {
@@ -383,20 +416,76 @@
         }
 
         .mr-18 {
-            Width: 40.15px;
-            Height: 35.15px;
+            Width: 38.15px;
+            Height: 34.15px;
         }
 
         .angle-bracket {
             margin-left: auto !important;
+            margin-right: 5px !important;
+        }
+        .lead-table .btn .btn-danger{
+            margin-top: 1% !important;
         }
         .business-text{
             font-weight: bold;
             margin-left: 9px !important;
-            margin-bottom: 18px !important;
+            margin-bottom: 18px;
             font-family: 'Poppins', sans-serif;
-            font-size: 16px;
+            font-size: 17px;
             color: #1E4483;
+        }
+        .btn-success{
+           background: #1E4483 !important;
+           border: solid 1px #1E4483 !important;
+           border-radius: 8px !important;
+        }
+        .btn-primary{
+           background: #1E4483 !important;
+           border: solid 1px #1E4483 !important;
+           border-radius: 8px !important;
+           display: inline-block !important;
+           width: 87px !important;
+           padding-top: 7px !important;
+           text-align: center !important;
+           margin-left: 90%;
+        }
+        td .btn-primary{
+            margin-left: -3px !important;
+        }
+        .btn-danger{
+           border-radius: 8px !important;
+           margin-top: -10px;
+           display: inline-block !important;
+        }
+        .btn-info{
+           background: #1E4483 !important;
+           border: solid 1px #1E4483 !important;
+           border-radius: 8px !important;
+        }
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover, .dataTables_wrapper .dataTables_paginate .paginate_button:hover, .dataTables_wrapper .dataTables_paginate .paginate_button:active, .dataTables_wrapper .dataTables_paginate .paginate_button:focus {
+            background: #1E4483 !important;
+            border-color: #1E4483 !important;
+            color: #fff !important;}
+
+        .card-header{
+            font-weight: bolder !important;
+            font-size: 25px !important;
+            margin-top: -20px !important;
+            width: 80% !important;
+        }
+        .dataTables_wrapper .dataTables_filter {
+            padding-right: 0px;
+        }
+        .dataTables_wrapper .dataTables_filter input, .dataTables_wrapper .dataTables_length select {
+            height: 36px !important;
+            border-radius: 10px !important;
+            width: 185px !important;
+            border: 1px solid black;
+
+        }
+        #filter-dropdown{
+            height: 38px !important;
         }
     </style>
 </head>
@@ -909,7 +998,7 @@
                         },
                         success: function(response) {
                             table.clear().draw();
-            
+
                             // Add new data to the DataTable
                             $.each(response, function(index, application) {
                                 table.row.add([

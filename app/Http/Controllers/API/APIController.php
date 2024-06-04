@@ -129,7 +129,6 @@ class APIController extends Controller
         }
         $imageName = time().'.'.$request->image_file->extension();
         $request->image_file->move(public_path('passport'), $imageName);
-    
         $imagePath = 'passport/'.$imageName; 
         return response()->json([ 'success' => 'true','image_url'=> $imagePath,'message' => 'Passport Url Updated Successfully']);
     }
@@ -261,7 +260,7 @@ class APIController extends Controller
                 'number_of_partners' => 'required',
                 'owner_nationality' => 'required|string',
                 'company_type' => 'required|string',
-                'financial_year_ending_date' => 'required|date',
+                'financial_year_ending_date' => 'required',
                 'suggested_names' => 'required|string',
                 'activities' => 'required|string',
                 'partners_name' => 'required|string',
@@ -272,10 +271,11 @@ class APIController extends Controller
                 'partner_passport_date_of_issue' => 'required|string',
                 'partners_url' => 'required|string',
                 'partners_designation' => 'required|string',
+                'partner_roles' => 'required',
                 'type_id' => 'required',
                 // 'payment_status' => 'required',
             ]);
-    
+            
             if ($validator->fails()) {
                 return response()->json(['success' => 'false', 'message' => $validator->errors()->first()], 422);
             }
@@ -315,6 +315,7 @@ class APIController extends Controller
             $partnersNames = explode(',', $request->partners_name);
             $partnersURLs = explode(',', $request->partners_url);
             $partnersDesignations = explode(',', $request->partners_designation);
+            $partnerroles = json_decode($request->partner_roles);
             $partner_nationality = explode(',', $request->partner_nationality);
             $partner_date_of_birth = explode(',', $request->partner_date_of_birth);
             $partner_passport_no = explode(',', $request->partner_passport_no);
@@ -334,9 +335,12 @@ class APIController extends Controller
                 $partner->passport_date_of_expiry = $partner_passport_date_of_expiry[$index];
                 $partner->passport_date_of_issue = $partner_passport_date_of_issue[$index];
                 $partner->designation = $partnersDesignations[$index];
+                foreach($partnerroles as $role){
+                $role = implode(',', $role);
+                $partner->role = $role;
+                }
                 $partner->save();
             }
-    
             return response()->json(['application_id' => $application->id, 'success' => 'true', 'message' => 'Details Saved Successfully']);
         }else{
            $validator = Validator::make($request->all(), [
@@ -373,7 +377,7 @@ class APIController extends Controller
         'number_of_partners' => 'required',
         'owner_nationality' => 'required|string',
         'company_type' => 'required|string',
-        'financial_year_ending_date' => 'required|date',
+        'financial_year_ending_date' => 'required',
         'suggested_names' => 'required|string',
         'activities' => 'required|string',
         'partners_name' => 'required|string',
@@ -384,6 +388,7 @@ class APIController extends Controller
         'partner_passport_date_of_issue' => 'required|string',
         'partners_url' => 'required|string',
         'partners_designation' => 'required|string',
+        'partner_roles' => 'required|string',
         'type_id' => 'required',
         'payment_status' => 'sometimes|required',
     ]);
@@ -430,6 +435,7 @@ class APIController extends Controller
     $partnersURLs = explode(',', $request->partners_url);
     $partnersDesignations = explode(',', $request->partners_designation);
     $partner_nationality = explode(',', $request->partner_nationality);
+    $partnerroles = json_decode($request->partner_roles);
     $partner_date_of_birth = explode(',', $request->partner_date_of_birth);
     $partner_passport_no = explode(',', $request->partner_passport_no);
     $partner_passport_date_of_expiry = explode(',', $request->partner_passport_date_of_expiry);
@@ -449,6 +455,10 @@ class APIController extends Controller
         $partner->passport_date_of_expiry = $partner_passport_date_of_expiry[$index];
         $partner->passport_date_of_issue = $partner_passport_date_of_issue[$index];
         $partner->designation = $partnersDesignations[$index];
+        foreach($partnerroles as $role){
+        $role = implode(',', $role);
+        $partner->role = $role;
+        }
         $partner->save();
     }
 
@@ -519,6 +529,7 @@ class APIController extends Controller
                 $partnerNames = [];
                 $partnerPassports = [];
                 $partnerDesignations = [];
+                $partnerrole = [];
                 $partner_nationality = [];
                 $partner_date_of_birth = [];
                 $partner_passport_no = [];
@@ -528,16 +539,17 @@ class APIController extends Controller
                     $partnerNames[] = $partner->name;
                     $partnerPassports[] = $partner->passport_url;
                     $partnerDesignations[] = $partner->designation;
+                    $partnerrole[] = $partner->role;
                     $partner_nationality[] = $partner->nationality;
                     $partner_date_of_birth[] = $partner->DOB;
                     $partner_passport_no[] = $partner->passport_number;
                     $partner_passport_date_of_expiry[] = $partner->passport_date_of_expiry;
                     $partner_passport_date_of_issue[] = $partner->passport_date_of_issue;
                 }
-    
                 $company->partner_names = implode(',', $partnerNames);
                 $company->partner_passports = implode(',', $partnerPassports);
                 $company->partner_designations = implode(',', $partnerDesignations);
+                $company->partner_roles = $partnerrole;
                 $company->partner_nationality = implode(',', $partner_nationality);
                 $company->partner_date_of_birth = implode(',', $partner_date_of_birth);
                 $company->partner_passport_no = implode(',', $partner_passport_no);
@@ -549,6 +561,7 @@ class APIController extends Controller
     }
       public function get_application_by_id(Request $request)
     {
+        $user = Auth::user();
         $selectedapplication = Application::find($request->id);
         $domain = ServiceDomain::find($selectedapplication->type);
             $countryDomain = CountryDomain::where('domain_id',$domain->id)->where('country_id',$user->country_id)->first();

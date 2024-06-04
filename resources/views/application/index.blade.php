@@ -32,6 +32,14 @@
     <div class="main-div">
         <div class="row justify-content-center mb-3">
             <div class="col-md-8 text-right">
+            <select name="status" id="status-filter-dropdown" class="form-control mr-2">
+                <option value="">All</option>
+                @foreach($statuses as $status)
+                    @if(!empty($status))
+                        <option value="{{ $status['id'] }}">{{ ucfirst($status['name']) }}</option>
+                    @endif
+                @endforeach
+            </select>
                 <select id="filter-dropdown" class="form-control">
                     <option value="">All</option>
                     <option value="rejected">Rejected</option>

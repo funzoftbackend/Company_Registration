@@ -74,6 +74,7 @@
 
     .btn-danger {
         height: 38px;
+        margin-top: 0px !important;
     }
 
     /* Responsive Styles */

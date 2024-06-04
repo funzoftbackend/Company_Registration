@@ -61,7 +61,7 @@
                                             <td>{{ $lead->phone_number }}</td>
                                             @if($user->user_role === 'Lead Manager')
                                             <td> 
-                                                <a href="{{ route('application.create',['email' => $lead->email]) }}" class="btn btn-success">Add New Application</a>
+                                                <a href="{{ route('application.create',['email' => $lead->email]) }}" class="btn btn-success">Add Application</a>
                                                 <form method="POST" id="delete" action="{{ route('lead.destroy', $lead->id) }}">
                                                     @csrf
                                                     @method('DELETE')

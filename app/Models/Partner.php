@@ -16,6 +16,7 @@ class Partner extends Model
         'designation',
         'nationality',
         'DOB',
+        'role',
         'passport_number',
         'passport_date_of_expiry',
         'passport_date_of_issue'

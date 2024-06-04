@@ -28,6 +28,7 @@ class PartnerController extends Controller
             'name' => 'required',
             'passport_url' => 'required',
             'designation' => 'required',
+            'role' => 'required',
             'nationality' => 'required',
             'DOB' => 'required',
             'passport_number' => 'required',
@@ -43,6 +44,7 @@ class PartnerController extends Controller
         $partner->name = $request->name;
         $partner->passport_url = $request->passport_url;
         $partner->designation = $request->designation;
+        $partner->role = $request->role;
         $partner->nationality = $request->nationality;
         $partner->DOB = $request->DOB;
         $partner->passport_number = $request->passport_number;
@@ -77,14 +79,13 @@ class PartnerController extends Controller
             'name' => 'required',
             'passport_url' => 'required',
             'designation' => 'required',
+            'role' => 'required',
             'nationality' => 'required',
             'DOB' => 'required',
             'passport_number' => 'required',
             'passport_date_of_expiry' => 'required',
             'passport_date_of_issue'=> 'required'
         ]);
-    
-    
        if ($validator->fails()) {
                 return redirect()->back()->withInput()->with('error', $validator->errors()->first());
             }
@@ -93,6 +94,7 @@ class PartnerController extends Controller
             'name' => $request->name,
             'passport_url' => $request->passport_url,
             'designation' => $request->designation,
+            'role' => $request->role,
             'nationality' => $request->nationality,
             'DOB' => $request->DOB,
             'passport_number' => $request->passport_number,
