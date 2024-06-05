@@ -1,70 +1,28 @@
 @extends('layouts.app')
 <style>
- .form-control {
-  padding-left: 1%;
-  width: 27%;
-}
-   .name{
-       margin-left: -59px !important;
-   }
-   .flag{
-       margin-left: -3% !important;
-   }
-   .form-control.services{
-       margin-left: -67px !important;
-   }
-   .form-control.level{
-       margin-left: -67px !important;
-   }
-    @media (max-width: 400px) { 
-        .form-row {
-            width: 800px !important;
-        }
-          .form-control.text-center {
-            width: 37% !important;
-          }
-        
+    .form-group {
+        margin-right: 47% !important;
+        margin-top: -6px !important;
+        width: 50% !important;
     }
-    @media (min-width:1000px) { 
-        .zmdi.zmdi-menu{
-            margin-top: -16px;
-        }
-         .m-2.text-center.form-control {
-        margin-left: 15% !important;
-      }
-      .m-6.text-center.form-control {
-        margin-left: 6% !important;
-      }
-        .page-wrapper{
-            min-height:1020px !important;
-        }
+    label[for="current_flag"] {
+        margin-top: 50px !important;
+        display: block;
     }
-    @media (max-width:578px) { 
-        .form-row{
-            width: 836px !important;
-        }
-        .zmdi.zmdi-menu{
-            margin-left: 26px;
-            margin-top: 26px;
-        }
-        .btn.btn-primary{
-        margin-left: 3%;
-        }
-        .m-1 {
-        margin-left: 1% !important;
-        }
-        .m-2 {
-        margin-left: 5% !important;
-        }
-        .m-233{
-        margin-left: 2% !important;
-        }
-        .form-control.text-center{
-            width:40%;
-        }
-        .form-group label{
-        padding-right: 7%;
-        }
+    img {
+        margin-top: 25px !important;
+    }
+    .flag-upload {
+        margin-top: 25px !important;
+    }
+    .form-control-file{
+        margin-right: -75px !important;
+    }
+    .country-form {
+        margin-top: 30px !important;
+    }
+    #name{
+        text-align: center !important;
     }
 </style>
 @section('content')
@@ -80,7 +38,7 @@
                             {{ session('error') }}
                         </div>
                     @endif
-                    <form method="POST" action="{{ route('country.update', $country->id) }}" enctype="multipart/form-data">
+                    <form class="country-form" method="POST" action="{{ route('country.update', $country->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="form-group">
@@ -96,7 +54,7 @@
                                 <span>No flag uploaded</span>
                             @endif
                         </div>
-                        <div class="form-group">
+                        <div class="form-group flag-upload">
                             <label for="flag">New Country Flag (200x100 pixels)</label>
                             <input id="flag" type="file" class="form-control-file" name="flag" accept="image/*">
                         </div>
@@ -109,6 +67,6 @@
 </div>
 
 
-   
+
 @endsection
 

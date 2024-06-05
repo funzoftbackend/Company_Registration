@@ -27,11 +27,6 @@
 </style>
 @section('content')
     <div class="main-div">
-        <div class="row justify-content-center mb-3">
-            <div class="col-md-8 text-right">
-                <a href="{{ route('partner.create') }}" class="btn btn-success">Add New Partner</a>
-            </div>
-        </div>
      
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -60,7 +55,11 @@
                                 
                                     @foreach($partners as $partner)
                                         <tr>
+                                            @if(!empty($partner->company))
                                             <td>{{ $partner->company->name }}</td>
+                                            @else
+                                            <td>Company Not Found</td>
+                                            @endif
                                             <td>{{ ucfirst($partner->name) }}</td>
                                             <td class="text-center">{{ $partner->passport_url }}</td>
                                             <td>{{ $partner->designation }}</td>

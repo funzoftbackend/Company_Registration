@@ -16,7 +16,12 @@
         margin-right: 10px;
         border-radius: 10px !important;
     }
-
+    th.partner{
+    font-weight: bolder !important;
+    font-size: 20px !important;
+    padding-bottom: 15% !important;
+    width: 30% !important;
+    }
     .btn {
         margin-right: 10px;
         border-radius: 10px !important;
@@ -154,16 +159,24 @@
                                 <td>{{ $company->number_of_partners }}</td>
                             </tr>
                             <tr>
-                                <th>Owner Nationality</th>
-                                <td>{{ $company->owner_nationality }}</td>
-                            </tr>
-                            <tr>
                                 <th>Company Status</th>
-                                <td>{{ $company->status }}</td>
+                                <td>{{ $selectedapplication->status }}</td>
                             </tr>
                             <tr>
                                 <th>Company Suggested Name</th>
-                                <td>{{ $company->suggested_names }}</td>
+                                <td>
+                                @if(is_array($company->suggested_names))
+                                    @foreach($company->suggested_names as $index => $suggested_name)
+                                    {{ $suggested_name}}
+                                    @if(($index+1) != count($company->suggested_names))
+                                    {{ ',' }}
+                                    @endif
+                                    @endforeach
+                                @else
+                                {{$company->suggested_names}}
+                                @endif
+                                
+                                </td>
                             </tr>
                             <tr>
                                 <th>Financial Year Ending Date</th>
@@ -171,22 +184,40 @@
                             </tr>
                             <tr>
                                 <th>Company Activities</th>
-                                <td>{{ $company->activities }}</td>
+                                <td>
+                                @if(is_array($company->suggested_names))
+                                    @foreach($company->activities as $index => $activity)
+                                    {{ $activity}}
+                                    @if(($index+1) != count($company->activities))
+                                    {{ ',' }}
+                                    @endif
+                                    @endforeach
+                                @else
+                                {{$company->activities}}
+                                @endif
+                                </td>
                             </tr>
                             <tr>
-                                <th>Partners Details</th>
-                                <td>
-                                    <ul>
-                                        @foreach ($partners as $partner)
-                                            <li>{{ $partner->name }}</li>
-                                            @php
-                                                $url = url('') . '/public/' . $partner->passport_url;
-                                            @endphp
-                                            <li><a href="{{ $url }}">{{ $partner->passport_url }}</a></li>
-                                            <li>{{ $partner->designation }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
+                                <th class="partner">Partner Details</th>
+                                 @foreach ($partners as $index => $partner)
+                                    <td>
+                                        <ul>
+                                           
+                                                <li><strong>Partner Name:</strong> {{ $partner->name}}</li>
+                                                @php
+                                                    $url = url('') . '/public/' . $partner->passport_url;
+                                                @endphp
+                                                <li><strong>Roles:</strong> {{ $partner->role }}</li>
+                                                <li><strong>Nationality:</strong> {{ $partner->nationality }}</li>
+                                                <li><strong>Designation:</strong> {{ $partner->designation }}</li>
+                                                <li><strong>DOB:</strong> {{ $partner->DOB }}</li>
+                                                <li><strong>Passport Number:</strong> <a href="{{ $url }}">{{ $partner->passport_number }}</a></li>
+                                                <li><strong>Passport Expiry Date:</strong> {{ $partner->passport_date_of_expiry }}</li>
+                                                <li><strong>Passport Issue Date:</strong> {{ $partner->passport_date_of_issue }}</li>
+                                           
+                                        </ul>
+                                    </td>
+                                @endforeach
                             </tr>
                         </tbody>
                     </table>

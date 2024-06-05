@@ -69,8 +69,17 @@
                                            
                                             <label for="phone_number">Phone Number</label>
                                             <input id="phone_number" type="text" placeholder="Phone Number" class="m-22 text-center form-control" name="phone_number" value="{{ old('phone_number') }}" required>
-                                            
-                                           
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="country" for="countries">Select Countries</label>
+                                            <select id="countries1" class="m-2 text-center form-control" name="country_id" required>
+                                                <option value="">Select Country</option>
+                                                @foreach($countries as $country)
+                                                <option value="{{ $country->id}}" @if(old('country_id') == $country->id) selected @endif>{{ucfirst($country->name)}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                             </div>

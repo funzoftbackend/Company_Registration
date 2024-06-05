@@ -45,6 +45,7 @@ Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/post_login', [LoginController::class, 'post_login'])->name('post_login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/get-package-prices', [ApplicationController::class, 'getPackagePrices']);
     Route::get('application/{application}/enter-crn', [ApplicationController::class, 'enterCrnForm'])->name('application.enter_crn');
     Route::post('application/{application}/enter-crn', [ApplicationController::class, 'saveCrn'])->name('application.save_crn');
     Route::get('/dashboard', [UserDashboardController::class, 'index'])->name('dashboard');
@@ -99,6 +100,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/partner-create', [PartnerController::class, 'create'])->name('partner.create');
     Route::post('/save-detail', [ApplicationController::class, 'save_details'])->name('save_details');
     Route::get('/manager-domain-check', [ApplicationController::class, 'manager_domain_check'])->name('manager_domain_check');
+    Route::get('/manager-create-application', [ApplicationController::class, 'manager_create_application'])->name('manager.create.application');
     Route::post('/partner-store', [PartnerController::class, 'store'])->name('partner.store');
     Route::get('/partners', [PartnerController::class, 'index'])->name('partner.index');
     Route::get('/partner/{user}', [PartnerController::class, 'show'])->name('partner.show');

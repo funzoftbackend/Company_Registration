@@ -262,6 +262,7 @@ class APIController extends Controller
                 'company_type' => 'required|string',
                 'financial_year_ending_date' => 'required',
                 'suggested_names' => 'required|string',
+                'company_name_arabic' => 'required|string',
                 'activities' => 'required|string',
                 'partners_name' => 'required|string',
                 'partner_nationality' => 'required|string',
@@ -306,6 +307,7 @@ class APIController extends Controller
             $company->company_type = $request->company_type;
             $company->financial_year_ending_date = $request->financial_year_ending_date;
             $company->status = $request->status;
+            $company->company_name_arabic = $request->company_name_arabic;
             $company->suggested_names = $request->suggested_names;
             $company->activities = $request->activities;
             $company->application_id = $application->id;
@@ -576,27 +578,41 @@ class APIController extends Controller
         $countries = Country::all();
         return response()->json(['countries' => $countries,'success' => 'true','message' => 'Countries Fetched Successfully']);
     }
-     public function get_services()
+     public function get_services($country)
     {
-        $services = Service::with('domains')->get();
-        foreach($services as $service){
-            foreach($service->domains as $domain){
-                $standard_price = DomainPrices::select('price')->where('domain_id',$domain->id)->where('package_name','Standard')->first();
-                $premium_price = DomainPrices::select('price')->where('domain_id',$domain->id)->where('package_name','Premium')->first();
-                $gold_price = DomainPrices::select('price')->where('domain_id',$domain->id)->where('package_name','Gold')->first();
-                if($standard_price){
-                $domain->standard_price = $standard_price->price;
-                }
-                if($premium_price){
-                $domain->premium_price = $premium_price->price;
-                }
-                if($gold_price){
-                $domain->gold_price = $gold_price->price;
+        $country = Country::where('name', $country)->first();
+    
+        if ($country) {
+            $domains = $country->domains()->with(['service' => function ($query) {
+                $query->distinct();
+            }])->get();
+            
+            $services = $domains->pluck('service')->flatten()->unique('id');
+        }
+        
+        foreach ($services as $service) {
+            if ($service) {
+                foreach ($service->domains as $domain) {
+                    $standard_price = DomainPrices::select('price')->where('domain_id', $domain->id)->where('package_name', 'Standard')->first();
+                    $premium_price = DomainPrices::select('price')->where('domain_id', $domain->id)->where('package_name', 'Premium')->first();
+                    $gold_price = DomainPrices::select('price')->where('domain_id', $domain->id)->where('package_name', 'Gold')->first();
+    
+                    if ($standard_price) {
+                        $domain->standard_price = $standard_price->price;
+                    }
+                    if ($premium_price) {
+                        $domain->premium_price = $premium_price->price;
+                    }
+                    if ($gold_price) {
+                        $domain->gold_price = $gold_price->price;
+                    }
                 }
             }
         }
-        
-        return response()->json(['services' => $services,'success' => 'true','message' => 'Services Fetched Successfully']);
+        $servicesArray = $services->filter()->values()->toArray();
+    
+        return response()->json(['services' => $servicesArray, 'success' => 'true', 'message' => 'Services Fetched Successfully']);
     }
+
    
 }

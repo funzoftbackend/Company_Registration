@@ -1,65 +1,122 @@
 @extends('layouts.app')
 <style>
-    @media (min-width: 1200px) {
-        .price-section,.new{
-            padding-top: 2%;
-            padding-bottom: 2%;
-        }
-        .add-price-field{
-            margin-top: 2% !important;
-            padding-bottom: 2% !important;
-        }
-        .zmdi.zmdi-menu{
-            margin-top: -16px;
-        }
-        .form-group label {
-            padding-right: 10%;
-        }
-        .page-wrapper{
-            min-height:1020px !important;
-        }
+    .card {
+        margin-top: 20px;
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-    @media (max-width: 400px) {
+    .card{
+        width: 100% !important;
+    }
+
+    .alert {
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-weight: bold;
+        color: #333;
+    }
+    .domain{
+        width: 85% !important;
+        margin-right: -12%;
+    }
+
+    .form-control {
+        border-radius: 5px;
+        border: 1px solid #ced4da;
+    }
+
+    .form-row {
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        width: 91px !important;
+        height: 44px !important;
+        margin-top: 96px !important;
+        margin-bottom: 16px !important;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+        height: 11% !important;
+    }
+
+    .btn-success:hover {
+        background-color: #218838;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        border: none;
+        margin-right: 11px !important;
+        width: 137px !important;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333;
+    }
+
+    .domain-section {
+        border: 1px solid #b6c3d0;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 20px;
+        background-color: #fff;
+        width: 700px !important;
+    }
+
+    #add_domain{
+        margin-left: 10px !important;
+    }
+
+    .price-section {
+        margin-top: 10px !important;
+        margin-left: 33% !important;
+        width: 74% !important;
+    }
+    .add-price-field{
+        height: auto !important;
+        display: inline-block !important;
+    }
+    .delete-domain{
+        margin-left: 96% !important;
+        margin-top: -26% !important;
+    }
+
+    .price-field {
+        display: flex;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    .price-field .form-control,
+    .price-field select {
+        width: auto;
+        flex: 1;
+    }
+
+    @media (max-width: 768px) {
         .form-row {
-            width: 990px !important;
+            flex-direction: column;
         }
-    }
-    @media (min-width: 1200px) {
-        .domain.form-control{
-            margin-left: -11px;
-        }
-        .form-group label.country {
-            padding-right: 0% !important;
-        }
-        .form-group label.name {
-            padding-right: 8% !important;
-        }
-        #countries{
-            height: auto;
-        }
-    }
-    @media (max-width:578px) {
-        .form-row{
-            width: 900px !important;
-        }
-        .m-14{
-            width:40% !important;
-        }
-        .m-1 {
-            margin-left: 1% !important;
-        }
-        .zmdi.zmdi-menu{
-            margin-left: 26px;
-            margin-top: 26px;
-        }
-        .m-2 {
-            margin-left: 5% !important;
-        }
-        .m-233{
-            margin-left: 2% !important;
-        }
-        .form-group label{
-            padding-right: 0% !important;
+
+        .form-group {
+            margin-bottom: 15px;
         }
     }
 </style>
@@ -112,10 +169,10 @@
                                         </div>
                                     </div>
                                     <button type="button" class="btn btn-success" id="add_domain">Add Domain</button>
-                                    <button type="submit" class="btn btn-primary">Create</button>
                                 </div>
                             </div>
                         </div>
+                        <button type="submit" class="btn btn-primary">create</button>
                     </form>
                     @else
                     <form method="POST" action="{{ route('service.store')}}" enctype="multipart/form-data">
@@ -142,7 +199,7 @@
                                 <input id="select-all-countries2" type="checkbox" name="select_all_countries">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <button type="submit" class="btn btn-primary">create</button>
                     </form>
                     @endif
                 </div>
@@ -162,8 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="domain-section" data-domain="${domainCount}">
                 <div class="form-group domain">
                     <label for="domain_${domainCount}">Domain ${domainCount}</label>
-                    <input id="domain_${domainCount}" type="text" class="domain form-control" name="domains[]" placeholder="Domain Name ${domainCount}" required>
-                    <button type="button" class="btn btn-danger delete-domain">Delete Domain</button>
+                    <input id="domain_${domainCount}" type="text" class="domain name form-control" name="domains[]" placeholder="Domain Name ${domainCount}" required>
                 </div>
                 <div class="price-section" data-domain="${domainCount}">
                     <input type="text" class="form-control" name="prices[${domainCount}][]" placeholder="Price">
@@ -176,21 +232,18 @@ document.addEventListener('DOMContentLoaded', function() {
                         <option value="Gold">Gold</option>
                     </select>
                     <button type="button" class="btn btn-success add-price-field">Add Price</button>
-                    <button type="button" class="btn btn-danger delete-price-field">Delete Price</button>
+                    <button type="button" class="btn btn-danger delete-domain">Delete Domain</button>
                 </div>
             </div>`;
     }
 
-    // Add new domain section
     document.getElementById('add_domain').addEventListener('click', function() {
         domainCount++;
-        priceCounts[domainCount] = 1; // Initialize price fields count for new domain
+        priceCounts[domainCount] = 1; 
         var domainDiv = document.createElement('div');
         domainDiv.innerHTML = createDomainSection(domainCount);
         document.getElementById('service_domains').appendChild(domainDiv);
     });
- 
-    // Add event listener for dynamically added price fields
     document.addEventListener('click', function(event) {
         if (event.target.classList.contains('add-price-field')) {
             let domainSection = event.target.closest('.price-section');
@@ -213,24 +266,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>`;
             domainSection.appendChild(priceDiv);
         }
-
-        // Delete price field
         if (event.target.classList.contains('delete-price-field')) {
             let priceField = event.target.closest('.new');
             if (priceField) {
                 priceField.remove();
             }
         }
-
-        // Delete domain section
         if (event.target.classList.contains('delete-domain')) {
             let domainSection = event.target.closest('.domain-section');
             if (domainSection) {
+                let domainId = domainSection.getAttribute('data-domain');
                 domainSection.remove();
+                domainCount--;
+                let remainingDomainSections = document.querySelectorAll('.domain-section');
+                remainingDomainSections.forEach((section, index) => {
+                    if(index != 0){
+                    console.log(index);
+                    section.querySelector('label').textContent = `Domain ${index + 1}`;
+                    section.querySelector('.name').placeholder = `Domain Name ${index + 1}`;
+                    section.setAttribute('data-domain', index + 1);
+                    }
+                });
+                delete priceCounts[domainId];
             }
         }
     });
-   
+
 });
 @else
 document.addEventListener('DOMContentLoaded', function() {

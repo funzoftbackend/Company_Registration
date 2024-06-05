@@ -105,9 +105,9 @@ class PartnerController extends Controller
         return redirect()->route('partner.index')->with('success', 'Partner Updated successfully.');
     }
 
-    public function destroy(Partner $partner)
+    public function destroy($id)
     {
-       
+        $partner = Partner::find($id);
         $partner->delete();
         return redirect()->route('partner.index')->with('success', 'Partner deleted successfully.');
     }

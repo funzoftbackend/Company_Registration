@@ -25,12 +25,6 @@
 </style>
 @section('content')
     <div class="main-div">
-        <div class="row justify-content-center mb-3">
-            <div class="col-md-8 text-right">
-                <a href="{{ route('transaction.create') }}" class="btn btn-success">Add New Transaction</a>
-            </div>
-        </div>
-     
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">

@@ -7,12 +7,14 @@ use App\Models\ApplicationReason;
 use App\Models\Application;
 use App\Models\Designation;
 use App\Models\DomainSteps;
+use App\Models\Country;
 use App\Models\CompanyType;
 use App\Models\Transaction;
 use App\Models\CountryDomain;
 use App\Models\ServiceDomain;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -25,9 +27,10 @@ class ApplicationController extends Controller
         $applications = Application::with('user')->get();
     
         foreach ($applications as $application) {
+            
             $application_done_by = User::find($application->user_id);
             $countryDomain = CountryDomain::where('domain_id', $application->type)
-                ->where('country_id', $user->user_role != 'Super Admin' ? $user->country_id : $application_done_by->country_id)
+                ->where('country_id', $user->user_role != 'Super Admin' ? $application_done_by->country_id : $application_done_by->country_id)
                 ->first();
     
             if ($countryDomain) {
@@ -50,13 +53,24 @@ class ApplicationController extends Controller
     
         return view('application.index', ['statuses' => $statuses, 'applications' => $filteredApplications]);
     }
+    public function getPackagePrices(Request $request)
+    {
+        $domainId = $request->query('domain_id');
+        $package = $request->query('package');
+        $prices = DB::table('domain_prices')
+                    ->where('domain_id', $domainId)
+                    ->where('package_name', $package)
+                    ->pluck('price', 'package_name');
+    
+        return response()->json($prices);
+    }
     public function save_details(Request $request)
     {
         $user = Auth::user();
         $domain = ServiceDomain::find($request->type_id);
         if ($domain->service_id == 1) {
             $validator = Validator::make($request->all(), [
-                'company_name' => 'required|string|max:255',
+                // 'company_name' => 'required|string|max:255',
                 'capital' => 'required',
                 'country_id' => 'required',
                 'currency' => 'required',
@@ -83,7 +97,6 @@ class ApplicationController extends Controller
                 'partners_url' => 'required|array',
                 'partners_url.*' => 'required',
                 'partners_roles' => 'required|array',
-                'partners_roles.*' => 'required|string',
                 'type_id' => 'required|integer',
                 // 'payment_status' => 'required',
             ]);
@@ -100,15 +113,14 @@ class ApplicationController extends Controller
             $application->type = $request->type_id;
             $application->status = $status->id;
             $application->save();
-    
             $latest_transaction = Transaction::where('user_id', $user->id)->latest()->first();
             if ($latest_transaction) {
                 $latest_transaction->application_id = $application->id;
                 $latest_transaction->save();
             }
             $company = new Company();
-            $company->name = $request->company_name;
-            $company->arabic_name = $request->company_name_arabic;
+            $company->name = $request->suggested_names[0];
+            $company->company_name_arabic = json_encode($request->company_name_arabic);
             $company->capital = $request->capital;
             $company->currency = $request->currency;
             $company->number_of_partners = $request->number_of_partners;
@@ -132,13 +144,16 @@ class ApplicationController extends Controller
                 $partner = new Partner();
                 $partner->company_id = $company->id;
                 $partner->name = $partnerName;
+                // $imageName = time().'.'.$partnersURLs[$index]->extension();
+                // $partnersURLs[$index]->move(public_path('passport'), $imageName);
+                // $imagePath = 'passport/'.$imageName; 
                 $partner->passport_url = $partnersURLs[$index];
                 $partner->nationality = $partner_nationality[$index];
                 $partner->DOB = $partner_date_of_birth[$index];
                 $partner->passport_number = $partner_passport_no[$index];
                 $partner->passport_date_of_expiry = $partner_passport_date_of_expiry[$index];
                 $partner->passport_date_of_issue = $partner_passport_date_of_issue[$index];
-                $partner->role = $partners_roles[$index];
+                $partner->role = $partners_roles[$index][$index];
                 $partner->save();
             }
             return redirect()->route('lead.index')->with('success', 'Application Submitted Successfully.');
@@ -171,8 +186,22 @@ class ApplicationController extends Controller
         $user = Auth::user();
         $type = $_GET['type'];
         $user_id = $_GET['user_id'];
-        $payment_status = $_GET['payment_status'];
-       return view('application.manager-create-application', ['user_id'=> $user_id,'type' => $type,'payment_status' => $payment_status,'user' => $user]);
+        $package_name = $_GET['package_name'];
+        $transaction = new Transaction();
+        $transaction->amount = $_GET['amount']; // Set the amount here, adjust as needed
+        $transaction->method = $_GET['method']; // Set the method here, adjust as needed
+        $transaction->tid = $_GET['tid']; // Set the transaction ID here, adjust as needed
+         $transaction->user_id = $user_id; 
+        $transaction->currency = $_GET['currency']; // Set the currency here, adjust as needed
+        $transaction->save();
+       return redirect()->route('manager.create.application', ['user_id'=> $user_id,'type' => $type,'package_name' => $_GET['package_name'],'country' => $user->country_id]);
+    }
+    public function manager_create_application(){
+        $user = Auth::user();
+        $type = $_GET['type'];
+        $user_id = $_GET['user_id'];
+        $package_name = $_GET['package_name'];
+      return view('application.manager-create-application', ['user_id'=> $user_id,'type' => $type,'package_name' => $_GET['package_name'],'country' => $user->country_id]);
     }
     public function filterApplications(Request $request)
     {
@@ -250,6 +279,7 @@ class ApplicationController extends Controller
     public function create()
     {
         $users = User::where('user_role',NULL)->get();
+        $countries = Country::all();
         $user = Auth::user();
         if(isset($_GET['email'])){
         $email = $_GET['email'];
@@ -257,8 +287,12 @@ class ApplicationController extends Controller
         }else{
         $lead_user = NULL;   
         }
-        $domains = ServiceDomain::all();
-        return view('application.create',compact('lead_user','user','users','domains'));
+        $country = Country::find($user->country_id);
+    
+        if ($country) {
+            $domains = $country->domains()->get();
+        }
+        return view('application.create',compact('countries','lead_user','user','users','domains'));
     }
 
     public function store(Request $request)
@@ -296,7 +330,12 @@ class ApplicationController extends Controller
     public function show(application $application)
     {
         $selectedapplication = Application::find($application->id);
+        $status = DomainSteps::find($application->status);
+        $selectedapplication->status = $status ? $status->name : null;
         $company = Company::where('application_id',$application->id)->first();
+        $company->suggested_names = json_decode($company->suggested_names);
+        
+        $company->activities = json_decode($company->activities);
         $partners = Partner::where('company_id',$company->id)->get();
         $user = User::find($selectedapplication->user_id);
         return view('application.show', compact('partners','user','company','selectedapplication'));

@@ -2333,7 +2333,7 @@ button.fc-agendaWeek-button, .fc-prev-button, .fc-next-button, .fc-today-button 
 /* Admin Basic */
 .fixed-sidebar-left {
   position: fixed;
-  top: 54px;
+  top: 73px;
   left: 0;
   width: 225px;
   margin-left: 0;

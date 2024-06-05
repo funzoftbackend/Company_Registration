@@ -1,70 +1,61 @@
 @extends('layouts.app')
 <style>
- 
-    @media (min-width: 1200px) { 
-        #select-all-countries{
-            margin-left: 7%;
-        }
-        .step1.form-control{
-            margin-left: 13px !important;
-            
-        }
-        .step.form-control,.step1.form-control{
-            width: 30% !important;
-        }
-        .zmdi.zmdi-menu{
-            margin-top: -16px;
-        }
-        .form-group label {
-    padding-right: 10%;
+   .add-step {
+        margin-top: -54px !important;
     }
-        .page-wrapper{
-            min-height:1020px !important;
-        }
+    label[for="select-all-countries"] {
+        margin-left: 0px !important;
     }
-    @media (max-width: 400px) { 
-        .form-row {
-            width: 990px !important;
-        }
-        
+    .form-group label {
+        padding-right: 7% !important;
+        margin-top: 10px !important;
     }
-    @media (min-width: 1200px) {
-  .form-group label.country {
-    padding-right: 0% !important;
-  }
-   .form-group label.name {
-    padding-right: 8% !important;
-  }
-  #countries{
-      height: auto;
-      width: 30%;
-      margin-left: 7% !important;
-  }
-}
-    @media (max-width:578px) { 
-        .form-row{
-            width: 900px !important;
-        }
-        .m-14{
-            width:40% !important;
-        }
-        .m-1 {
-        margin-left: 1% !important;
-        }
-        .zmdi.zmdi-menu{
-            margin-left: 26px;
-            margin-top: 26px;
-        }
-        .m-2 {
-        margin-left: 5% !important;
-        }
-        .m-233{
-        margin-left: 2% !important;
-        }
-        .form-group label{
-        padding-right: 0% !important;
-        }
+    .step1{
+        width: 50% !important;
     }
+    #select-all-countries{
+        margin-left: 0px !important;
+    }
+    #select-all-countries{
+        margin-right: 47% !important;
+    }
+    #select-all-domains{
+        margin-right: 47% !important;
+    }
+    #service_steps{
+        margin-top: 30px !important;
+    }
+    .form-group .step{
+        width: 50%;
+        margin-right: -5%;
+        margin-top: 10px !important;
+        text-align: center;
+    }
+    .delete-step{
+        margin-right: -36% !important;
+        height: 38px;
+        margin-top: 10px !important;
+    }
+    .main-div {
+        padding-bottom: 20px !important;
+    }
+    #service_steps {
+        margin-bottom: 20px !important;
+    }
+    .container-fluid {
+        margin-top: -4% !important;
+    }
+    #step_0{
+        text-align: center;
+    }
+    .main-div {
+        padding-bottom: 20px !important;
+        min-height: 500px !important;
+    }
+    .mb-2,.mb-md-0{
+        margin-top: 30% !important;
+    }
+
 </style>
 @section('content')
    <div class="main-div">
@@ -111,21 +102,21 @@
                                             <input id="select-all-domains" type="checkbox" name="select_all_domains">
                                         </div>
                                     </div>
-    
+
                                     <div class="col-md-6">
                                         <div class="form-group step">
                                             <label for="steps">Business Step</label>
                                                 <input id="step_0" type="text" class="step1 form-control" value="{{ old('steps[0]') }}" name="steps[]" placeholder="Step Name">
                                         </div>
                                             <div id="service_steps">
-                                    
+
                                             </div>
-                                            <button type="button" class="btn btn-success" id="add_step">Add Step</button>
-                                            <button type="submit" class="btn btn-primary">Update</button>
+                                            <button type="button" class="btn btn-success " id="add_step">Add Step</button>
+                                            <button type="submit" class="btn btn-primary add-step">Update</button>
                                     </div>
                                 </div>
                             </div>
-                       
+
                     </form>
                 </div>
             </div>
@@ -155,7 +146,7 @@
                     stepCount--;
                 }
             });
-          
+
         });
            document.getElementById('select-all-countries').addEventListener('change', function () {
             var countriesSelect = document.getElementById('countries');

@@ -10,11 +10,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Admin Dashboard</title>
     <meta name="author" content="hencework" />
-    <<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ asset('/public/img/logo.png') }}">
     <link rel="icon" href="{{ asset('/public/img/company_logo.png') }}" type="image/x-icon">
+    <!-- Include flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    
+    <!-- Include flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
     <!-- Data table CSS -->
     <link href="{{ asset('/public/vendors/bower_components/datatables/media/css/jquery.dataTables.min.css') }}"
@@ -30,8 +34,14 @@
     <!-- Font Awesome CSS CDN -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
     <style>
+        #select-all-countries2{
+            margin-right: 73% !important;
+        }
+        label[for="select-all-countries"] {
+            margin-left: 16px;
+        }
         body {
-            color: #878787;
+            color: black !important;
             font-family: "Roboto", sans-serif;
             font-size: 14px;
             font-style: normal;
@@ -39,15 +49,18 @@
             background: #e8f1fe !important;
             overflow-x: hidden;
          }
+            .fixed-sidebar-left{
+                top: 56px !important;
+            }
+        .lead-table .btn.btn-danger{
+            margin-top:1% !important;
+        }
         .navbar-heading h1 {
             color: white !important;
             text-align: center;
             font-size: 25.15px;
             font-family: 'Inter', sans-serif !important;
             font-weight: 500;
-        }
-        .lead-table .btn.btn-danger {
-           margin-top:1%;
         }
         .mbb-2{
             margin-top: -5%;
@@ -58,6 +71,11 @@
         .left-img {
             height: 38px !important;
             width: 38px !important;
+        }
+       .form-group{
+            justify-content: space-between !important;
+            display: flex !important;
+            margin-left: 0% !important;
         }
 
         .icon-container {
@@ -221,7 +239,7 @@
             }
             .fixed-sidebar-left{
                 position: fixed;
-                top: 67px !important;
+                top: 56px !important;
             }
         }
             .fa.fa-sign-out {
@@ -473,6 +491,7 @@
             font-size: 25px !important;
             margin-top: -20px !important;
             width: 80% !important;
+            display: inline-block !important;
         }
         .dataTables_wrapper .dataTables_filter {
             padding-right: 0px;

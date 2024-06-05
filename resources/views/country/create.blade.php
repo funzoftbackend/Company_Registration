@@ -1,9 +1,19 @@
 @extends('layouts.app')
 <style>
- .form-control {
-  padding-left: 1%;
-  width: 27%;
-}
+    .form-control{
+        margin-right: 45% !important;
+    }
+    .form-control-file{
+        margin-right: 45% !important;
+    }
+    .form-group label {
+        padding-right: 7% !important;
+        margin-top: 13px !important;
+    }
+    .form-control {
+        padding-left: 1%;
+        width: 27%;
+    }
    .name{
        margin-left: -59px !important;
    }
@@ -16,16 +26,16 @@
    .form-control.level{
        margin-left: -67px !important;
    }
-    @media (max-width: 400px) { 
+    @media (max-width: 400px) {
         .form-row {
             width: 800px !important;
         }
           .form-control.text-center {
             width: 37% !important;
           }
-        
+
     }
-    @media (min-width:1000px) { 
+    @media (min-width:1000px) {
         .zmdi.zmdi-menu{
             margin-top: -16px;
         }
@@ -39,7 +49,7 @@
             min-height:1020px !important;
         }
     }
-    @media (max-width:578px) { 
+    @media (max-width:578px) {
         .form-row{
             width: 836px !important;
         }
@@ -72,7 +82,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Create Country</div>
+                    <div class="card-header">Add Country</div>
 
                     <div class="card-body">
                         @if(session('error'))
@@ -101,6 +111,6 @@
         </div>
     </div>
 
-   
+
 @endsection
 

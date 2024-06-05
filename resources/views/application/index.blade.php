@@ -45,7 +45,7 @@
                     <option value="rejected">Rejected</option>
                     <option value="not_rejected">Not Rejected</option>
                 </select>
-                <a href="{{ route('application.create') }}" class="btn btn-success">Add New Application</a>
+                <!--<a href="{{ route('application.create') }}" class="btn btn-success">Add New Application</a>-->
                  
             </div>
         </div>

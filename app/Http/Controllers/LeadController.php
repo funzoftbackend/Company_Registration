@@ -1,7 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Country;
 use App\Models\Lead;
+use App\Models\Company;
+use App\Models\Transaction;
+use App\Models\Partner;
 use App\Models\Application;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\UserEmail;
@@ -21,9 +25,10 @@ class LeadController extends Controller
 
     public function create()
     {
+        $countries = Country::all();
         $applications = Application::all();
         $users = User::where('user_role','employee')->get();
-        return view('lead.create',compact('users','applications'));
+        return view('lead.create',compact('countries','users','applications'));
     }
 
     public function store(Request $request)
@@ -31,7 +36,8 @@ class LeadController extends Controller
        
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users',
-            'phone_number' => 'required'
+            'phone_number' => 'required',
+            'country_id' => 'required'
         ]);
     
         if ($validator->fails()) {
@@ -42,12 +48,14 @@ class LeadController extends Controller
         $lead->leads_created_by = $user->id;
         $lead->email = $request->email;
         $lead->phone_number = $request->phone_number;
+        $lead->country_id = $request->country_id;
         $lead->save();
         $user = new User();
         $password = Str::random(8);
         $user->password = bcrypt($password);
         $user->mobile_no = $request->phone_number;
         $user->email = $request->email;
+        $user->country_id = $request->country_id;
         $user->save();
         Mail::to($user->email)->send(new UserEmail($user->email, $password, url('login')));
         if($lead){
@@ -92,8 +100,12 @@ class LeadController extends Controller
 
     public function destroy(Lead $lead)
     {
-       
+        // $deletablelead = Lead::find($lead->id);
+        // $user = User::where('email',$lead->email)->first();
+        // $application = Application::where('user_id',$user->id)->first();
+        // $application = 
         $lead->delete();
+        
         return redirect()->route('lead.index')->with('success', 'Lead deleted successfully.');
     }
 }
